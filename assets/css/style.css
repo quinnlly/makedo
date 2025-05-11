@@ -58,16 +58,16 @@ body {
   z-index: 2;
 }
 
-/* === Hover Blue Box Behind Q === */
+/* === Hover Blue Box Behind Q — Clean Animated Wipe === */
 .logo::after {
   content: "";
   position: absolute;
   width: 45px;
   height: 45px;
   background-color: #7DC8F2;
-  bottom: 0;
-  left: 70%;
-  transform: translate(-30%, 30%) scaleX(0);
+  left: calc(70% - 30%);
+  bottom: calc(0px + 30%);
+  transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.3s ease-out 0.05s;
   z-index: 1;
@@ -75,7 +75,7 @@ body {
 
 .logo:hover::after,
 .logo:focus::after {
-  transform: translate(-30%, 30%) scaleX(1);
+  transform: scaleX(1);
 }
 
 /* === Navigation Links === */
@@ -159,4 +159,3 @@ h1, h2, h3 {
   font-weight: 700;
   letter-spacing: 0.03em;
 }
-
