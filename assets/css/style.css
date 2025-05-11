@@ -36,13 +36,14 @@ body {
   left: 0;
   width: 80px;
   height: 80px;
-  background-color: transparent;
   text-decoration: none;
   color: inherit;
   display: inline-block;
   flex-shrink: 0;
   margin: 0;
   padding: 0;
+  z-index: 2;
+  overflow: hidden;
 }
 
 .logo span {
@@ -53,6 +54,24 @@ body {
   display: block;
   margin: 0;
   padding: 0;
+}
+
+.logo::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #7DC8F2;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s ease-out;
+  z-index: -1;
+}
+
+.logo:hover::before,
+.logo:focus::before {
+  transform: scaleX(1);
 }
 
 
