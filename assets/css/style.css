@@ -9,7 +9,7 @@ body::before {
   z-index: 0;
 }
 body {
-  background-color: #EAD8B7;
+  background-color: #f8f5d7;
   position: relative;
   z-index: 1;
 }
@@ -17,7 +17,7 @@ body {
 .topbar {
   position: relative;
   z-index: 1;
-  background-color: #EAD8B7;
+  background-color: #f8f5d7;
   padding: 1rem 2rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
@@ -31,7 +31,7 @@ body {
   justify-content: center;
   width: 64px;
   height: 64px;
-  background-color: transparent; /* or #EAD8B7 if needed */
+  background-color: transparent;
   text-decoration: none;
   color: inherit;
   flex-shrink: 0;
