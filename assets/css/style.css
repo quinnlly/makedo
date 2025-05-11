@@ -19,18 +19,12 @@ body {
   z-index: 1;
   background-color: #f8f5d7;
   padding: 1rem 2rem;
-  padding-left: 6rem;
-  border-bottom: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   min-height: 80px;
-}
-
 }
 
 .topbar-inner {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
