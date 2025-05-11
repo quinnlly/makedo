@@ -65,12 +65,13 @@ body {
   width: 35px;
   height: 35px;
   background-color: #7DC8F2;
-  bottom: 5px;
-  right: 5px;
+  bottom: 0;
+  left: 50%;
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out 0.05s;
   z-index: 1;
+  translate: -60% 0;
 }
 
 .logo:hover::after,
