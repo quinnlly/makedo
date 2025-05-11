@@ -26,24 +26,26 @@ body {
 }
 
 .logo {
-  font-family: 'Equity Text', 'Georgia', serif;
+  font-family: 'Equity Caps', 'Georgia', serif;
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 3rem;
   text-decoration: none;
   color: inherit;
+  line-height: 1;
 }
 
 .nav-links {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .nav-links a {
-  font-family: 'Equity Text', 'Georgia', serif;
-  font-weight: 400;
+  font-family: 'Equity Caps', 'Georgia', serif;
+  font-weight: 700;
   text-decoration: none;
   color: inherit;
-  font-size: 1rem;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
 }
 
 /* Mobile-friendly behavior */
