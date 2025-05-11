@@ -19,21 +19,24 @@ body {
   z-index: 1;
   background-color: #f8f5d7;
   padding: 1rem 2rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .logo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
   background-color: transparent;
   text-decoration: none;
   color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
 
