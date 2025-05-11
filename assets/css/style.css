@@ -102,7 +102,7 @@ body {
   z-index: 2;
 }
 
-/* === Dynamic Highlight Box === */
+/* === Dynamic Highlight Box with ROTATE Jitter === */
 .nav-links a::after {
   content: "";
   position: absolute;
@@ -111,7 +111,7 @@ body {
   bottom: var(--jitter-bottom, 0%);
   left: var(--jitter-left, 0%);
   width: var(--jitter-width, 100%);
-  transform: scaleX(0) skewX(var(--jitter-skew, 0deg));
+  transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
   transform-origin: left center;
   transition: transform 0.3s ease-out 0.05s;
   z-index: 1;
@@ -119,13 +119,7 @@ body {
 
 .nav-links a:hover::after,
 .nav-links a:focus::after {
-  transform: scaleX(1) skewX(var(--jitter-skew, 0deg));
-}
-
-/* === Wipe-in on hover/focus === */
-.nav-links a:hover::after,
-.nav-links a:focus::after {
-  transform: scaleX(1);
+  transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
 }
 
 /* === Mobile Layout === */
