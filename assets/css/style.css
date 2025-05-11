@@ -5,8 +5,8 @@ body {
   background-color: #EAD8B7;
   background-image: url('/assets/images/paper-fiber-manila.png');
   background-repeat: repeat;
+  background-blend-mode: multiply;
   background-size: auto;
-  background-blend-mode: overlay;
   font-family: 'Equity Text', 'Georgia', serif;
   margin: 0;
   padding: 2rem;
