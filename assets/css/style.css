@@ -26,11 +26,21 @@ body {
 }
 
 .logo {
-  font-family: 'Equity Caps', 'Georgia', serif;
-  font-weight: 700;
-  font-size: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background-color: transparent; /* or #EAD8B7 if needed */
   text-decoration: none;
   color: inherit;
+  flex-shrink: 0;
+}
+
+.logo span {
+  font-family: 'Equity Caps', 'Georgia', serif;
+  font-weight: 700;
+  font-size: 2.5rem;
   line-height: 1;
 }
 
