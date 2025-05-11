@@ -1,4 +1,3 @@
-/* === Base Styles === */
 body::before {
   content: "";
   position: fixed;
@@ -15,6 +14,19 @@ body {
   z-index: 1;
 }
 
+.topbar {
+  background-color: #EAD8B7;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.site-title {
+  font-family: 'Equity Text', 'Georgia', serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
 
 
 /* === Equity Text === */
