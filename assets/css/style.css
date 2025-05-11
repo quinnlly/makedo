@@ -66,7 +66,7 @@ body {
   height: 45px;
   background-color: #7DC8F2;
   left: calc(70% - 30%);
-  bottom: calc(-30%);
+  bottom: -30%;
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.3s ease-out 0.05s;
@@ -103,6 +103,7 @@ body {
   z-index: 2;
 }
 
+/* === Jittering Blue Box Behind Nav Links === */
 .nav-links a::after {
   content: "";
   position: absolute;
@@ -113,16 +114,26 @@ body {
   left: 0;
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 0.3s ease-out 0.05s;
+  animation: boxJitter 0.4s ease-out forwards;
+  animation-play-state: paused;
   z-index: 1;
+  transition: transform 0.3s ease-out 0.05s;
 }
-
 
 .nav-links a:hover::after,
 .nav-links a:focus::after {
   transform: scaleX(1);
+  animation-play-state: running;
 }
 
+/* === Jitter Keyframes === */
+@keyframes boxJitter {
+  0%   { transform: translateX(0px) scaleX(0); }
+  25%  { transform: translateX(-1px) scaleX(0.98); }
+  50%  { transform: translateX(1px) scaleX(1.03); }
+  75%  { transform: translateX(-0.5px) scaleX(1.01); }
+  100% { transform: translateX(0px) scaleX(1); }
+}
 
 /* === Mobile Layout === */
 @media (max-width: 600px) {
