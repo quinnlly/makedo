@@ -58,7 +58,6 @@ body {
   z-index: 2;
 }
 
-/* === Hover Blue Box Behind Q — Clean Animated Wipe === */
 .logo::after {
   content: "";
   position: absolute;
@@ -103,7 +102,7 @@ body {
   z-index: 2;
 }
 
-/* === Jittering Blue Box Behind Nav Links === */
+/* === Blue Jitter Box Behind Nav Text === */
 .nav-links a::after {
   content: "";
   position: absolute;
@@ -112,18 +111,13 @@ body {
   background-color: #7DC8F2;
   bottom: 0;
   left: 0;
-  transform: scaleX(0);
   transform-origin: left center;
-  animation: boxJitter 0.4s ease-out forwards;
-  animation-play-state: paused;
   z-index: 1;
-  transition: transform 0.3s ease-out 0.05s;
 }
 
 .nav-links a:hover::after,
 .nav-links a:focus::after {
-  transform: scaleX(1);
-  animation-play-state: running;
+  animation: boxJitter 0.4s ease-out forwards;
 }
 
 /* === Jitter Keyframes === */
