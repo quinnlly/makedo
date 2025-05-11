@@ -97,24 +97,7 @@ body {
   color: inherit;
 }
 
-.nav-links a span {
-  position: relative;
-  z-index: 2;
-}
-
-.nav-links a {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  font-family: 'Equity Caps', 'Georgia', serif;
-  font-weight: 400;
-  font-size: 1.25rem;
-  letter-spacing: 0.05em;
-  text-decoration: none;
-  color: inherit;
-}
-
-/* highlight-box base */
+/* === Highlight Box === */
 .highlight-box {
   position: absolute;
   bottom: var(--jitter-bottom, 0%);
@@ -128,33 +111,15 @@ body {
   z-index: 1;
 }
 
-/* Trigger on hover/focus */
 .nav-links a:hover .highlight-box,
 .nav-links a:focus .highlight-box {
   transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
 }
 
-/* Keep text on top */
+/* === Ensure Text Appears Above Highlight === */
 .nav-links a span:last-of-type {
   position: relative;
   z-index: 2;
-}
-
-/* === Rotated Rectangle Inside === */
-.nav-links a::after::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: #7DC8F2;
-  transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
-  transform-origin: left center;
-  transition: transform 0.3s ease-out 0.05s;
-}
-
-/* === Trigger Animation === */
-.nav-links a:hover::after::before,
-.nav-links a:focus::after::before {
-  transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
 }
 
 /* === Mobile Layout === */
