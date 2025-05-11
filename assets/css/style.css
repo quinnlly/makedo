@@ -3,7 +3,7 @@ font-family: 'Equity Text', 'Georgia', serif;
 
 body {
   background-color: #EAD8B7;
-  background-image: url('/assets/images/paper-fiber-manila.png');
+  background-image: url('https://tryi.ng/assets/images/paper-fiber-manila.png');
   background-repeat: repeat;
   background-blend-mode: multiply;
   background-size: auto;
