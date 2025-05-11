@@ -1,10 +1,11 @@
+/* === Background Texture === */
 body::before {
   content: "";
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background-image: url('../images/paper-fiber-manila.png');
   background-repeat: repeat;
-  opacity: 0.2; /* Reduce to make it more subtle */
+  opacity: 0.2;
   pointer-events: none;
   z-index: 0;
 }
@@ -15,6 +16,7 @@ body {
   z-index: 1;
 }
 
+/* === Top Bar Layout === */
 .topbar {
   position: relative;
   z-index: 1;
@@ -30,6 +32,7 @@ body {
   width: 100%;
 }
 
+/* === Logo Q === */
 .logo {
   position: absolute;
   top: 0;
@@ -41,7 +44,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
   z-index: 2;
 }
 
@@ -52,28 +55,30 @@ body {
   line-height: 1;
   position: relative;
   display: inline-block;
-  z-index: 1;
+  z-index: 2;
 }
 
-.logo span::before {
+/* === Hover Blue Box Behind Q === */
+.logo::after {
   content: "";
   position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
+  width: 35px;
+  height: 35px;
   background-color: #7DC8F2;
+  bottom: 5px;
+  right: 5px;
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.3s ease-out;
-  z-index: -1;
+  z-index: 1;
 }
 
-
-.logo:hover span::before,
-.logo:focus span::before {
+.logo:hover::after,
+.logo:focus::after {
   transform: scaleX(1);
 }
 
+/* === Navigation Links === */
 .nav-links {
   display: flex;
   gap: 2rem;
@@ -90,7 +95,7 @@ body {
   letter-spacing: 0.05em;
 }
 
-/* Mobile-friendly behavior */
+/* === Mobile Layout === */
 @media (max-width: 600px) {
   .topbar {
     flex-wrap: wrap;
@@ -103,7 +108,6 @@ body {
     justify-content: flex-end;
   }
 }
-
 
 /* === Equity Text === */
 @font-face {
@@ -149,8 +153,10 @@ body {
   font-style: normal;
 }
 
+/* === Headings === */
 h1, h2, h3 {
   font-family: 'Equity Caps', 'Georgia', serif;
   font-weight: 700;
   letter-spacing: 0.03em;
 }
+
