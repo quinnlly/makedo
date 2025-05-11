@@ -25,7 +25,7 @@ body {
 .topbar-inner {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-end;
   width: 100%;
 }
 
