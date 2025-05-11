@@ -71,7 +71,7 @@ body {
   transform-origin: left center;
   transition: transform 0.3s ease-out 0.05s;
   z-index: 1;
-  translate: -30% 0;
+  translate: -30% -30%;
 }
 
 .logo:hover::after,
