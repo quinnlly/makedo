@@ -111,10 +111,15 @@ body {
   bottom: var(--jitter-bottom, 0%);
   left: var(--jitter-left, 0%);
   width: var(--jitter-width, 100%);
-  transform: scaleX(0);
+  transform: scaleX(0) skewX(var(--jitter-skew, 0deg));
   transform-origin: left center;
   transition: transform 0.3s ease-out 0.05s;
   z-index: 1;
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus::after {
+  transform: scaleX(1) skewX(var(--jitter-skew, 0deg));
 }
 
 /* === Wipe-in on hover/focus === */
