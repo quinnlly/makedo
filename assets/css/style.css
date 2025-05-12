@@ -21,7 +21,6 @@ body {
   position: relative;
   z-index: 1;
   padding: 1rem 2rem;
-  padding-bottom: 2rem;
   background-color: transparent;
   min-height: 80px;
   overflow: visible;
@@ -86,6 +85,7 @@ body {
   gap: 2rem;
   margin-left: auto;
   margin-top: 1.2rem;
+  overflow: visible;
 }
 
 .nav-links a {
