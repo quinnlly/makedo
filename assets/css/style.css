@@ -23,6 +23,7 @@ body {
   padding: 1rem 2rem;
   background-color: transparent;
   min-height: 80px;
+  overflow: visible;
 }
 
 .topbar-inner {
@@ -30,6 +31,7 @@ body {
   justify-content: space-between;
   align-items: flex-end;
   width: 100%;
+  overflow: visible;
 }
 
 /* === Logo Q === */
