@@ -5,32 +5,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const box = link.querySelector(".highlight-box");
 
     link.addEventListener("mouseenter", () => {
-      // Set origin for wiping in (draw from left)
-      box.style.transformOrigin = "left center";
+      // === JITTER VARIABLES ===
+      const jitterLeft = `${Math.random() * -5}%`;
+      const jitterBottom = `${Math.random() * -5}%`;
+      const jitterWidth = `${100 + Math.random() * 10}%`;
+      const jitterRotate = `${(Math.random() - 0.5) * 4}deg`;
 
+      box.style.setProperty('--jitter-left', jitterLeft);
+      box.style.setProperty('--jitter-bottom', jitterBottom);
+      box.style.setProperty('--jitter-width', jitterWidth);
+      box.style.setProperty('--jitter-rotate', jitterRotate);
+
+      // === Transform Origin & Animation ===
+      box.style.transformOrigin = "left center";
       box.classList.remove("wipe-out");
-      void box.offsetWidth; // trigger reflow just in case
+      void box.offsetWidth;
       box.classList.add("wipe-in");
     });
 
     link.addEventListener("mouseleave", () => {
-      // Set origin for wiping out (erase forward)
       box.style.transformOrigin = "right center";
-
       box.classList.remove("wipe-in");
-      void box.offsetWidth; // reflow again before switching
+      void box.offsetWidth;
       box.classList.add("wipe-out");
     });
 
-    // Optional: clean up after animation ends
     box.addEventListener("animationend", (e) => {
       if (e.animationName === "wipe-in") {
         box.classList.remove("wipe-in");
-        box.style.opacity = "1"; // ensure stays visible
+        box.style.opacity = "1";
       } else if (e.animationName === "wipe-out") {
         box.classList.remove("wipe-out");
-        box.style.opacity = "0"; // ensure fully hidden
+        box.style.opacity = "0";
       }
     });
   });
 });
+
