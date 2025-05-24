@@ -1,37 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const links = document.querySelectorAll(".nav-links a");
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    const highlight = link.querySelector('.highlight-box');
 
-  links.forEach(link => {
-    const box = link.querySelector(".highlight-box");
+    link.addEventListener('mouseenter', () => {
+      const left = (Math.random() * 10 - 5).toFixed(1) + '%';
+      const bottom = (Math.random() * 10 - 5).toFixed(1) + '%';
+      const width = (100 + Math.random() * 10 - 5).toFixed(1) + '%';
+      const rotate = (Math.random() * 6 - 3).toFixed(1) + 'deg';
 
-    link.addEventListener("mouseenter", () => {
-      const jitterLeft = `${Math.random() * 4 - 2}%`;
-      const jitterBottom = `${Math.random() * 4 - 2}%`;
-      const jitterWidth = `${100 + Math.random() * 6}%`;
-      const jitterRotate = `${(Math.random() - 0.5) * 3}deg`;
+      // Set CSS variables for this link
+      link.style.setProperty('--jitter-left', left);
+      link.style.setProperty('--jitter-bottom', bottom);
+      link.style.setProperty('--jitter-width', width);
+      link.style.setProperty('--jitter-rotate', rotate);
 
-      box.style.setProperty('--jitter-left', jitterLeft);
-      box.style.setProperty('--jitter-bottom', jitterBottom);
-      box.style.setProperty('--jitter-width', jitterWidth);
-      box.style.setProperty('--jitter-rotate', jitterRotate);
-
-      box.style.transformOrigin = 'left center'; // Prevent jump from origin mismatch
-      box.classList.remove("wipe-out");
-      box.classList.add("wipe-in");
+      // Trigger wipe-in
+      highlight.classList.remove('wipe-out');
+      highlight.classList.add('wipe-in');
     });
 
-    link.addEventListener("mouseleave", () => {
-      box.style.transformOrigin = 'right center'; // Anchor wipe-out correctly
-      box.classList.remove("wipe-in");
-      box.classList.add("wipe-out");
-    });
-
-    box.addEventListener("animationend", (e) => {
-      if (e.animationName === "wipe-in") {
-        box.classList.remove("wipe-in");
-      } else if (e.animationName === "wipe-out") {
-        box.classList.remove("wipe-out");
-      }
+    link.addEventListener('mouseleave', () => {
+      // Trigger wipe-out
+      highlight.classList.remove('wipe-in');
+      highlight.classList.add('wipe-out');
     });
   });
 });
