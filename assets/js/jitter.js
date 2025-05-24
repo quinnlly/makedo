@@ -9,17 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
     zone.addEventListener("mouseenter", () => {
       const existingEraser = zone.querySelector(".eraser-box");
 
-      // If an eraser is active, accelerate it and do nothing until it's done
       if (existingEraser) {
         existingEraser.classList.add("eraser-slide-fast");
         return;
       }
 
-      // Force restart of the wipe-in animation
-      box.classList.remove("wipe-in");
-      void box.offsetWidth; // force reflow to restart animation
+      box.classList.remove("wipe-in", "wipe-in-slow");
+      void box.offsetWidth;
 
-      // Generate fresh jitter values
       jitter = {
         left: `${Math.random() * 4 - 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
@@ -48,17 +45,15 @@ document.addEventListener("DOMContentLoaded", () => {
       zone.appendChild(eraser);
 
       eraser.addEventListener("animationend", () => {
-        box.classList.remove("wipe-in");
+        box.classList.remove("wipe-in", "wipe-in-slow");
         box.style.opacity = "0";
         eraser.remove();
 
-        // Re-trigger highlight if the user is still hovering
+        // Re-trigger slower wipe-in if user is still hovered
         if (zone.matches(":hover")) {
-          // Reset animation
-          box.classList.remove("wipe-in");
+          box.classList.remove("wipe-in", "wipe-in-slow");
           void box.offsetWidth;
 
-          // Regenerate jitter
           jitter = {
             left: `${Math.random() * 4 - 2}%`,
             bottom: `${Math.random() * 4 - 2}%`,
@@ -70,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
             box.style.setProperty(`--jitter-${key}`, jitter[key]);
           }
 
-          box.classList.add("wipe-in");
+          box.classList.add("wipe-in-slow");
           box.style.opacity = "1";
         }
       });

@@ -188,6 +188,10 @@ body {
   animation: wipeIn 0.25s ease-out forwards;
 }
 
+.highlight-box.wipe-in-slow {
+  animation: wipeIn 0.4s ease-out forwards;
+}
+
 /* === Mobile Layout === */
 @media (max-width: 600px) {
   .topbar {
