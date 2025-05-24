@@ -109,7 +109,7 @@ body {
   height: 50%;
   background-color: #7DC8F2;
   transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
-  transform-origin: left center;
+  /* transform-origin removed to prevent jump */
   opacity: 0;
   z-index: 1;
   pointer-events: none;
@@ -125,27 +125,27 @@ body {
 /* === Animation States === */
 @keyframes wipeIn {
   from {
+    transform-origin: left center;
     transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
     opacity: 0;
-    transform-origin: left center;
   }
   to {
+    transform-origin: left center;
     transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
     opacity: 1;
-    transform-origin: left center;
   }
 }
 
 @keyframes wipeOut {
   from {
+    transform-origin: right center;
     transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
     opacity: 1;
-    transform-origin: right center;
   }
   to {
+    transform-origin: right center;
     transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
     opacity: 0;
-    transform-origin: right center;
   }
 }
 
@@ -221,3 +221,4 @@ h1, h2, h3 {
   font-weight: 700;
   letter-spacing: 0.03em;
 }
+
