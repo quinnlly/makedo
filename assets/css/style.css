@@ -100,6 +100,13 @@ body {
   color: inherit;
 }
 
+/* === Hover Zone (scoped to each word) === */
+.hover-zone {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
 /* === Highlight Box === */
 .highlight-box {
   position: absolute;
@@ -116,7 +123,7 @@ body {
   animation: none;
 }
 
-/* === Eraser Box (chameleon using texture layer) === */
+/* === Eraser Box (chameleon with paper texture) === */
 .eraser-box {
   position: absolute;
   top: -25%;
@@ -141,8 +148,9 @@ body {
   z-index: 1;
 }
 
+/* === Eraser Animation === */
 .eraser-slide {
-  animation: eraserSlide 0.8s linear forwards;
+  animation: eraserSlide 0.4s ease-in forwards;
 }
 
 @keyframes eraserSlide {
@@ -154,13 +162,13 @@ body {
   }
 }
 
-/* === Ensure Text Appears Above Highlight === */
-.nav-links a span:last-of-type {
+/* === Text above highlight === */
+.hover-zone span:last-of-type {
   position: relative;
   z-index: 3;
 }
 
-/* === Animation States === */
+/* === Highlight Animation States === */
 @keyframes wipeIn {
   from {
     transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
@@ -232,3 +240,4 @@ body {
   font-weight: 700;
   font-style: normal;
 }
+
