@@ -110,8 +110,8 @@ body {
   background-color: #7DC8F2;
   transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
   transform-origin: left center;
-  clip-path: inset(0 0 0 0); /* default visible */
   opacity: 0;
+  clip-path: inset(0 0 0 0);
   z-index: 1;
   pointer-events: none;
   animation: none;
@@ -139,14 +139,12 @@ body {
 
 @keyframes wipeOut {
   from {
-    transform: translateX(0) rotate(var(--jitter-rotate, 0deg));
-    opacity: 1;
     clip-path: inset(0 0 0 0);
+    opacity: 1;
   }
   to {
-    transform: translateX(100%) rotate(var(--jitter-rotate, 0deg));
-    opacity: 0;
     clip-path: inset(0 100% 0 0);
+    opacity: 0;
   }
 }
 
