@@ -7,11 +7,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let jitter = {};
 
     zone.addEventListener("mouseenter", () => {
-      // 💥 Remove any active eraser in this zone
+      // If an eraser is still in progress, cancel it cleanly
       const existingEraser = zone.querySelector(".eraser-box");
-      if (existingEraser) existingEraser.remove();
+      if (existingEraser) {
+        existingEraser.remove();
+        box.classList.remove("wipe-in");
+        box.style.opacity = "0"; // treat as fully erased
+      }
 
-      // Generate new jitter
+      // Generate fresh jitter
       jitter = {
         left: `${Math.random() * 4 - 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
@@ -23,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
         box.style.setProperty(`--jitter-${key}`, jitter[key]);
       }
 
+      // Restart highlight
       box.classList.remove("wipe-out");
       box.classList.add("wipe-in");
       box.style.opacity = "1";
