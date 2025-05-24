@@ -7,7 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let jitter = {};
 
     zone.addEventListener("mouseenter", () => {
-      // Generate jitter once per hover
+      // 💥 Remove any active eraser in this zone
+      const existingEraser = zone.querySelector(".eraser-box");
+      if (existingEraser) existingEraser.remove();
+
+      // Generate new jitter
       jitter = {
         left: `${Math.random() * 4 - 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
@@ -28,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const eraser = document.createElement("div");
       eraser.classList.add("eraser-box", "eraser-slide");
 
-      // Match box geometry
       eraser.style.left = box.style.left;
       eraser.style.bottom = box.style.bottom;
       eraser.style.width = box.style.width;
@@ -45,5 +48,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
 
