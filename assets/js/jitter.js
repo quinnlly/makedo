@@ -1,28 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    const highlight = link.querySelector('.highlight-box');
+  const links = document.querySelectorAll(".nav-links a");
 
-    link.addEventListener('mouseenter', () => {
-      const left = (Math.random() * 10 - 5).toFixed(1) + '%';
-      const bottom = (Math.random() * 10 - 5).toFixed(1) + '%';
-      const width = (100 + Math.random() * 10 - 5).toFixed(1) + '%';
-      const rotate = (Math.random() * 6 - 3).toFixed(1) + 'deg';
+  links.forEach(link => {
+    const box = link.querySelector(".highlight-box");
 
-      // Set CSS variables for this link
-      link.style.setProperty('--jitter-left', left);
-      link.style.setProperty('--jitter-bottom', bottom);
-      link.style.setProperty('--jitter-width', width);
-      link.style.setProperty('--jitter-rotate', rotate);
+    let jitterVars = null; // Store per-hover jitter
 
-      // Trigger wipe-in
-      highlight.classList.remove('wipe-out');
-      highlight.classList.add('wipe-in');
+    link.addEventListener("mouseenter", () => {
+      // Generate & store jitter
+      jitterVars = {
+        left: `${Math.random() * 4 - 2}%`,
+        bottom: `${Math.random() * 4 - 2}%`,
+        width: `${100 + Math.random() * 6}%`,
+        rotate: `${(Math.random() - 0.5) * 3}deg`
+      };
+
+      for (const key in jitterVars) {
+        box.style.setProperty(`--jitter-${key}`, jitterVars[key]);
+      }
+
+      box.classList.remove("wipe-out");
+      box.classList.add("wipe-in");
     });
 
-    link.addEventListener('mouseleave', () => {
-      // Trigger wipe-out
-      highlight.classList.remove('wipe-in');
-      highlight.classList.add('wipe-out');
+    link.addEventListener("mouseleave", () => {
+      // Re-apply same jitter to prevent visual shift
+      if (jitterVars) {
+        for (const key in jitterVars) {
+          box.style.setProperty(`--jitter-${key}`, jitterVars[key]);
+        }
+      }
+
+      box.classList.remove("wipe-in");
+      box.classList.add("wipe-out");
+    });
+
+    box.addEventListener("animationend", (e) => {
+      box.classList.remove("wipe-in");
+      box.classList.remove("wipe-out");
     });
   });
 });
