@@ -138,16 +138,17 @@ body {
 
 @keyframes wipeOut {
   from {
+    transform-origin: right center;
     transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
     opacity: 1;
-    transform-origin: left center; /* changed from right */
   }
   to {
+    transform-origin: right center;
     transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
     opacity: 0;
-    transform-origin: left center; /* changed from right */
   }
 }
+
 
 .highlight-box.wipe-in {
   animation: wipeIn 0.25s ease-out forwards;
