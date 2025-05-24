@@ -131,7 +131,7 @@ body {
 }
 
 .eraser-slide {
-  animation: eraserSlide 0.25s linear forwards;
+  animation: eraserSlide 0.8s linear forwards;
 }
 
 @keyframes eraserSlide {
