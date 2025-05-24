@@ -140,12 +140,12 @@ body {
   from {
     transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
     opacity: 1;
-    transform-origin: left center;
+    transform-origin: right center;
   }
   to {
     transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
     opacity: 0;
-    transform-origin: left center;
+    transform-origin: right center;
   }
 }
 
@@ -203,5 +203,21 @@ body {
 /* === Equity Caps === */
 @font-face {
   font-family: 'Equity Caps';
-  src: url('../fonts/equity_caps_a_regular-webfont.ttf') format('truety_
+  src: url('../fonts/equity_caps_a_regular-webfont.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: 'Equity Caps';
+  src: url('../fonts/equity_caps_a_bold-webfont.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* === Headings === */
+h1, h2, h3 {
+  font-family: 'Equity Caps', 'Georgia', serif;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
