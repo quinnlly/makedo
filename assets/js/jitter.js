@@ -1,48 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const links = document.querySelectorAll(".nav-links a");
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    const highlight = link.querySelector('.highlight-box');
 
-  links.forEach(link => {
-    const box = link.querySelector(".highlight-box");
+    link.addEventListener('mouseenter', () => {
+      const left = (Math.random() * 10 - 5).toFixed(1) + '%';
+      const bottom = (Math.random() * 10 - 5).toFixed(1) + '%';
+      const width = (100 + Math.random() * 10 - 5).toFixed(1) + '%';
+      const rotate = (Math.random() * 6 - 3).toFixed(1) + 'deg';
 
-    let jitter = {};
+      // Set CSS variables for this link
+      link.style.setProperty('--jitter-left', left);
+      link.style.setProperty('--jitter-bottom', bottom);
+      link.style.setProperty('--jitter-width', width);
+      link.style.setProperty('--jitter-rotate', rotate);
 
-    link.addEventListener("mouseenter", () => {
-      // Generate jitter only once
-      jitter = {
-        left: `${Math.random() * 4 - 2}%`,
-        bottom: `${Math.random() * 4 - 2}%`,
-        width: `${100 + Math.random() * 6}%`,
-        rotate: `${(Math.random() - 0.5) * 3}deg`
-      };
-
-      // Apply jitter vars
-      for (const key in jitter) {
-        box.style.setProperty(`--jitter-${key}`, jitter[key]);
-      }
-
-      box.classList.remove("wipe-out");
-      box.classList.add("wipe-in");
-      box.style.opacity = "1";
+      // Trigger wipe-in
+      highlight.classList.remove('wipe-out');
+      highlight.classList.add('wipe-in');
     });
 
-    link.addEventListener("mouseleave", () => {
-      // Reapply jitter for visual continuity
-      for (const key in jitter) {
-        box.style.setProperty(`--jitter-${key}`, jitter[key]);
-      }
-
-      box.classList.remove("wipe-in");
-      box.classList.add("wipe-out");
-    });
-
-    box.addEventListener("animationend", (e) => {
-      if (e.animationName === "wipe-in") {
-        box.classList.remove("wipe-in");
-        box.style.opacity = "1";
-      } else if (e.animationName === "wipe-out") {
-        box.classList.remove("wipe-out");
-        box.style.opacity = "0";
-      }
+    link.addEventListener('mouseleave', () => {
+      // Trigger wipe-out
+      highlight.classList.remove('wipe-in');
+      highlight.classList.add('wipe-out');
     });
   });
 });
