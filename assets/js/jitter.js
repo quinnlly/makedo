@@ -7,15 +7,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let jitter = {};
 
     zone.addEventListener("mouseenter", () => {
-      // If an eraser is still in progress, cancel it cleanly
       const existingEraser = zone.querySelector(".eraser-box");
+
+      // If an eraser is still wiping, accelerate it
       if (existingEraser) {
-        existingEraser.remove();
-        box.classList.remove("wipe-in");
-        box.style.opacity = "0"; // treat as fully erased
+        existingEraser.classList.add("eraser-slide-fast");
+        return; // Don't trigger new highlight until it finishes
       }
 
-      // Generate fresh jitter
+      // Generate jitter values
       jitter = {
         left: `${Math.random() * 4 - 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
         box.style.setProperty(`--jitter-${key}`, jitter[key]);
       }
 
-      // Restart highlight
       box.classList.remove("wipe-out");
       box.classList.add("wipe-in");
       box.style.opacity = "1";
@@ -49,6 +48,24 @@ document.addEventListener("DOMContentLoaded", () => {
         box.classList.remove("wipe-in");
         box.style.opacity = "0";
         eraser.remove();
+
+        // If still hovered, restart the highlight
+        if (zone.matches(":hover")) {
+          jitter = {
+            left: `${Math.random() * 4 - 2}%`,
+            bottom: `${Math.random() * 4 - 2}%`,
+            width: `${100 + Math.random() * 6}%`,
+            rotate: `${(Math.random() - 0.5) * 3}deg`
+          };
+
+          for (const key in jitter) {
+            box.style.setProperty(`--jitter-${key}`, jitter[key]);
+          }
+
+          box.classList.remove("wipe-out");
+          box.classList.add("wipe-in");
+          box.style.opacity = "1";
+        }
       });
     });
   });
