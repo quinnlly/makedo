@@ -1,28 +1,51 @@
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    const highlight = link.querySelector('.highlight-box');
+  const links = document.querySelectorAll(".nav-links a");
 
-    link.addEventListener('mouseenter', () => {
-      const left = (Math.random() * 10 - 5).toFixed(1) + '%';
-      const bottom = (Math.random() * 10 - 5).toFixed(1) + '%';
-      const width = (100 + Math.random() * 10 - 5).toFixed(1) + '%';
-      const rotate = (Math.random() * 6 - 3).toFixed(1) + 'deg';
+  links.forEach(link => {
+    const box = link.querySelector(".highlight-box");
 
-      // Set CSS variables for this link
-      link.style.setProperty('--jitter-left', left);
-      link.style.setProperty('--jitter-bottom', bottom);
-      link.style.setProperty('--jitter-width', width);
-      link.style.setProperty('--jitter-rotate', rotate);
+    let jitter = {};
 
-      // Trigger wipe-in
-      highlight.classList.remove('wipe-out');
-      highlight.classList.add('wipe-in');
+    link.addEventListener("mouseenter", () => {
+      // Generate jitter values once per hover
+      jitter = {
+        left: `${Math.random() * 4 - 2}%`,
+        bottom: `${Math.random() * 4 - 2}%`,
+        width: `${100 + Math.random() * 6}%`,
+        rotate: `${(Math.random() - 0.5) * 3}deg`
+      };
+
+      // Apply jitter variables to the highlight-box
+      for (const key in jitter) {
+        box.style.setProperty(`--jitter-${key}`, jitter[key]);
+      }
+
+      box.classList.remove("wipe-out");
+      box.classList.add("wipe-in");
+      box.style.opacity = "1";
     });
 
-    link.addEventListener('mouseleave', () => {
-      // Trigger wipe-out
-      highlight.classList.remove('wipe-in');
-      highlight.classList.add('wipe-out');
+    link.addEventListener("mouseleave", () => {
+      // Create eraser box
+      const eraser = document.createElement("div");
+      eraser.classList.add("eraser-box", "eraser-slide");
+
+      // Match position/size of highlight-box
+      eraser.style.left = box.style.left;
+      eraser.style.bottom = box.style.bottom;
+      eraser.style.width = box.style.width;
+      eraser.style.height = box.offsetHeight + "px";
+
+      // Append over highlight
+      link.appendChild(eraser);
+
+      // Clean up after wipe
+      eraser.addEventListener("animationend", () => {
+        box.classList.remove("wipe-in");
+        box.style.opacity = "0";
+        eraser.remove();
+      });
     });
   });
 });
+

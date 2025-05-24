@@ -116,10 +116,37 @@ body {
   animation: none;
 }
 
+/* === Eraser Box === */
+.eraser-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background-color: #f8f5d7; /* Same as body background */
+  pointer-events: none;
+  opacity: 1;
+  transform: translateX(-100%);
+  z-index: 2;
+}
+
+.eraser-slide {
+  animation: eraserSlide 0.25s linear forwards;
+}
+
+@keyframes eraserSlide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
 /* === Ensure Text Appears Above Highlight === */
 .nav-links a span:last-of-type {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 /* === Animation States === */
@@ -127,34 +154,15 @@ body {
   from {
     transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
     opacity: 0;
-    transform-origin: left center;
   }
   to {
     transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
     opacity: 1;
-    transform-origin: left center;
-  }
-}
-
-@keyframes wipeOut {
-  from {
-    transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
-    opacity: 1;
-    transform-origin: left center;
-  }
-  to {
-    transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
-    opacity: 0;
-    transform-origin: left center;
   }
 }
 
 .highlight-box.wipe-in {
   animation: wipeIn 0.25s ease-out forwards;
-}
-
-.highlight-box.wipe-out {
-  animation: wipeOut 0.2s linear forwards;
 }
 
 /* === Mobile Layout === */
@@ -221,3 +229,4 @@ h1, h2, h3 {
   font-weight: 700;
   letter-spacing: 0.03em;
 }
+
