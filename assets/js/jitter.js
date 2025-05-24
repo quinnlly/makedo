@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
   links.forEach(link => {
     const box = link.querySelector(".highlight-box");
 
-    let jitterVars = null;
+    let jitterVars = {};
 
     link.addEventListener("mouseenter", () => {
-      // Generate jitter ONCE
+      // Generate jitter
       jitterVars = {
         left: `${Math.random() * 4 - 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
@@ -15,20 +15,19 @@ document.addEventListener("DOMContentLoaded", () => {
         rotate: `${(Math.random() - 0.5) * 3}deg`
       };
 
+      // Apply jitter
       for (const key in jitterVars) {
         box.style.setProperty(`--jitter-${key}`, jitterVars[key]);
       }
 
-      box.style.opacity = "1"; // Stay visible after animation
       box.classList.remove("wipe-out");
       box.classList.add("wipe-in");
     });
 
     link.addEventListener("mouseleave", () => {
-      if (jitterVars) {
-        for (const key in jitterVars) {
-          box.style.setProperty(`--jitter-${key}`, jitterVars[key]);
-        }
+      // Reapply the exact same jitter values
+      for (const key in jitterVars) {
+        box.style.setProperty(`--jitter-${key}`, jitterVars[key]);
       }
 
       box.classList.remove("wipe-in");
@@ -38,14 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
     box.addEventListener("animationend", (e) => {
       if (e.animationName === "wipe-in") {
         box.classList.remove("wipe-in");
-        box.style.opacity = "1"; // Keep it visible
-      }
-
-      if (e.animationName === "wipe-out") {
+        box.style.opacity = "1";
+      } else if (e.animationName === "wipe-out") {
         box.classList.remove("wipe-out");
-        box.style.opacity = "0"; // Hide it after wipe-out
+        box.style.opacity = "0";
       }
     });
   });
 });
-
