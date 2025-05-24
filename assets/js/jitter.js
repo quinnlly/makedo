@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let jitter = {};
 
     link.addEventListener("mouseenter", () => {
-      // Generate and apply jitter
+      // Generate and apply jitter variables
       jitter = {
         left: `${Math.random() * 4 - 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
@@ -25,21 +25,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     link.addEventListener("mouseleave", () => {
-      // Create an eraser box
+      // Create eraser box
       const eraser = document.createElement("div");
       eraser.classList.add("eraser-box", "eraser-slide");
 
-      // Match highlight box dimensions and position
+      // Match highlight-box dimensions
       eraser.style.left = box.style.left;
       eraser.style.bottom = box.style.bottom;
       eraser.style.width = box.style.width;
-      eraser.style.height = "150%"; // generous to cover jitter
+
+      // Set height and top to cover jitter
+      eraser.style.top = "-25%";
+      eraser.style.height = "200%";
+
+      // Align background with current scroll position
       eraser.style.backgroundPosition = `${window.scrollX}px ${window.scrollY}px`;
 
-      // Append to same link element
+      // Append eraser to same container as highlight
       link.appendChild(eraser);
 
-      // Remove highlight after eraser completes
+      // Remove highlight after wipe is complete
       eraser.addEventListener("animationend", () => {
         box.classList.remove("wipe-in");
         box.style.opacity = "0";
