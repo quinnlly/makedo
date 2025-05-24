@@ -145,7 +145,7 @@ body {
   to {
     transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
     opacity: 0;
-    transform-origin: right center;
+    transform-origin: right;
   }
 }
 
@@ -154,7 +154,7 @@ body {
 }
 
 .highlight-box.wipe-out {
-  animation: wipeOut 0.25s ease-in forwards;
+  animation: wipeOut 0.25s ease-out forwards;
 }
 
 /* === Mobile Layout === */
