@@ -145,7 +145,7 @@ body {
   to {
     transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
     opacity: 0;
-    transform-origin: right;
+    transform-origin: right center;
   }
 }
 
