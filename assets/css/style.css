@@ -2,10 +2,7 @@
 body::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background-image: url('../images/paper-fiber-manila.png');
   background-repeat: repeat;
   opacity: 0.2;
@@ -192,22 +189,6 @@ body {
   animation: wipeIn 0.4s ease-out forwards;
 }
 
-/* === Special fix: mask far-left edge of "About" === */
-.nav-links a:first-of-type .hover-zone::before {
-  content: "";
-  position: absolute;
-  left: -0.5rem;
-  top: 0;
-  bottom: 0;
-  width: 0.5rem;
-  background-color: #f8f5d7;
-  background-image: url('../images/paper-fiber-manila.png');
-  background-repeat: repeat;
-  opacity: 1;
-  z-index: 4;
-  pointer-events: none;
-}
-
 /* === Mobile Layout === */
 @media (max-width: 600px) {
   .topbar {
@@ -264,3 +245,4 @@ body {
   font-weight: 700;
   font-style: normal;
 }
+
