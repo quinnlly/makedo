@@ -100,11 +100,11 @@ body {
   color: inherit;
 }
 
-/* === Hover Zone (clips everything cleanly) === */
+/* === Hover Zone (clipped fix applied) === */
 .hover-zone {
   position: relative;
   display: inline-block;
-  overflow: hidden;
+  overflow: hidden; /* ✅ this fixes the "dark bar" bleed */
 }
 
 /* === Highlight Box === */
@@ -123,7 +123,7 @@ body {
   animation: none;
 }
 
-/* === Eraser Box (chameleon with paper texture) === */
+/* === Eraser Box === */
 .eraser-box {
   position: absolute;
   top: -25%;
