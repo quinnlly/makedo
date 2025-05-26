@@ -105,10 +105,10 @@ body {
 .hover-zone {
   position: relative;
   display: inline-block;
-  overflow: visible; /* ✅ no clipping in any direction */
+  overflow: visible;
 }
 
-/* === Highlight Box === */
+/* === Highlight Box (Jittered Blue) === */
 .highlight-box {
   position: absolute;
   bottom: var(--jitter-bottom, 0%);
@@ -117,7 +117,9 @@ body {
   height: 50%;
   background-color: #7DC8F2;
   transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
-  transform-origin: left center;
+  transform-origin: left;
+  backface-visibility: hidden;
+  will-change: transform;
   opacity: 0;
   z-index: 1;
   pointer-events: none;
@@ -250,3 +252,4 @@ body {
   font-weight: 700;
   font-style: normal;
 }
+
