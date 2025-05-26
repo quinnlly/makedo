@@ -31,7 +31,7 @@ body {
   justify-content: space-between;
   align-items: flex-end;
   width: 100%;
-  overflow: visible;
+  overflow: visible; /* ✅ ensure full overflow */
 }
 
 /* === Logo Q === */
@@ -85,8 +85,8 @@ body {
   gap: 2rem;
   margin-left: auto;
   margin-top: 1.2rem;
-  padding-bottom: 0.5rem; /* ✅ allows jitter below baseline */
-  overflow: visible;
+  padding-bottom: 0.5rem; /* room for downward jitter */
+  overflow: visible;       /* ✅ allow box overflow */
 }
 
 .nav-links a {
@@ -105,8 +105,7 @@ body {
 .hover-zone {
   position: relative;
   display: inline-block;
-  overflow-x: hidden;  /* ✅ clip horizontal jitter */
-  overflow-y: visible; /* ✅ preserve vertical jitter */
+  overflow: visible; /* ✅ no clipping in any direction */
 }
 
 /* === Highlight Box === */
@@ -251,4 +250,3 @@ body {
   font-weight: 700;
   font-style: normal;
 }
-
