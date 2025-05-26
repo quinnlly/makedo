@@ -1,9 +1,20 @@
-/* === Page Background === */
-body {
-  background-color: #f8f5d7;
+/* === Background Texture Overlay === */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image: url('../images/paper-fiber-manila.png');
   background-repeat: repeat;
-  background-blend-mode: multiply;
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body {
+  background-color: #f8f5d7;
   position: relative;
   z-index: 1;
 }
@@ -93,14 +104,15 @@ body {
   color: inherit;
 }
 
-/* === Hover Zone === */
+/* === Hover Zone (clipping horizontal only) === */
 .hover-zone {
   position: relative;
   display: inline-block;
-  overflow: visible;
+  overflow-x: hidden;  /* ✅ fix hard edge on left/right */
+  overflow-y: visible; /* ✅ allow vertical jitter */
 }
 
-/* === Highlight Box (with matching background) === */
+/* === Highlight Box === */
 .highlight-box {
   position: absolute;
   bottom: var(--jitter-bottom, 0%);
@@ -110,7 +122,6 @@ body {
   background-color: #f8f5d7;
   background-image: url('../images/paper-fiber-manila.png');
   background-repeat: repeat;
-  background-blend-mode: multiply;
   transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
   transform-origin: left;
   backface-visibility: hidden;
@@ -121,7 +132,7 @@ body {
   animation: none;
 }
 
-/* === Eraser Box (with matching background) === */
+/* === Eraser Box === */
 .eraser-box {
   position: absolute;
   top: -25%;
@@ -131,7 +142,6 @@ body {
   background-color: #f8f5d7;
   background-image: url('../images/paper-fiber-manila.png');
   background-repeat: repeat;
-  background-blend-mode: multiply;
   pointer-events: none;
   opacity: 1;
   transform: translateX(-100%);
