@@ -100,11 +100,12 @@ body {
   color: inherit;
 }
 
-/* === Hover Zone (clipped fix applied) === */
+/* === Hover Zone (horizontal clip only) === */
 .hover-zone {
   position: relative;
   display: inline-block;
-  overflow: hidden; /* ✅ this fixes the "dark bar" bleed */
+  overflow-x: hidden; /* ✅ fix for dark bar */
+  overflow-y: visible; /* ✅ preserves jitter bounce */
 }
 
 /* === Highlight Box === */
@@ -249,4 +250,3 @@ body {
   font-weight: 700;
   font-style: normal;
 }
-
