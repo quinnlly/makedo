@@ -17,11 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
       box.classList.remove("wipe-in", "wipe-in-slow");
       void box.offsetWidth;
 
-      // ✅ Slightly extend width to prevent rendering seams at text edge
       jitter = {
         left: `${Math.random() * 4 - 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
-        width: `${102 + Math.random() * 4}%`,
+        width: `${100 + Math.random() * 6}%`,
         rotate: `${(Math.random() - 0.5) * 3}deg`
       };
 
@@ -38,8 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
       eraser.classList.add("eraser-box", "eraser-slide");
 
       eraser.style.left = box.style.left;
-      eraser.style.width = box.style.width;
       eraser.style.bottom = box.style.bottom;
+      eraser.style.width = box.style.width;
       eraser.style.top = "-25%";
       eraser.style.height = "200%";
 
@@ -50,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         box.style.opacity = "0";
         eraser.remove();
 
+        // Re-trigger slower wipe-in if user is still hovered
         if (zone.matches(":hover")) {
           box.classList.remove("wipe-in", "wipe-in-slow");
           void box.offsetWidth;
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
           jitter = {
             left: `${Math.random() * 4 - 2}%`,
             bottom: `${Math.random() * 4 - 2}%`,
-            width: `${102 + Math.random() * 4}%`,
+            width: `${100 + Math.random() * 6}%`,
             rotate: `${(Math.random() - 0.5) * 3}deg`
           };
 
