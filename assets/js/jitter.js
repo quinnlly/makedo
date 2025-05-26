@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   zones.forEach(zone => {
     const box = zone.querySelector(".highlight-box");
+    const isLeftmost = zone.closest("a")?.classList.contains("leftmost");
 
     let jitter = {};
 
@@ -34,19 +35,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     zone.addEventListener("mouseleave", () => {
       const eraser = document.createElement("div");
-      eraser.classList.add("eraser-box", "eraser-slide");
+      eraser.classList.add("eraser-box");
 
-      const shrink = 2; // percent to shift + shrink
       const jitterLeft = parseFloat(box.style.left || "0");
       const jitterWidth = parseFloat(box.style.width || "100");
 
-      // Move eraser box slightly right and shrink its width
-      eraser.style.left = `${jitterLeft + shrink}%`;
-      eraser.style.width = `${jitterWidth - shrink}%`;
-
+      eraser.style.left = `${jitterLeft}%`;
+      eraser.style.width = `${jitterWidth}%`;
       eraser.style.bottom = box.style.bottom;
       eraser.style.top = "-25%";
       eraser.style.height = "200%";
+
+      // Apply appropriate animation
+      if (isLeftmost) {
+        eraser.classList.add("eraser-scale");
+      } else {
+        eraser.classList.add("eraser-slide");
+      }
 
       zone.appendChild(eraser);
 
@@ -77,3 +82,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
