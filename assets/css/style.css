@@ -31,7 +31,7 @@ body {
   justify-content: space-between;
   align-items: flex-end;
   width: 100%;
-  overflow: visible; /* ✅ ensure full overflow */
+  overflow: visible;
 }
 
 /* === Logo Q === */
@@ -85,8 +85,8 @@ body {
   gap: 2rem;
   margin-left: auto;
   margin-top: 1.2rem;
-  padding-bottom: 0.5rem; /* room for downward jitter */
-  overflow: visible;       /* ✅ allow box overflow */
+  padding-bottom: 0.5rem;
+  overflow: visible;
 }
 
 .nav-links a {

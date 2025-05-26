@@ -17,10 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
       box.classList.remove("wipe-in", "wipe-in-slow");
       void box.offsetWidth;
 
+      // ✅ Slightly extend width to prevent rendering seams at text edge
       jitter = {
         left: `${Math.random() * 4 - 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
-        width: `${100 + Math.random() * 6}%`,
+        width: `${102 + Math.random() * 4}%`,
         rotate: `${(Math.random() - 0.5) * 3}deg`
       };
 
@@ -56,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
           jitter = {
             left: `${Math.random() * 4 - 2}%`,
             bottom: `${Math.random() * 4 - 2}%`,
-            width: `${100 + Math.random() * 6}%`,
+            width: `${102 + Math.random() * 4}%`,
             rotate: `${(Math.random() - 0.5) * 3}deg`
           };
 
