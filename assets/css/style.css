@@ -104,7 +104,7 @@ body {
 .hover-zone {
   position: relative;
   display: inline-block;
-  overflow: visible;
+  overflow: hidden;
 }
 
 /* === Highlight Box === */
@@ -151,7 +151,7 @@ body {
 /* === Eraser Animations === */
 .eraser-slide {
   animation: eraserSlide 0.6s ease-in forwards;
-  animation-delay: 0.15s; /* 👈 new: slight pause before erasing */
+  animation-delay: 0.15s;
 }
 
 .eraser-slide-fast {
