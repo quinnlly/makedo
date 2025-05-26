@@ -36,11 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const eraser = document.createElement("div");
       eraser.classList.add("eraser-box", "eraser-slide");
 
-      // Clamp left edge to 0% to prevent far-left overshoot
-      const jitterLeft = parseFloat(box.style.left);
-      eraser.style.left = `${Math.max(jitterLeft, 0)}%`;
+      const shrink = 2; // percent to shift + shrink
+      const jitterLeft = parseFloat(box.style.left || "0");
+      const jitterWidth = parseFloat(box.style.width || "100");
 
-      eraser.style.width = box.style.width;
+      // Move eraser box slightly right and shrink its width
+      eraser.style.left = `${jitterLeft + shrink}%`;
+      eraser.style.width = `${jitterWidth - shrink}%`;
+
       eraser.style.bottom = box.style.bottom;
       eraser.style.top = "-25%";
       eraser.style.height = "200%";
