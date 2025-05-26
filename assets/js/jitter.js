@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     zone.addEventListener("mouseenter", () => {
       const existingEraser = zone.querySelector(".eraser-box");
 
-      // Remove previous eraser if still animating
+      // Remove fast eraser if it exists
       if (existingEraser) {
         existingEraser.remove();
       }
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       box.classList.remove("wipe-in", "wipe-in-slow");
       void box.offsetWidth;
 
-      // Generate new jitter
+      // Generate jitter
       jitter = {
         left: `${Math.random() * 4 - 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
@@ -35,13 +35,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     zone.addEventListener("mouseleave", () => {
       const eraser = document.createElement("div");
-      eraser.classList.add("eraser-box", "eraser-scale");
+      eraser.classList.add("eraser-box", "eraser-slide");
 
+      // Parse jitter values from box
       const jitterLeft = parseFloat(box.style.left || "0");
       const jitterWidth = parseFloat(box.style.width || "100");
 
-      eraser.style.left = `${jitterLeft}%`;
-      eraser.style.width = `${jitterWidth}%`;
+      // Clamp so we don't extend past left edge
+      const leftClamped = Math.max(jitterLeft, 0);
+      const widthAdjusted = jitterWidth - (leftClamped - jitterLeft);
+
+      eraser.style.left = `${leftClamped}%`;
+      eraser.style.width = `${widthAdjusted}%`;
+
       eraser.style.bottom = box.style.bottom;
       eraser.style.top = "-25%";
       eraser.style.height = "200%";
@@ -75,4 +81,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
