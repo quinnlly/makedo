@@ -85,6 +85,7 @@ body {
   gap: 2rem;
   margin-left: auto;
   margin-top: 1.2rem;
+  padding-bottom: 0.5rem; /* ✅ allows jitter below baseline */
   overflow: visible;
 }
 
@@ -100,12 +101,12 @@ body {
   color: inherit;
 }
 
-/* === Hover Zone (horizontal clip only) === */
+/* === Hover Zone === */
 .hover-zone {
   position: relative;
   display: inline-block;
-  overflow-x: hidden; /* ✅ fix for dark bar */
-  overflow-y: visible; /* ✅ preserves jitter bounce */
+  overflow-x: hidden;  /* ✅ clip horizontal jitter */
+  overflow-y: visible; /* ✅ preserve vertical jitter */
 }
 
 /* === Highlight Box === */
@@ -250,3 +251,4 @@ body {
   font-weight: 700;
   font-style: normal;
 }
+
