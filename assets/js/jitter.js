@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   zones.forEach(zone => {
     const box = zone.querySelector(".highlight-box");
-    const isLeftmost = zone.closest("a")?.classList.contains("leftmost");
 
     let jitter = {};
 
@@ -35,23 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     zone.addEventListener("mouseleave", () => {
       const eraser = document.createElement("div");
-      eraser.classList.add("eraser-box");
+      eraser.classList.add("eraser-box", "eraser-slide");
 
-      const jitterLeft = parseFloat(box.style.left || "0");
-      const jitterWidth = parseFloat(box.style.width || "100");
-
-      eraser.style.left = `${jitterLeft}%`;
-      eraser.style.width = `${jitterWidth}%`;
+      eraser.style.left = box.style.left;
       eraser.style.bottom = box.style.bottom;
+      eraser.style.width = box.style.width;
       eraser.style.top = "-25%";
       eraser.style.height = "200%";
-
-      // Apply appropriate animation
-      if (isLeftmost) {
-        eraser.classList.add("eraser-scale");
-      } else {
-        eraser.classList.add("eraser-slide");
-      }
 
       zone.appendChild(eraser);
 
@@ -60,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         box.style.opacity = "0";
         eraser.remove();
 
+        // Re-trigger slower wipe-in if user is still hovered
         if (zone.matches(":hover")) {
           box.classList.remove("wipe-in", "wipe-in-slow");
           void box.offsetWidth;
@@ -82,4 +72,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
