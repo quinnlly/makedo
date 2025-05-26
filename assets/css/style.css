@@ -100,7 +100,7 @@ body {
   color: inherit;
 }
 
-/* === Hover Zone (scoped to each word) === */
+/* === Hover Zone (clips everything cleanly) === */
 .hover-zone {
   position: relative;
   display: inline-block;
