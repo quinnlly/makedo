@@ -36,9 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const eraser = document.createElement("div");
       eraser.classList.add("eraser-box", "eraser-slide");
 
-      eraser.style.left = box.style.left;
-      eraser.style.bottom = box.style.bottom;
+      // Clamp left edge to 0% to prevent far-left overshoot
+      const jitterLeft = parseFloat(box.style.left);
+      eraser.style.left = `${Math.max(jitterLeft, 0)}%`;
+
       eraser.style.width = box.style.width;
+      eraser.style.bottom = box.style.bottom;
       eraser.style.top = "-25%";
       eraser.style.height = "200%";
 
@@ -49,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
         box.style.opacity = "0";
         eraser.remove();
 
-        // Re-trigger slower wipe-in if user is still hovered
         if (zone.matches(":hover")) {
           box.classList.remove("wipe-in", "wipe-in-slow");
           void box.offsetWidth;
