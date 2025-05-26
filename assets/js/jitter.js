@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
     zone.addEventListener("mouseenter", () => {
       const existingEraser = zone.querySelector(".eraser-box");
 
+      // ✅ Fix: remove previous eraser instead of speeding it up
       if (existingEraser) {
-        existingEraser.classList.add("eraser-slide-fast");
-        return;
+        existingEraser.remove();
       }
 
       box.classList.remove("wipe-in", "wipe-in-slow");
@@ -36,9 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const eraser = document.createElement("div");
       eraser.classList.add("eraser-box", "eraser-slide");
 
-      eraser.style.left = box.style.left;
+      const jitterLeft = parseFloat(box.style.left || "0");
+      const jitterWidth = parseFloat(box.style.width || "100");
+
+      eraser.style.left = `${jitterLeft}%`;
+      eraser.style.width = `${jitterWidth}%`;
       eraser.style.bottom = box.style.bottom;
-      eraser.style.width = box.style.width;
       eraser.style.top = "-25%";
       eraser.style.height = "200%";
 
@@ -49,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
         box.style.opacity = "0";
         eraser.remove();
 
-        // Re-trigger slower wipe-in if user is still hovered
         if (zone.matches(":hover")) {
           box.classList.remove("wipe-in", "wipe-in-slow");
           void box.offsetWidth;
