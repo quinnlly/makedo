@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let jitter = {};
 
     zone.addEventListener("mouseenter", () => {
-      box.classList.remove("wipe-in", "wipe-out", "wipe-in-slow");
+      box.classList.remove("wipe-in", "wipe-in-slow", "wipe-out");
       void box.offsetWidth; // force reflow
 
       // Generate new jitter values
@@ -29,11 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
       box.classList.remove("wipe-in", "wipe-in-slow");
       box.classList.add("wipe-out");
 
-      box.addEventListener("transitionend", function wipeOutDone() {
-        box.removeEventListener("transitionend", wipeOutDone);
+      box.addEventListener("animationend", function wipeOutDone() {
+        box.removeEventListener("animationend", wipeOutDone);
         box.classList.remove("wipe-out");
 
-        // If still hovered, re-trigger slow wipe-in
+        // If user is still hovering, re-enter with slower animation
         if (zone.matches(":hover")) {
           void box.offsetWidth;
 

@@ -100,14 +100,14 @@ body {
   color: inherit;
 }
 
-/* === Hover Zone (scoped to each word) === */
+/* === Hover Zone === */
 .hover-zone {
   position: relative;
   display: inline-block;
   overflow: visible;
 }
 
-/* === Highlight Box (Jittered transform + true LTR wipe-out) === */
+/* === Highlight Box (Jittered transform + animated LTR exit) === */
 .highlight-box {
   position: absolute;
   bottom: var(--jitter-bottom, 0%);
@@ -120,38 +120,42 @@ body {
   opacity: 0;
   z-index: 1;
   pointer-events: none;
-  transition: transform 0.35s ease-in-out, opacity 0.2s ease;
 }
 
+/* Wipe in (on hover enter) */
 .highlight-box.wipe-in {
+  transition: transform 0.35s ease-out, opacity 0.2s ease-in;
   transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
   opacity: 1;
 }
 
+/* Wipe in (slower if rehovered during exit) */
 .highlight-box.wipe-in-slow {
-  transition: transform 0.5s ease-in-out, opacity 0.25s ease;
+  transition: transform 0.5s ease-out, opacity 0.25s ease-in;
   transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
   opacity: 1;
 }
 
+/* Wipe out (left-to-right erase) */
 .highlight-box.wipe-out {
-  transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
   animation: wipeOutLTR 0.4s ease-out forwards;
 }
 
+/* Keyframe for left-to-right wipe-out */
 @keyframes wipeOutLTR {
-  0% {
+  from {
     transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
+    transform-origin: left center;
     opacity: 1;
   }
-  100% {
+  to {
     transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
-    opacity: 0;
     transform-origin: left center;
+    opacity: 0;
   }
 }
 
-/* === Text above highlight === */
+/* === Text Layer Above Box === */
 .hover-zone span:last-of-type {
   position: relative;
   z-index: 3;
