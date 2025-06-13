@@ -107,7 +107,7 @@ body {
   overflow: visible;
 }
 
-/* === Highlight Box (Jittered transform + animated LTR exit) === */
+/* === Highlight Box (Jittered + directional wipe) === */
 .highlight-box {
   position: absolute;
   bottom: var(--jitter-bottom, 0%);
@@ -115,47 +115,36 @@ body {
   width: var(--jitter-width, 100%);
   height: 50%;
   background-color: #7DC8F2;
-  transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
+  transform: rotate(var(--jitter-rotate, 0deg));
   transform-origin: left center;
   opacity: 0;
   z-index: 1;
   pointer-events: none;
+  clip-path: inset(0 100% 0 0); /* fully hidden from right */
 }
 
-/* Wipe in (on hover enter) */
+/* Wipe in from left to right */
 .highlight-box.wipe-in {
-  transition: transform 0.35s ease-out, opacity 0.2s ease-in;
-  transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
   opacity: 1;
+  clip-path: inset(0 0% 0 0);
+  transition: clip-path 0.35s ease-out, opacity 0.2s ease-in;
 }
 
-/* Wipe in (slower if rehovered during exit) */
+/* Slower wipe-in if rehovered */
 .highlight-box.wipe-in-slow {
-  transition: transform 0.5s ease-out, opacity 0.25s ease-in;
-  transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
   opacity: 1;
+  clip-path: inset(0 0% 0 0);
+  transition: clip-path 0.5s ease-out, opacity 0.25s ease-in;
 }
 
-/* Wipe out (left-to-right erase) */
+/* Wipe out from left to right (same direction) */
 .highlight-box.wipe-out {
-  animation: wipeOutLTR 0.4s ease-out forwards;
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.35s ease-out, opacity 0.2s ease-in;
 }
 
-/* Keyframe for left-to-right wipe-out */
-@keyframes wipeOutLTR {
-  from {
-    transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
-    transform-origin: left center;
-    opacity: 1;
-  }
-  to {
-    transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
-    transform-origin: left center;
-    opacity: 0;
-  }
-}
-
-/* === Text Layer Above Box === */
+/* === Text above highlight === */
 .hover-zone span:last-of-type {
   position: relative;
   z-index: 3;
