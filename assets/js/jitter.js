@@ -70,30 +70,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 🔽 Dropdown hover + click behavior + blue bar lock
+  // Dropdown logic
   const dropdown = document.querySelector(".has-dropdown");
-  const dropdownMenu = dropdown?.querySelector(".dropdown-menu");
+  const trigger = dropdown?.querySelector(".dropdown-trigger");
   const arrow = dropdown?.querySelector(".dropdown-arrow");
-  const triggerZone = dropdown?.querySelector(".dropdown-trigger");
-  const highlightBox = triggerZone?.querySelector(".highlight-box");
+  const highlightBox = trigger?.querySelector(".highlight-box");
 
   let clickedOpen = false;
 
-  if (dropdown && dropdownMenu && arrow && triggerZone && highlightBox) {
-    // Hover opens if not clicked
-    dropdown.addEventListener("mouseenter", () => {
+  if (dropdown && trigger && arrow && highlightBox) {
+    // Hover behavior
+    const openHover = () => {
       if (!clickedOpen) {
         dropdown.classList.add("open");
+        highlightBox.classList.add("wipe-in");
+        highlightBox.style.opacity = "1";
       }
-    });
+    };
 
-    dropdown.addEventListener("mouseleave", () => {
+    const closeHover = () => {
       if (!clickedOpen) {
         dropdown.classList.remove("open");
+        highlightBox.classList.remove("wipe-in", "wipe-in-slow");
+        highlightBox.style.opacity = "0";
       }
-    });
+    };
 
-    // Click toggles lock state
+    dropdown.addEventListener("mouseenter", openHover);
+    dropdown.addEventListener("mouseleave", closeHover);
+
+    // Toggle lock on click
     const toggleDropdown = (e) => {
       e.preventDefault();
       clickedOpen = !clickedOpen;
@@ -108,10 +114,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
+    trigger.addEventListener("click", toggleDropdown);
     arrow.addEventListener("click", toggleDropdown);
-    triggerZone.addEventListener("click", toggleDropdown);
 
-    // Click outside closes both dropdown and highlight
+    // Click outside to close
     document.addEventListener("click", (e) => {
       if (!dropdown.contains(e.target)) {
         clickedOpen = false;
