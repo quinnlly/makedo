@@ -111,7 +111,7 @@ body {
 .highlight-mask {
   position: absolute;
   top: -25%;
-  left: -80px;     /* ⬅ shift far into margin */
+  left: -100px;     /* ⬅ shift far into margin */
   width: 80px;     /* ⬅ cover full left side */
   height: 200%;
   background: red; /* ⬅ visually obvious for testing */
