@@ -107,28 +107,19 @@ body {
   overflow: visible;
 }
 
-/* 🆕 ───────── 6. Invisible Left Mask ───────── */
+/* 🟥 DEBUG: Visible Red Mask (for alignment test) */
 .highlight-mask {
   position: absolute;
   top: -25%;
   left: 0;
   width: 6%;
   height: 200%;
-  background: #f8f5d7;
+  background: red;       /* ⬅ clearly visible */
   z-index: 4;
   pointer-events: none;
 }
 
-.highlight-mask::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url('../images/paper-fiber-manila.png');
-  background-repeat: repeat;
-  opacity: 0.2;
-}
-
-/* ───────── 7. Highlight Box (Blue) ───────── */
+/* ───────── 6. Highlight Box (Blue) ───────── */
 .highlight-box {
   position: absolute;
   bottom: var(--jitter-bottom, 0%);
@@ -144,7 +135,7 @@ body {
   animation: none;
 }
 
-/* ───────── 8. Eraser Box (paper wipe) ───────── */
+/* ───────── 7. Eraser Box (paper wipe) ───────── */
 .eraser-box {
   position: absolute;
   top: -25%;
@@ -169,7 +160,7 @@ body {
   z-index: 1;
 }
 
-/* ───────── 9. Eraser Animations ───────── */
+/* ───────── 8. Eraser Animations ───────── */
 .eraser-slide {
   animation: eraserSlide 0.6s ease-in forwards;
   animation-delay: 0.15s;
@@ -188,13 +179,13 @@ body {
   }
 }
 
-/* ───────── 10. Text above highlight ───────── */
+/* ───────── 9. Text above highlight ───────── */
 .hover-zone span:last-of-type {
   position: relative;
   z-index: 3;
 }
 
-/* ───────── 11. Highlight Animations ───────── */
+/* ───────── 10. Highlight Animations ───────── */
 @keyframes wipeIn {
   from {
     transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
@@ -214,7 +205,7 @@ body {
   animation: wipeIn 0.4s ease-out forwards;
 }
 
-/* ───────── 12. Mobile Layout ───────── */
+/* ───────── 11. Mobile Layout ───────── */
 @media (max-width: 600px) {
   .topbar {
     flex-wrap: wrap;
@@ -228,7 +219,7 @@ body {
   }
 }
 
-/* ───────── 13. Equity Fonts ───────── */
+/* ───────── 12. Equity Fonts ───────── */
 @font-face {
   font-family: 'Equity Text';
   src: url('../fonts/equity_text_a_regular-webfont.ttf') format('truetype');
