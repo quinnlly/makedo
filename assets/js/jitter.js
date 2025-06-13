@@ -8,20 +8,23 @@ document.addEventListener("DOMContentLoaded", () => {
     let jitter = {};
 
     zone.addEventListener("mouseenter", () => {
+      // Reset any prior animation classes
       mask.classList.remove("wipe-in", "wipe-in-slow", "wipe-out");
       void mask.offsetWidth; // force reflow to restart animation
 
-      // Apply jitter values
+      // Generate jitter values
       jitter = {
         left: `${Math.random() * 4 - 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
         rotate: `${(Math.random() - 0.5) * 3}deg`
       };
 
+      // Apply jitter variables to box
       for (const key in jitter) {
         box.style.setProperty(`--jitter-${key}`, jitter[key]);
       }
 
+      // Trigger wipe-in
       mask.classList.add("wipe-in");
     });
 
@@ -29,11 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
       mask.classList.remove("wipe-in", "wipe-in-slow");
       mask.classList.add("wipe-out");
 
-      mask.addEventListener("transitionend", function wipeDone() {
+      // Remove wipe-out after it completes
+      mask.addEventListener("transitionend", function wipeDone(e) {
+        // Only run on clip-path transition
+        if (e.propertyName !== "clip-path") return;
         mask.removeEventListener("transitionend", wipeDone);
         mask.classList.remove("wipe-out");
 
-        // If the user re-hovers mid-exit, trigger a slower re-entry
+        // If user is still hovering, trigger re-entry
         if (zone.matches(":hover")) {
           void mask.offsetWidth;
 

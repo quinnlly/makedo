@@ -107,7 +107,7 @@ body {
   overflow: visible;
 }
 
-/* === Highlight Mask (controls wipe animation) === */
+/* === Highlight Mask (controls left-to-right wipe effect) === */
 .highlight-mask {
   position: absolute;
   bottom: 0;
@@ -115,11 +115,11 @@ body {
   width: 100%;
   height: 50%;
   overflow: hidden;
-  clip-path: inset(0 100% 0 0); /* start fully hidden */
-  transition: clip-path 0.35s ease, opacity 0.2s ease;
-  z-index: 1;
-  pointer-events: none;
+  clip-path: inset(0 100% 0 0); /* fully hidden */
   opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: clip-path 0.35s ease, opacity 0.2s ease;
 }
 
 .highlight-mask.wipe-in {
@@ -139,7 +139,7 @@ body {
   transition: clip-path 0.4s ease, opacity 0.2s ease;
 }
 
-/* === Highlight Box (rotated fill inside the mask) === */
+/* === Highlight Box (the jittered inner fill) === */
 .highlight-box {
   position: absolute;
   bottom: var(--jitter-bottom, 0%);
@@ -152,7 +152,7 @@ body {
   pointer-events: none;
 }
 
-/* === Text above the highlight === */
+/* === Text above highlight === */
 .hover-zone span:last-of-type {
   position: relative;
   z-index: 3;
