@@ -107,25 +107,15 @@ body {
   overflow: visible;
 }
 
-/* ✅ Responsive invisible mask to hide jitter artifacts */
+/* 🟥 DEBUG: Responsive red mask to visually confirm area */
 .highlight-mask {
   position: absolute;
   top: -25%;
   left: -3em;
   width: 4em;
   height: 200%;
-  background: #f8f5d7;
+  background: red;
   z-index: 4;
-  pointer-events: none;
-}
-
-.highlight-mask::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url('../images/paper-fiber-manila.png');
-  background-repeat: repeat;
-  opacity: 0.2;
   pointer-events: none;
 }
 
