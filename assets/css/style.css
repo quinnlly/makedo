@@ -107,11 +107,11 @@ body {
   overflow: visible;
 }
 
-/* 🟥 Final debug version of left-edge overlay */
+/* Final debug version of left-edge overlay */
 .highlight-mask {
   position: absolute;
   top: -25%;
-  left: -60px;     /* ⬅ shift far into margin */
+  left: -80px;     /* ⬅ shift far into margin */
   width: 80px;     /* ⬅ cover full left side */
   height: 200%;
   background: red; /* ⬅ visually obvious for testing */
