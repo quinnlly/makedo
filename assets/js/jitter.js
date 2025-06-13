@@ -7,11 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let jitter = {};
 
     zone.addEventListener("mouseenter", () => {
-      // Reset box and wipe-in
       box.classList.remove("wipe-in", "wipe-out", "wipe-in-slow");
-      void box.offsetWidth;
+      void box.offsetWidth; // force reflow
 
-      // Random jitter values
+      // Generate new jitter values
       jitter = {
         left: `${Math.random() * 4 - 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
@@ -30,12 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
       box.classList.remove("wipe-in", "wipe-in-slow");
       box.classList.add("wipe-out");
 
-      box.addEventListener("transitionend", function wipeListener() {
-        box.removeEventListener("transitionend", wipeListener);
+      box.addEventListener("transitionend", function wipeOutDone() {
+        box.removeEventListener("transitionend", wipeOutDone);
         box.classList.remove("wipe-out");
-        box.style.opacity = "0";
 
-        // If user is still hovering, trigger slow re-entry
+        // If still hovered, re-trigger slow wipe-in
         if (zone.matches(":hover")) {
           void box.offsetWidth;
 
@@ -51,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           box.classList.add("wipe-in-slow");
-          box.style.opacity = "1";
         }
       });
     });
