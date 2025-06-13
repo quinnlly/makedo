@@ -2,7 +2,7 @@
 body::before {
   content: "";
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   background-image: url('../images/paper-fiber-manila.png');
   background-repeat: repeat;
   opacity: 0.2;
@@ -107,15 +107,25 @@ body {
   overflow: visible;
 }
 
-/* Final debug version of left-edge overlay */
+/* ✅ Responsive invisible mask to hide jitter artifacts */
 .highlight-mask {
   position: absolute;
   top: -25%;
-  left: -80px;     /* ⬅ shift far into margin */
-  width: 80px;     /* ⬅ cover full left side */
+  left: -3em;
+  width: 4em;
   height: 200%;
-  background: red; /* ⬅ visually obvious for testing */
+  background: #f8f5d7;
   z-index: 4;
+  pointer-events: none;
+}
+
+.highlight-mask::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('../images/paper-fiber-manila.png');
+  background-repeat: repeat;
+  opacity: 0.2;
   pointer-events: none;
 }
 
