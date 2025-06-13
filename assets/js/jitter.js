@@ -70,16 +70,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 🔽 Dropdown hover + click toggle logic
+  // 🔽 Dropdown: hover + click toggle logic with blue highlight lock
   const dropdown = document.querySelector(".has-dropdown");
   const dropdownMenu = dropdown?.querySelector(".dropdown-menu");
   const arrow = dropdown?.querySelector(".dropdown-arrow");
-  const triggerZone = dropdown?.querySelector(".hover-zone");
+  const triggerZone = dropdown?.querySelector(".dropdown-trigger");
+  const highlightBox = triggerZone?.querySelector(".highlight-box");
 
   let clickedOpen = false;
 
-  if (dropdown && dropdownMenu && arrow && triggerZone) {
-    // Hover behavior
+  if (dropdown && dropdownMenu && arrow && triggerZone && highlightBox) {
+    // Hover opens temporarily
     dropdown.addEventListener("mouseenter", () => {
       if (!clickedOpen) dropdown.classList.add("open");
     });
@@ -88,21 +89,31 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!clickedOpen) dropdown.classList.remove("open");
     });
 
-    // Toggle by click
+    // Toggle open/close via click
     const toggleDropdown = (e) => {
       e.preventDefault();
       clickedOpen = !clickedOpen;
       dropdown.classList.toggle("open", clickedOpen);
+
+      if (clickedOpen) {
+        highlightBox.classList.add("wipe-in");
+        highlightBox.style.opacity = "1";
+      } else {
+        highlightBox.classList.remove("wipe-in", "wipe-in-slow");
+        highlightBox.style.opacity = "0";
+      }
     };
 
     arrow.addEventListener("click", toggleDropdown);
     triggerZone.addEventListener("click", toggleDropdown);
 
-    // Close if click outside
+    // Click outside closes menu and highlight
     document.addEventListener("click", (e) => {
       if (!dropdown.contains(e.target)) {
         clickedOpen = false;
         dropdown.classList.remove("open");
+        highlightBox.classList.remove("wipe-in", "wipe-in-slow");
+        highlightBox.style.opacity = "0";
       }
     });
   }

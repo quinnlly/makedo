@@ -109,7 +109,7 @@ body {
   overflow: visible;
 }
 
-/* ✅ Invisible mask to hide left-edge jitter */
+/* 🟦 Invisible box to block jitter artifacting */
 .highlight-mask {
   position: absolute;
   top: -25%;
@@ -131,7 +131,7 @@ body {
   pointer-events: none;
 }
 
-/* ───────── 6. Highlight Box (Blue) ───────── */
+/* ───────── 6. Highlight Box (Blue Bar) ───────── */
 .highlight-box {
   position: absolute;
   bottom: var(--jitter-bottom, 0%);
@@ -147,7 +147,7 @@ body {
   animation: none;
 }
 
-/* ───────── 7. Eraser Box (paper wipe) ───────── */
+/* ───────── 7. Eraser Box ───────── */
 .eraser-box {
   position: absolute;
   top: -25%;
@@ -183,30 +183,14 @@ body {
 }
 
 @keyframes eraserSlide {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0%); }
 }
 
-/* ───────── 9. Text above highlight ───────── */
-.hover-zone span:last-of-type {
-  position: relative;
-  z-index: 3;
-}
-
-/* ───────── 10. Highlight Animations ───────── */
+/* ───────── 9. Highlight Animations ───────── */
 @keyframes wipeIn {
-  from {
-    transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
-    opacity: 0;
-  }
-  to {
-    transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
-    opacity: 1;
-  }
+  from { transform: scaleX(0) rotate(var(--jitter-rotate, 0deg)); opacity: 0; }
+  to   { transform: scaleX(1) rotate(var(--jitter-rotate, 0deg)); opacity: 1; }
 }
 
 .highlight-box.wipe-in {
@@ -217,9 +201,19 @@ body {
   animation: wipeIn 0.4s ease-out forwards;
 }
 
-/* ───────── 11. Dropdown Arrow + Menu ───────── */
+/* ───────── 10. Text layering ───────── */
+.hover-zone span:last-of-type {
+  position: relative;
+  z-index: 3;
+}
+
+/* ───────── 11. Dropdown Logic ───────── */
 .has-dropdown {
   position: relative;
+}
+
+.dropdown-trigger {
+  cursor: pointer;
 }
 
 .dropdown-arrow {
@@ -232,7 +226,7 @@ body {
 
 .dropdown-menu {
   position: absolute;
-  top: 110%;
+  top: 100%;
   left: 0;
   background-color: #f8f5d7;
   border: 1px solid #ccc;
@@ -257,7 +251,7 @@ body {
   pointer-events: auto;
 }
 
-/* ───────── 12. Mobile Layout ───────── */
+/* ───────── 12. Mobile ───────── */
 @media (max-width: 600px) {
   .topbar {
     flex-wrap: wrap;
