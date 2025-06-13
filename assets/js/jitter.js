@@ -1,12 +1,11 @@
-// jittered blue bar with sliding paper overlay wipe-out
+// jittered blue bar with sliding overlay wipe-out (keeps wipe-in class)
 document.addEventListener("DOMContentLoaded", () => {
 
-  const ERASE_MS = 600;                       // 0.60 s slide matches CSS
+  const ERASE_MS = 600;                       // overlay slide duration
   document.querySelectorAll(".hover-zone").forEach(zone => {
     const bar = zone.querySelector(".highlight-box");
     let timer = null;
 
-    /* random jitter on every hover */
     function jitter () {
       bar.style.setProperty("--jitter-left" , `${Math.random()*4 - 2}%`);
       bar.style.setProperty("--jitter-bottom", `${Math.random()*4 - 2}%`);
@@ -18,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     zone.addEventListener("mouseenter", () => {
       clearTimeout(timer);
       bar.classList.remove("erase","wipe-in","wipe-in-slow");
-      void bar.offsetWidth;          // restart animation
+      void bar.offsetWidth;
       jitter();
       bar.classList.add("wipe-in");
       bar.style.opacity = "1";
@@ -26,16 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* hover OUT */
     zone.addEventListener("mouseleave", () => {
-      if (bar.classList.contains("erase")) return;   // already erasing
-      bar.classList.add("erase");                    // overlay slides
+      if (bar.classList.contains("erase")) return;  // already erasing
+      /* keep .wipe-in on so bar stays full width */
+      bar.classList.add("erase");
 
-      /* remove overlay & reset after slide finishes */
-      timer = setTimeout(() => {
+      timer = setTimeout(() => {                    // after slide
         bar.classList.remove("erase","wipe-in","wipe-in-slow");
         bar.style.opacity = "0";
-        bar.style.transform = "scaleX(0) rotate(var(--jitter-rotate))";
+        bar.style.transform =
+          "scaleX(0) rotate(var(--jitter-rotate,0deg))";
 
-        /* if pointer re-entered meanwhile → slow wipe-in */
+        /* slow wipe-in if pointer already back */
         if (zone.matches(":hover")){
           void bar.offsetWidth;
           jitter();
