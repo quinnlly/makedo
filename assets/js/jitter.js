@@ -1,61 +1,46 @@
+// jittered blue-bar hover effect with built-in left-to-right eraser
 document.addEventListener("DOMContentLoaded", () => {
-  const zones = document.querySelectorAll(".hover-zone");
 
-  zones.forEach(zone => {
-    const mask = zone.querySelector(".highlight-mask");
-    const box = mask.querySelector(".highlight-box");
+  document.querySelectorAll(".hover-zone").forEach(zone => {
+    const box = zone.querySelector(".highlight-box");
 
-    let jitter = {};
+    /* helper to randomise jitter variables */
+    function applyJitter () {
+      box.style.setProperty("--jitter-left" , `${Math.random() * 4 - 2}%`);
+      box.style.setProperty("--jitter-bottom", `${Math.random() * 4 - 2}%`);
+      box.style.setProperty("--jitter-width" , `${100 + Math.random() * 6}%`);
+      box.style.setProperty("--jitter-rotate", `${(Math.random() - 0.5) * 3}deg`);
+    }
 
+    /* ─── mouse enter: show blue bar ────────────────────── */
     zone.addEventListener("mouseenter", () => {
-      // Reset any prior animation classes
-      mask.classList.remove("wipe-in", "wipe-in-slow", "wipe-out");
-      void mask.offsetWidth; // force reflow to restart animation
-
-      // Generate jitter values
-      jitter = {
-        left: `${Math.random() * 4 - 2}%`,
-        bottom: `${Math.random() * 4 - 2}%`,
-        rotate: `${(Math.random() - 0.5) * 3}deg`
-      };
-
-      // Apply jitter variables to box
-      for (const key in jitter) {
-        box.style.setProperty(`--jitter-${key}`, jitter[key]);
-      }
-
-      // Trigger wipe-in
-      mask.classList.add("wipe-in");
+      box.classList.remove("erase", "wipe-in", "wipe-in-slow");
+      void box.offsetWidth;              // force reflow
+      applyJitter();
+      box.classList.add("wipe-in");
     });
 
+    /* ─── mouse leave: slide paper overlay to erase ────── */
     zone.addEventListener("mouseleave", () => {
-      mask.classList.remove("wipe-in", "wipe-in-slow");
-      mask.classList.add("wipe-out");
+      box.classList.remove("wipe-in", "wipe-in-slow");
+      box.classList.add("erase");        // adds ::after overlay
 
-      // Remove wipe-out after it completes
-      mask.addEventListener("transitionend", function wipeDone(e) {
-        // Only run on clip-path transition
-        if (e.propertyName !== "clip-path") return;
-        mask.removeEventListener("transitionend", wipeDone);
-        mask.classList.remove("wipe-out");
+      /* after eraser animation finishes … */
+      box.addEventListener("animationend", function done (e) {
+        if (e.animationName !== "eraserSlide") return;  // ignore others
+        box.removeEventListener("animationend", done);
 
-        // If user is still hovering, trigger re-entry
+        box.classList.remove("erase");
+        box.style.opacity = "0";         // hide until next hover
+
+        /* if cursor already back inside, start slow wipe-in */
         if (zone.matches(":hover")) {
-          void mask.offsetWidth;
-
-          jitter = {
-            left: `${Math.random() * 4 - 2}%`,
-            bottom: `${Math.random() * 4 - 2}%`,
-            rotate: `${(Math.random() - 0.5) * 3}deg`
-          };
-
-          for (const key in jitter) {
-            box.style.setProperty(`--jitter-${key}`, jitter[key]);
-          }
-
-          mask.classList.add("wipe-in-slow");
+          void box.offsetWidth;
+          applyJitter();
+          box.classList.add("wipe-in-slow");
         }
-      });
+      }, { once: true });
     });
   });
+
 });
