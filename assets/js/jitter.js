@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       void box.offsetWidth;
 
       jitter = {
-        left: `${Math.random() * 2}%`,                       // ⬅ no negative values
+        left: `${Math.random() * 2}%`, // ⬅ no negative leftward drift
         bottom: `${Math.random() * 4 - 2}%`,
         width: `${100 + Math.random() * 6}%`,
         rotate: `${(Math.random() - 0.5) * 3}deg`
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       eraser.style.left = box.style.left;
       eraser.style.bottom = box.style.bottom;
-      eraser.style.width = box.style.width;
+      eraser.style.width = `${box.getBoundingClientRect().width}px`; // ✅ exact match
       eraser.style.top = "-25%";
       eraser.style.height = "200%";
 
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
           void box.offsetWidth;
 
           jitter = {
-            left: `${Math.random() * 2}%`,                  // ⬅ again: non-negative
+            left: `${Math.random() * 2}%`,
             bottom: `${Math.random() * 4 - 2}%`,
             width: `${100 + Math.random() * 6}%`,
             rotate: `${(Math.random() - 0.5) * 3}deg`

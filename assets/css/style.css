@@ -1,4 +1,4 @@
-/* ───────── 1. Background paper texture ───────── */
+/* ───────── 1. Paper-texture background ───────── */
 body::before {
   content: "";
   position: fixed;
@@ -16,7 +16,7 @@ body {
   z-index: 1;
 }
 
-/* ───────── 2. Topbar and layout ───────── */
+/* ───────── 2. Topbar layout ───────── */
 .topbar {
   position: relative;
   z-index: 1;
@@ -100,14 +100,14 @@ body {
   color: inherit;
 }
 
-/* ───────── 5. Hover Zone ───────── */
+/* ───────── 5. Hover Zones ───────── */
 .hover-zone {
   position: relative;
   display: inline-block;
   overflow: visible;
 }
 
-/* ───────── 6. Highlight Box ───────── */
+/* ───────── 6. Highlight Box (Blue) ───────── */
 .highlight-box {
   position: absolute;
   bottom: var(--jitter-bottom, 0%);
@@ -123,12 +123,12 @@ body {
   animation: none;
 }
 
-/* ───────── 7. Eraser Box ───────── */
+/* ───────── 7. Eraser Box (paper wipe) ───────── */
 .eraser-box {
   position: absolute;
   top: -25%;
   left: 0;
-  width: calc(100% + 4%);   /* ← artifact fix */
+  width: 100%;  /* ✅ Final fix: let JS handle dynamic width */
   height: 200%;
   background-color: #f8f5d7;
   pointer-events: none;
@@ -167,7 +167,7 @@ body {
   }
 }
 
-/* ───────── 9. Text Layering ───────── */
+/* ───────── 9. Text above highlight ───────── */
 .hover-zone span:last-of-type {
   position: relative;
   z-index: 3;
