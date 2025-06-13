@@ -1,4 +1,4 @@
-// jittered blue bar with left-to-right eraser overlay
+// jittered blue bar with true left-to-right erase
 document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll(".hover-zone").forEach(zone => {
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ── mouse enter ─────────────────────────────── */
     zone.addEventListener("mouseenter", () => {
       box.classList.remove("erase","wipe-in","wipe-in-slow");
-      void box.offsetWidth;                 // restart any anim
+      void box.offsetWidth;          // restart any anim
       applyJitter();
       box.classList.add("wipe-in");
     });
@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ── mouse leave ─────────────────────────────── */
     zone.addEventListener("mouseleave", () => {
       if (box.classList.contains("erase")) return; // already erasing
-      box.classList.add("erase");          // adds overlay (wipe-in stays!)
+      box.classList.add("erase");        // adds overlay layers
+      /* keep .wipe-in so bar stays visible */
 
       /* after overlay finishes sliding … */
       box.addEventListener("animationend", function done (e){
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         box.style.opacity = "0";
         box.style.transform = "scaleX(0) rotate(var(--jitter-rotate,0deg))";
 
-        /* if pointer already back, start slow wipe-in */
+        /* if pointer already back, trigger slow wipe-in */
         if (zone.matches(":hover")){
           void box.offsetWidth;
           applyJitter();
