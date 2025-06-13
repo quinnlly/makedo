@@ -7,16 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let jitter = {};
 
     zone.addEventListener("mouseenter", () => {
-      const existingEraser = zone.querySelector(".eraser-box");
-
-      if (existingEraser) {
-        existingEraser.classList.add("eraser-slide-fast");
-        return;
-      }
-
-      box.classList.remove("wipe-in", "wipe-in-slow");
+      // Reset box and wipe-in
+      box.classList.remove("wipe-in", "wipe-out", "wipe-in-slow");
       void box.offsetWidth;
 
+      // Random jitter values
       jitter = {
         left: `${Math.random() * 4 - 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
@@ -29,29 +24,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       box.classList.add("wipe-in");
-      box.style.opacity = "1";
     });
 
     zone.addEventListener("mouseleave", () => {
-      const eraser = document.createElement("div");
-      eraser.classList.add("eraser-box", "eraser-slide");
+      box.classList.remove("wipe-in", "wipe-in-slow");
+      box.classList.add("wipe-out");
 
-      eraser.style.left = box.style.left;
-      eraser.style.bottom = box.style.bottom;
-      eraser.style.width = box.style.width;
-      eraser.style.top = "-25%";
-      eraser.style.height = "200%";
-
-      zone.appendChild(eraser);
-
-      eraser.addEventListener("animationend", () => {
-        box.classList.remove("wipe-in", "wipe-in-slow");
+      box.addEventListener("transitionend", function wipeListener() {
+        box.removeEventListener("transitionend", wipeListener);
+        box.classList.remove("wipe-out");
         box.style.opacity = "0";
-        eraser.remove();
 
-        // Re-trigger slower wipe-in if user is still hovered
+        // If user is still hovering, trigger slow re-entry
         if (zone.matches(":hover")) {
-          box.classList.remove("wipe-in", "wipe-in-slow");
           void box.offsetWidth;
 
           jitter = {
