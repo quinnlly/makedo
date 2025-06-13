@@ -107,44 +107,52 @@ body {
   overflow: visible;
 }
 
-/* === Highlight Box (Jittered + directional wipe) === */
+/* === Highlight Mask (controls wipe animation) === */
+.highlight-mask {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  clip-path: inset(0 100% 0 0); /* start fully hidden */
+  transition: clip-path 0.35s ease, opacity 0.2s ease;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.highlight-mask.wipe-in {
+  clip-path: inset(0 0% 0 0);
+  opacity: 1;
+}
+
+.highlight-mask.wipe-in-slow {
+  clip-path: inset(0 0% 0 0);
+  opacity: 1;
+  transition: clip-path 0.5s ease, opacity 0.25s ease;
+}
+
+.highlight-mask.wipe-out {
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+  transition: clip-path 0.4s ease, opacity 0.2s ease;
+}
+
+/* === Highlight Box (rotated fill inside the mask) === */
 .highlight-box {
   position: absolute;
   bottom: var(--jitter-bottom, 0%);
   left: var(--jitter-left, 0%);
-  width: var(--jitter-width, 100%);
-  height: 50%;
+  width: 100%;
+  height: 100%;
   background-color: #7DC8F2;
   transform: rotate(var(--jitter-rotate, 0deg));
   transform-origin: left center;
-  opacity: 0;
-  z-index: 1;
   pointer-events: none;
-  clip-path: inset(0 100% 0 0); /* fully hidden from right */
 }
 
-/* Wipe in from left to right */
-.highlight-box.wipe-in {
-  opacity: 1;
-  clip-path: inset(0 0% 0 0);
-  transition: clip-path 0.35s ease-out, opacity 0.2s ease-in;
-}
-
-/* Slower wipe-in if rehovered */
-.highlight-box.wipe-in-slow {
-  opacity: 1;
-  clip-path: inset(0 0% 0 0);
-  transition: clip-path 0.5s ease-out, opacity 0.25s ease-in;
-}
-
-/* Wipe out from left to right (same direction) */
-.highlight-box.wipe-out {
-  opacity: 0;
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.35s ease-out, opacity 0.2s ease-in;
-}
-
-/* === Text above highlight === */
+/* === Text above the highlight === */
 .hover-zone span:last-of-type {
   position: relative;
   z-index: 3;
