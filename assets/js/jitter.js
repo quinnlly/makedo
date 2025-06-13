@@ -70,16 +70,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 🔽 Dropdown toggle logic for "Projects"
+  // 🔽 Dropdown hover + click toggle logic
   const dropdown = document.querySelector(".has-dropdown");
-  if (dropdown) {
-    dropdown.addEventListener("click", (e) => {
-      e.preventDefault();
-      dropdown.classList.toggle("open");
+  const dropdownMenu = dropdown?.querySelector(".dropdown-menu");
+  const arrow = dropdown?.querySelector(".dropdown-arrow");
+  const triggerZone = dropdown?.querySelector(".hover-zone");
+
+  let clickedOpen = false;
+
+  if (dropdown && dropdownMenu && arrow && triggerZone) {
+    // Hover behavior
+    dropdown.addEventListener("mouseenter", () => {
+      if (!clickedOpen) dropdown.classList.add("open");
     });
 
     dropdown.addEventListener("mouseleave", () => {
-      dropdown.classList.remove("open");
+      if (!clickedOpen) dropdown.classList.remove("open");
+    });
+
+    // Toggle by click
+    const toggleDropdown = (e) => {
+      e.preventDefault();
+      clickedOpen = !clickedOpen;
+      dropdown.classList.toggle("open", clickedOpen);
+    };
+
+    arrow.addEventListener("click", toggleDropdown);
+    triggerZone.addEventListener("click", toggleDropdown);
+
+    // Close if click outside
+    document.addEventListener("click", (e) => {
+      if (!dropdown.contains(e.target)) {
+        clickedOpen = false;
+        dropdown.classList.remove("open");
+      }
     });
   }
 });
