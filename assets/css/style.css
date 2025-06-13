@@ -1,4 +1,4 @@
-/* ───────── 1. Paper-texture background ───────── */
+/* ───────── Paper-texture background ───────── */
 body::before {
   content: "";
   position: fixed;
@@ -16,7 +16,7 @@ body {
   z-index: 1;
 }
 
-/* ───────── 2. Topbar layout ───────── */
+/* ───────── Topbar layout ───────── */
 .topbar {
   position: relative;
   z-index: 1;
@@ -34,7 +34,7 @@ body {
   overflow: visible;
 }
 
-/* ───────── 3. Logo Q ───────── */
+/* ───────── Logo Q ───────── */
 .logo {
   position: absolute;
   top: 0;
@@ -56,7 +56,6 @@ body {
   font-size: 5rem;
   line-height: 1;
   position: relative;
-  display: inline-block;
   z-index: 2;
 }
 
@@ -79,7 +78,7 @@ body {
   transform: scaleX(1);
 }
 
-/* ───────── 4. Navigation Links ───────── */
+/* ───────── Nav links ───────── */
 .nav-links {
   display: flex;
   gap: 2rem;
@@ -102,14 +101,14 @@ body {
   overflow: visible;
 }
 
-/* ───────── 5. Hover Zones ───────── */
+/* ───────── Hover zone ───────── */
 .hover-zone {
   position: relative;
   display: inline-block;
   overflow: visible;
 }
 
-/* 🟦 Invisible mask to hide jitter artifacting */
+/* ───────── Invisible mask ───────── */
 .highlight-mask {
   position: absolute;
   top: -25%;
@@ -128,10 +127,9 @@ body {
   background-image: url('../images/paper-fiber-manila.png');
   background-repeat: repeat;
   opacity: 0.2;
-  pointer-events: none;
 }
 
-/* ───────── 6. Highlight Box (Blue Bar) ───────── */
+/* ───────── Highlight box (blue) ───────── */
 .highlight-box {
   position: absolute;
   bottom: var(--jitter-bottom, 0%);
@@ -144,10 +142,9 @@ body {
   opacity: 0;
   z-index: 1;
   pointer-events: none;
-  animation: none;
 }
 
-/* ───────── 7. Eraser Box ───────── */
+/* ───────── Eraser box ───────── */
 .eraser-box {
   position: absolute;
   top: -25%;
@@ -169,10 +166,9 @@ body {
   background-repeat: repeat;
   opacity: 0.2;
   pointer-events: none;
-  z-index: 1;
 }
 
-/* ───────── 8. Eraser Animations ───────── */
+/* ───────── Eraser animation ───────── */
 .eraser-slide {
   animation: eraserSlide 0.6s ease-in forwards;
   animation-delay: 0.15s;
@@ -187,7 +183,7 @@ body {
   to   { transform: translateX(0%); }
 }
 
-/* ───────── 9. Highlight Animations ───────── */
+/* ───────── Highlight animations ───────── */
 @keyframes wipeIn {
   from { transform: scaleX(0) rotate(var(--jitter-rotate, 0deg)); opacity: 0; }
   to   { transform: scaleX(1) rotate(var(--jitter-rotate, 0deg)); opacity: 1; }
@@ -201,13 +197,7 @@ body {
   animation: wipeIn 0.4s ease-out forwards;
 }
 
-/* ───────── 10. Text layering ───────── */
-.hover-zone span:last-of-type {
-  position: relative;
-  z-index: 3;
-}
-
-/* ───────── 11. Dropdown Logic (corrected) ───────── */
+/* ───────── Dropdown styles ───────── */
 .has-dropdown {
   position: relative;
 }
@@ -226,11 +216,12 @@ body {
   z-index: 3;
 }
 
-/* 🛠 dropdown menu now properly positioned under the Projects word */
+/* 🟡 Dropdown aligned below trigger */
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 0.25em);
+  top: 100%;
   left: 0;
+  transform: translateY(0.25em);
   background-color: #f8f5d7;
   border: 1px solid #ccc;
   padding: 0.75rem 1rem;
@@ -254,7 +245,7 @@ body {
   pointer-events: auto;
 }
 
-/* ───────── 12. Mobile ───────── */
+/* ───────── Mobile ───────── */
 @media (max-width: 600px) {
   .topbar {
     flex-wrap: wrap;
@@ -268,7 +259,7 @@ body {
   }
 }
 
-/* ───────── 13. Equity Fonts ───────── */
+/* ───────── Equity Fonts ───────── */
 @font-face {
   font-family: 'Equity Text';
   src: url('../fonts/equity_text_a_regular-webfont.ttf') format('truetype');

@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 🔽 Dropdown: hover + click toggle logic with blue highlight lock
+  // 🔽 Dropdown hover + click behavior + blue bar lock
   const dropdown = document.querySelector(".has-dropdown");
   const dropdownMenu = dropdown?.querySelector(".dropdown-menu");
   const arrow = dropdown?.querySelector(".dropdown-arrow");
@@ -80,16 +80,20 @@ document.addEventListener("DOMContentLoaded", () => {
   let clickedOpen = false;
 
   if (dropdown && dropdownMenu && arrow && triggerZone && highlightBox) {
-    // Hover opens temporarily
+    // Hover opens if not clicked
     dropdown.addEventListener("mouseenter", () => {
-      if (!clickedOpen) dropdown.classList.add("open");
+      if (!clickedOpen) {
+        dropdown.classList.add("open");
+      }
     });
 
     dropdown.addEventListener("mouseleave", () => {
-      if (!clickedOpen) dropdown.classList.remove("open");
+      if (!clickedOpen) {
+        dropdown.classList.remove("open");
+      }
     });
 
-    // Toggle open/close via click
+    // Click toggles lock state
     const toggleDropdown = (e) => {
       e.preventDefault();
       clickedOpen = !clickedOpen;
@@ -107,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     arrow.addEventListener("click", toggleDropdown);
     triggerZone.addEventListener("click", toggleDropdown);
 
-    // Click outside closes menu and highlight
+    // Click outside closes both dropdown and highlight
     document.addEventListener("click", (e) => {
       if (!dropdown.contains(e.target)) {
         clickedOpen = false;
