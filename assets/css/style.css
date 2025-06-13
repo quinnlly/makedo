@@ -107,7 +107,28 @@ body {
   overflow: visible;
 }
 
-/* ───────── 6. Highlight Box (Blue) ───────── */
+/* 🆕 ───────── 6. Invisible Left Mask ───────── */
+.highlight-mask {
+  position: absolute;
+  top: -25%;
+  left: 0;
+  width: 6%;
+  height: 200%;
+  background: #f8f5d7;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.highlight-mask::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('../images/paper-fiber-manila.png');
+  background-repeat: repeat;
+  opacity: 0.2;
+}
+
+/* ───────── 7. Highlight Box (Blue) ───────── */
 .highlight-box {
   position: absolute;
   bottom: var(--jitter-bottom, 0%);
@@ -123,12 +144,12 @@ body {
   animation: none;
 }
 
-/* ───────── 7. Eraser Box (paper wipe) ───────── */
+/* ───────── 8. Eraser Box (paper wipe) ───────── */
 .eraser-box {
   position: absolute;
   top: -25%;
   left: 0;
-  width: 100%;  /* ✅ Final fix: let JS handle dynamic width */
+  width: 100%;
   height: 200%;
   background-color: #f8f5d7;
   pointer-events: none;
@@ -148,7 +169,7 @@ body {
   z-index: 1;
 }
 
-/* ───────── 8. Eraser Animations ───────── */
+/* ───────── 9. Eraser Animations ───────── */
 .eraser-slide {
   animation: eraserSlide 0.6s ease-in forwards;
   animation-delay: 0.15s;
@@ -167,13 +188,13 @@ body {
   }
 }
 
-/* ───────── 9. Text above highlight ───────── */
+/* ───────── 10. Text above highlight ───────── */
 .hover-zone span:last-of-type {
   position: relative;
   z-index: 3;
 }
 
-/* ───────── 10. Highlight Animations ───────── */
+/* ───────── 11. Highlight Animations ───────── */
 @keyframes wipeIn {
   from {
     transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
@@ -193,7 +214,7 @@ body {
   animation: wipeIn 0.4s ease-out forwards;
 }
 
-/* ───────── 11. Mobile Layout ───────── */
+/* ───────── 12. Mobile Layout ───────── */
 @media (max-width: 600px) {
   .topbar {
     flex-wrap: wrap;
@@ -207,7 +228,7 @@ body {
   }
 }
 
-/* ───────── 12. Equity Fonts ───────── */
+/* ───────── 13. Equity Fonts ───────── */
 @font-face {
   font-family: 'Equity Text';
   src: url('../fonts/equity_text_a_regular-webfont.ttf') format('truetype');
