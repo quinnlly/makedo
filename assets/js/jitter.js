@@ -1,51 +1,58 @@
-// jittered blue bar with sliding paper-overlay wipe-out
+// Original eraser-box version, artifact-free
 document.addEventListener("DOMContentLoaded", () => {
+  const zones = document.querySelectorAll(".hover-zone");
 
-  const ERASE_MS = 600;  // must match .60s in CSS
+  zones.forEach(zone => {
+    const box = zone.querySelector(".highlight-box");
+    let eraseTimer = null;
 
-  document.querySelectorAll(".hover-zone").forEach(zone => {
-    const bar = zone.querySelector(".highlight-box");
-    let timer = null;
-
-    /* pump new jitter values each time */
-    function jitter() {
-      bar.style.setProperty("--jitter-left" , `${Math.random() * 4 - 2}%`);
-      bar.style.setProperty("--jitter-bottom", `${Math.random() * 4 - 2}%`);
-      bar.style.setProperty("--jitter-width" , `${100 + Math.random() * 6}%`);
-      bar.style.setProperty("--jitter-rotate", `${(Math.random() - 0.5) * 3}deg`);
+    function randomJitter() {
+      return {
+        left  :  `${Math.random() * 2 }%`,        // 0-2 %   ➜ never negative
+        bottom:  `${Math.random() * 4 - 2}%`,
+        width :  `${100 + Math.random() * 6}%`,
+        rotate:  `${(Math.random() - 0.5) * 3}deg`
+      };
     }
 
-    /* ── hover IN ─────────────────────────────────────── */
     zone.addEventListener("mouseenter", () => {
-      clearTimeout(timer);
-      bar.classList.remove("erase","wipe-in","wipe-in-slow");
-      void bar.offsetWidth;       // restart CSS animation
-      jitter();
-      bar.classList.add("wipe-in");
-      bar.style.opacity = "1";
+      clearTimeout(eraseTimer);
+      box.classList.remove("eraser-slide","eraser-slide-fast");
+
+      const j = randomJitter();
+      for (const k in j) box.style.setProperty(`--jitter-${k}`, j[k]);
+
+      box.classList.remove("wipe-in","wipe-in-slow");
+      void box.offsetWidth;              // restart CSS animation
+      box.classList.add("wipe-in");
+      box.style.opacity = "1";
     });
 
-    /* ── hover OUT ────────────────────────────────────── */
     zone.addEventListener("mouseleave", () => {
-      if (bar.classList.contains("erase")) return; // already erasing
+      // create eraser overlay only once per leave
+      if (zone.querySelector(".eraser-box")) return;
 
-      /* keep .wipe-in so bar stays wide */
-      bar.classList.add("erase");
+      const eraser = document.createElement("div");
+      eraser.className = "eraser-box eraser-slide";
+      eraser.style.left   = box.style.left;
+      eraser.style.bottom = box.style.bottom;
+      eraser.style.width  = box.style.width;
+      zone.appendChild(eraser);
 
-      timer = setTimeout(() => {
-        bar.classList.remove("erase","wipe-in","wipe-in-slow");
-        bar.style.opacity   = "0";
-        bar.style.transform = "scaleX(0) rotate(var(--jitter-rotate))";
+      // after slide finishes, reset everything
+      eraseTimer = setTimeout(() => {
+        box.classList.remove("wipe-in","wipe-in-slow");
+        box.style.opacity = "0";
+        eraser.remove();
 
-        /* pointer came back meanwhile → do a slow wipe-in */
-        if (zone.matches(":hover")){
-          void bar.offsetWidth;
-          jitter();
-          bar.classList.add("wipe-in-slow");
-          bar.style.opacity = "1";
+        // if the pointer is already back → slow wipe-in
+        if (zone.matches(":hover")) {
+          const j = randomJitter();
+          for (const k in j) box.style.setProperty(`--jitter-${k}`, j[k]);
+          box.classList.add("wipe-in-slow");
+          box.style.opacity = "1";
         }
-      }, ERASE_MS);
+      }, 600);  //   matches .6 s eraserSlide
     });
   });
-
 });
