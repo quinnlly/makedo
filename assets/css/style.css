@@ -107,14 +107,14 @@ body {
   overflow: visible;
 }
 
-/* 🟥 DEBUG: Visible Red Mask (for alignment test) */
+/* 🟥 Final debug version of left-edge overlay */
 .highlight-mask {
   position: absolute;
   top: -25%;
-  left: 0;
-  width: 6%;
+  left: -60px;     /* ⬅ shift far into margin */
+  width: 80px;     /* ⬅ cover full left side */
   height: 200%;
-  background: red;       /* ⬅ clearly visible */
+  background: red; /* ⬅ visually obvious for testing */
   z-index: 4;
   pointer-events: none;
 }
