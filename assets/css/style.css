@@ -15,7 +15,7 @@ body{background:#f8f5d7;position:relative;z-index:1;}
 .nav-links{display:flex;gap:2rem;margin-left:auto;margin-top:1.2rem;}
 .nav-links a{position:relative;display:inline-block;font-family:'Equity Caps','Georgia',serif;font-size:1.25rem;letter-spacing:.05em;text-decoration:none;color:inherit;}
 
-/* ───────── 3. Hover-highlight (jitter + dual overlay) ───────── */
+/* ───────── 3. Hover-highlight (blue bar + dual overlay) ───────── */
 .hover-zone{position:relative;display:inline-block;}
 
 .highlight-box{
@@ -34,21 +34,25 @@ body{background:#f8f5d7;position:relative;z-index:1;}
 .highlight-box.wipe-in      {animation:wipeIn .30s ease-out forwards;}
 .highlight-box.wipe-in-slow {animation:wipeIn .50s ease-out forwards;}
 
-/* wipe-OUT → dual overlay layers sliding left→right */
+/* wipe-OUT → dual overlay layers sliding L→R (now 2 s + white outline) */
 .highlight-box.erase{position:relative;}
 
 .highlight-box.erase::after,
 .highlight-box.erase::before{
   content:"";position:absolute;inset:0;pointer-events:none;
-  animation:eraserSlide .60s ease-in forwards;
+  animation:eraserSlide 2s linear forwards;          /* 2-second slide */
 }
-.highlight-box.erase::after{background:#f8f5d7;z-index:2;}        /* solid tint */
+.highlight-box.erase::after{
+  background:#f8f5d7;
+  outline:1px solid rgba(255,255,255,.6);            /* visible edge */
+  z-index:2;
+}
 .highlight-box.erase::before{
-  background:url("/assets/images/paper-fiber-manila.png") repeat;  /* texture */
+  background:url("/assets/images/paper-fiber-manila.png") repeat;
   opacity:.20;z-index:3;
 }
 
-/* keep link text above */
+/* keep link text above everything */
 .hover-zone span:last-of-type{position:relative;z-index:4;}
 
 /* keyframes */
