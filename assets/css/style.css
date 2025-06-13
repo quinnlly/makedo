@@ -111,7 +111,7 @@ body {
 .highlight-mask {
   position: absolute;
   top: -25%;
-  left: -5em;
+  left: -4em;
   width: 4em;
   height: 200%;
   background: red;
