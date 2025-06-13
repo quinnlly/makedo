@@ -107,15 +107,25 @@ body {
   overflow: visible;
 }
 
-/* 🟥 DEBUG: Responsive red mask to visually confirm area */
+/* ✅ Final invisible highlight mask */
 .highlight-mask {
   position: absolute;
   top: -25%;
   left: -4em;
   width: 4em;
   height: 200%;
-  background: red;
+  background: #f8f5d7;
   z-index: 4;
+  pointer-events: none;
+}
+
+.highlight-mask::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('../images/paper-fiber-manila.png');
+  background-repeat: repeat;
+  opacity: 0.2;
   pointer-events: none;
 }
 
