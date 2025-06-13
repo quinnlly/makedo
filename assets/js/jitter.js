@@ -1,39 +1,48 @@
-// jittered blue bar using clip-path wipe-in / wipe-out
+// jittered blue bar with sliding paper overlay wipe-out
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Loop over every hover-zone
+  const ERASE_MS = 600;                       // 0.60 s slide matches CSS
   document.querySelectorAll(".hover-zone").forEach(zone => {
     const bar = zone.querySelector(".highlight-box");
+    let timer = null;
 
-    /* ── helper: apply random jitter on every hover ── */
+    /* random jitter on every hover */
     function jitter () {
-      bar.style.setProperty("--jitter-left" , `${Math.random() * 4 - 2}%`);
-      bar.style.setProperty("--jitter-bottom", `${Math.random() * 4 - 2}%`);
-      bar.style.setProperty("--jitter-width" , `${100 + Math.random() * 6}%`);
-      bar.style.setProperty("--jitter-rotate", `${(Math.random() - 0.5) * 3}deg`);
-      bar.style.transform = `rotate(var(--jitter-rotate))`;
+      bar.style.setProperty("--jitter-left" , `${Math.random()*4 - 2}%`);
+      bar.style.setProperty("--jitter-bottom", `${Math.random()*4 - 2}%`);
+      bar.style.setProperty("--jitter-width" , `${100 + Math.random()*6}%`);
+      bar.style.setProperty("--jitter-rotate", `${(Math.random()-0.5)*3}deg`);
     }
 
-    /* ── hover IN: reveal bar (wipe-in) ── */
+    /* hover IN */
     zone.addEventListener("mouseenter", () => {
-      bar.classList.remove("wipe-out", "wipe-in", "wipe-in-slow");
-      void bar.offsetWidth;       // restart any previous animation
+      clearTimeout(timer);
+      bar.classList.remove("erase","wipe-in","wipe-in-slow");
+      void bar.offsetWidth;          // restart animation
       jitter();
       bar.classList.add("wipe-in");
+      bar.style.opacity = "1";
     });
 
-    /* ── hover OUT: hide bar (wipe-out) ── */
+    /* hover OUT */
     zone.addEventListener("mouseleave", () => {
-      bar.classList.remove("wipe-in", "wipe-in-slow");
-      bar.classList.add("wipe-out");
+      if (bar.classList.contains("erase")) return;   // already erasing
+      bar.classList.add("erase");                    // overlay slides
 
-      /* remove wipe-out class after its animation finishes */
-      bar.addEventListener("animationend", function done(e) {
-        if (e.animationName !== "wipeOutClip") return;
-        bar.classList.remove("wipe-out");
-        bar.removeEventListener("animationend", done);
-      }, { once: true });
+      /* remove overlay & reset after slide finishes */
+      timer = setTimeout(() => {
+        bar.classList.remove("erase","wipe-in","wipe-in-slow");
+        bar.style.opacity = "0";
+        bar.style.transform = "scaleX(0) rotate(var(--jitter-rotate))";
+
+        /* if pointer re-entered meanwhile → slow wipe-in */
+        if (zone.matches(":hover")){
+          void bar.offsetWidth;
+          jitter();
+          bar.classList.add("wipe-in-slow");
+          bar.style.opacity = "1";
+        }
+      }, ERASE_MS);
     });
   });
-
 });
