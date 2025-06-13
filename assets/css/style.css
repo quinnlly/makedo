@@ -79,3 +79,42 @@ body{background:#f8f5d7;position:relative;z-index:1;}
 @font-face{font-family:'Equity Text';src:url("../fonts/equity_text_a_bold_italic-webfont.ttf") format("truetype");font-weight:700;font-style:italic;}
 @font-face{font-family:'Equity Caps';src:url("../fonts/equity_caps_a_regular-webfont.ttf") format("truetype");font-weight:400;font-style:normal;}
 @font-face{font-family:'Equity Caps';src:url("../fonts/equity_caps_a_bold-webfont.ttf") format("truetype");font-weight:700;font-style:normal;}
+
+/* ───────────────────────────────────────────────
+   TEMPORARY DIAGNOSTICS – add at the *end*
+   Remove when you find the cause
+─────────────────────────────────────────────── */
+
+/* 1️⃣  Paint the overlay BRIGHT MAGENTA + 3 px outline */
+.highlight-box.erase::after{
+  background:#ff00ff !important;                 /* solid magenta */
+  outline:3px solid red !important;              /* thick border  */
+}
+.highlight-box.erase::before{
+  background:#00ffff !important;                 /* cyan texture  */
+  opacity:.4 !important;                         /* very visible  */
+  outline:3px solid red !important;
+}
+
+/* 2️⃣  Freeze the blue bar at full width while .erase is on */
+.highlight-box.erase{
+  transform:none !important;                     /* bar never collapses */
+}
+
+/* 3️⃣  Make .erase itself draw a border so you can see the box
+       even if pseudo-elements somehow fail */
+.highlight-box.erase{
+  outline:3px dashed #ff00ff !important;
+  outline-offset:2px !important;
+}
+
+/* 4️⃣  Slow the overlay W-A-Y down so you can follow it */
+@keyframes eraserSlide{
+  from{transform:translateX(-100%);}
+  to  {transform:translateX(0);}
+}
+.highlight-box.erase::after,
+.highlight-box.erase::before{
+  animation:eraserSlide 3s linear forwards !important;  /* 3 seconds */
+}
+
