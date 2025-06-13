@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   zones.forEach(zone => {
     const box = zone.querySelector(".highlight-box");
-
     let jitter = {};
 
     zone.addEventListener("mouseenter", () => {
@@ -18,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       void box.offsetWidth;
 
       jitter = {
-        left: `${Math.random() * 2}%`, // ⬅ no negative leftward drift
+        left: `${Math.random() * 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
         width: `${100 + Math.random() * 6}%`,
         rotate: `${(Math.random() - 0.5) * 3}deg`
@@ -38,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       eraser.style.left = box.style.left;
       eraser.style.bottom = box.style.bottom;
-      eraser.style.width = `${box.getBoundingClientRect().width}px`; // ✅ exact match
+      eraser.style.width = `${box.getBoundingClientRect().width}px`;
       eraser.style.top = "-25%";
       eraser.style.height = "200%";
 
@@ -49,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
         box.style.opacity = "0";
         eraser.remove();
 
-        // Re-trigger slower wipe-in if user is still hovered
         if (zone.matches(":hover")) {
           box.classList.remove("wipe-in", "wipe-in-slow");
           void box.offsetWidth;
@@ -71,4 +69,17 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   });
+
+  // 🔽 Dropdown toggle logic for "Projects"
+  const dropdown = document.querySelector(".has-dropdown");
+  if (dropdown) {
+    dropdown.addEventListener("click", (e) => {
+      e.preventDefault();
+      dropdown.classList.toggle("open");
+    });
+
+    dropdown.addEventListener("mouseleave", () => {
+      dropdown.classList.remove("open");
+    });
+  }
 });
