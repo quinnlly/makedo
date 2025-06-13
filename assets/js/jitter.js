@@ -1,10 +1,13 @@
-// jittered blue bar with true left-to-right erase
+// jittered blue bar with 0.6-second left-to-right wipe-out
 document.addEventListener("DOMContentLoaded", () => {
 
+  const ERASE_MS = 600;  // must match .60s in CSS
   document.querySelectorAll(".hover-zone").forEach(zone => {
-    const bar = zone.querySelector(".highlight-box");
 
-    /* helper: randomise jitter each wipe-in */
+    const bar = zone.querySelector(".highlight-box");
+    let eraseTimer = null;
+
+    /* random jitter each wipe-in */
     function jitter () {
       bar.style.setProperty("--jitter-left" , `${Math.random()*4 - 2}%`);
       bar.style.setProperty("--jitter-bottom", `${Math.random()*4 - 2}%`);
@@ -12,41 +15,35 @@ document.addEventListener("DOMContentLoaded", () => {
       bar.style.setProperty("--jitter-rotate", `${(Math.random()-0.5)*3}deg`);
     }
 
-    /* ── hover IN ───────────────────────────────────────── */
+    /* hover IN */
     zone.addEventListener("mouseenter", () => {
+      clearTimeout(eraseTimer);
       bar.classList.remove("erase","wipe-in","wipe-in-slow");
-      void bar.offsetWidth;                 // restart animations
+      void bar.offsetWidth;
       jitter();
-      bar.classList.add("wipe-in");         // blue bar scales in
+      bar.classList.add("wipe-in");
       bar.style.opacity = "1";
     });
 
-    /* ── hover OUT ──────────────────────────────────────── */
+    /* hover OUT */
     zone.addEventListener("mouseleave", () => {
       if (bar.classList.contains("erase")) return;  // already erasing
+      bar.classList.add("erase");                  // add overlay layers
 
-      bar.classList.add("erase");   // add overlay layers
-      /* keep .wipe-in so bar stays visible */
-
-      /* wait for overlay's slide to finish */
-      bar.addEventListener("animationend", function done (e) {
-        if (e.animationName !== "eraserSlide") return; // ignore wipeIn
-        bar.removeEventListener("animationend", done);
-
+      eraseTimer = setTimeout(() => {              // after slide finished
         bar.classList.remove("erase","wipe-in","wipe-in-slow");
         bar.style.opacity = "0";
         bar.style.transform = "scaleX(0) rotate(var(--jitter-rotate,0deg))";
 
-        /* if pointer re-entered during erase → slow wipe-in */
+        /* re-hovered mid-erase → slow wipe-in */
         if (zone.matches(":hover")){
           void bar.offsetWidth;
           jitter();
           bar.classList.add("wipe-in-slow");
           bar.style.opacity = "1";
         }
-      }, { once:true });
+      }, ERASE_MS);
     });
   });
 
 });
-
