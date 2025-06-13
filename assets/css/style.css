@@ -1,7 +1,7 @@
 /* ───────── 1. page paper background ───────── */
 body::before{
   content:"";position:fixed;inset:0;
-  background:url("assets/images/paper-fiber-manila.png") repeat;
+  background:url("../images/paper-fiber-manila.png") repeat;   /* ← fixed path */
   opacity:.20;pointer-events:none;z-index:0;}
 body{background:#f8f5d7;position:relative;z-index:1;}
 
@@ -34,7 +34,7 @@ body{background:#f8f5d7;position:relative;z-index:1;}
 .highlight-box.wipe-in      {animation:wipeIn .30s ease-out forwards;}
 .highlight-box.wipe-in-slow {animation:wipeIn .50s ease-out forwards;}
 
-/* wipe-OUT  → dual overlay layers that slide L→R */
+/* wipe-OUT → dual overlay layers that slide L→R */
 .highlight-box.erase{position:relative;}
 
 .highlight-box.erase::after,
@@ -43,10 +43,10 @@ body{background:#f8f5d7;position:relative;z-index:1;}
   animation:eraserSlide .60s ease-in forwards;
   pointer-events:none;
 }
-.highlight-box.erase::after {background:#f8f5d7;z-index:2;}/* solid tint */
+.highlight-box.erase::after {background:#f8f5d7;z-index:2;}  /* solid tint */
 .highlight-box.erase::before{
-  background:url("assets/images/paper-fiber-manila.png") repeat;
-  opacity:.20;z-index:3;                                   /* 20% texture */
+  background:url("../images/paper-fiber-manila.png") repeat;  /* ← fixed path */
+  opacity:.20;z-index:3;                                      /* 20 % texture */
 }
 
 /* keep the link text above everything */
@@ -69,10 +69,9 @@ body{background:#f8f5d7;position:relative;z-index:1;}
 }
 
 /* ───────── 5. equity fonts (unchanged) ───────── */
-@font-face{font-family:'Equity Text';src:url("assets/fonts/equity_text_a_regular-webfont.ttf") format("truetype");font-weight:400;font-style:normal;}
-@font-face{font-family:'Equity Text';src:url("assets/fonts/equity_text_a_bold-webfont.ttf") format("truetype");font-weight:700;font-style:normal;}
-@font-face{font-family:'Equity Text';src:url("assets/fonts/equity_text_a_italic-webfont.ttf") format("truetype");font-weight:400;font-style:italic;}
-@font-face{font-family:'Equity Text';src:url("assets/fonts/equity_text_a_bold_italic-webfont.ttf") format("truetype");font-weight:700;font-style:italic;}
-@font-face{font-family:'Equity Caps';src:url("assets/fonts/equity_caps_a_regular-webfont.ttf") format("truetype");font-weight:400;font-style:normal;}
-@font-face{font-family:'Equity Caps';src:url("assets/fonts/equity_caps_a_bold-webfont.ttf") format("truetype");font-weight:700;font-style:normal;}
-
+@font-face{font-family:'Equity Text';src:url("../fonts/equity_text_a_regular-webfont.ttf") format("truetype");font-weight:400;font-style:normal;}
+@font-face{font-family:'Equity Text';src:url("../fonts/equity_text_a_bold-webfont.ttf") format("truetype");font-weight:700;font-style:normal;}
+@font-face{font-family:'Equity Text';src:url("../fonts/equity_text_a_italic-webfont.ttf") format("truetype");font-weight:400;font-style:italic;}
+@font-face{font-family:'Equity Text';src:url("../fonts/equity_text_a_bold_italic-webfont.ttf") format("truetype");font-weight:700;font-style:italic;}
+@font-face{font-family:'Equity Caps';src:url("../fonts/equity_caps_a_regular-webfont.ttf") format("truetype");font-weight:400;font-style:normal;}
+@font-face{font-family:'Equity Caps';src:url("../fonts/equity_caps_a_bold-webfont.ttf") format("truetype");font-weight:700;font-style:normal;}
