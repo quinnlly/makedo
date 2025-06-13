@@ -1,11 +1,10 @@
-/* ───────── 1. Paper-texture background ───────── */
-body::before{
-  content:"";position:fixed;inset:0;
+/* 1. paper background (unchanged) */
+body::before{content:"";position:fixed;inset:0;
   background:url("/assets/images/paper-fiber-manila.png") repeat;
   opacity:.20;pointer-events:none;z-index:0;}
 body{background:#f8f5d7;position:relative;z-index:1;}
 
-/* ───────── 2. Top-bar & logo (unchanged) ───────── */
+/* 2. layout / logo (unchanged) */
 .topbar{position:relative;z-index:1;padding:1rem 2rem;min-height:80px;}
 .topbar-inner{display:flex;justify-content:space-between;align-items:flex-end;}
 .logo{position:absolute;top:0;left:0;width:60px;height:60px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:inherit;z-index:2;}
@@ -15,36 +14,29 @@ body{background:#f8f5d7;position:relative;z-index:1;}
 .nav-links{display:flex;gap:2rem;margin-left:auto;margin-top:1.2rem;}
 .nav-links a{position:relative;display:inline-block;font-family:'Equity Caps','Georgia',serif;font-size:1.25rem;letter-spacing:.05em;text-decoration:none;color:inherit;}
 
-/* ───────── 3. Hover-highlight (blue bar + dual overlay) ───────── */
+/* 3. hover highlight */
 .hover-zone{position:relative;display:inline-block;}
 
 .highlight-box{
-  position:absolute;
-  bottom:var(--jitter-bottom,0%);
-  left:var(--jitter-left,0%);
-  width:var(--jitter-width,100%);
-  height:50%;
-  background:#7DC8F2;
+  position:absolute;bottom:var(--jitter-bottom,0%);left:var(--jitter-left,0%);
+  width:var(--jitter-width,100%);height:50%;background:#7DC8F2;
   transform:scaleX(0) rotate(var(--jitter-rotate,0deg));
-  transform-origin:left center;
-  opacity:0;pointer-events:none;z-index:1;
+  transform-origin:left center;opacity:0;pointer-events:none;z-index:1;
 }
 
 /* wipe-IN */
-.highlight-box.wipe-in      {animation:wipeIn .30s ease-out forwards;}
-.highlight-box.wipe-in-slow {animation:wipeIn .50s ease-out forwards;}
+.highlight-box.wipe-in{animation:wipeIn .3s ease-out forwards;}
+.highlight-box.wipe-in-slow{animation:wipeIn .5s ease-out forwards;}
 
-/* wipe-OUT → dual overlay layers sliding L→R (now 2 s + white outline) */
+/* DEBUG wipe-OUT → bright-red 4-second slide */
 .highlight-box.erase{position:relative;}
-
 .highlight-box.erase::after,
 .highlight-box.erase::before{
   content:"";position:absolute;inset:0;pointer-events:none;
-  animation:eraserSlide 2s linear forwards;          /* 2-second slide */
+  animation:eraserSlide 4s linear forwards;
 }
 .highlight-box.erase::after{
-  background:#f8f5d7;
-  outline:1px solid rgba(255,255,255,.6);            /* visible edge */
+  background:#ff2a2a;outline:2px solid #fff; /* <<-- bright red */
   z-index:2;
 }
 .highlight-box.erase::before{
@@ -52,26 +44,26 @@ body{background:#f8f5d7;position:relative;z-index:1;}
   opacity:.20;z-index:3;
 }
 
-/* keep link text above everything */
+/* text on top */
 .hover-zone span:last-of-type{position:relative;z-index:4;}
 
 /* keyframes */
 @keyframes wipeIn{
   from{transform:scaleX(0) rotate(var(--jitter-rotate,0deg));opacity:0;}
-  to  {transform:scaleX(1) rotate(var(--jitter-rotate,0deg));opacity:1;}
+  to{transform:scaleX(1) rotate(var(--jitter-rotate,0deg));opacity:1;}
 }
 @keyframes eraserSlide{
   from{transform:translateX(-100%);}
-  to  {transform:translateX(0);}
+  to{transform:translateX(0);}
 }
 
-/* ───────── 4. Mobile tweak ───────── */
+/* 4. mobile */
 @media(max-width:600px){
   .topbar{flex-wrap:wrap;gap:.5rem;}
   .nav-links{width:100%;justify-content:flex-end;}
 }
 
-/* ───────── 5. Equity fonts (unchanged) ───────── */
+/* 5. fonts (unchanged) */
 @font-face{font-family:'Equity Text';src:url("/assets/fonts/equity_text_a_regular-webfont.ttf") format("truetype");font-weight:400;font-style:normal;}
 @font-face{font-family:'Equity Text';src:url("/assets/fonts/equity_text_a_bold-webfont.ttf") format("truetype");font-weight:700;font-style:normal;}
 @font-face{font-family:'Equity Text';src:url("/assets/fonts/equity_text_a_italic-webfont.ttf") format("truetype");font-weight:400;font-style:italic;}
