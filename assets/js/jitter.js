@@ -1,4 +1,13 @@
-window.activateNavBar = function () {
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("nav-bar.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("nav-placeholder").innerHTML = html;
+      activateNavBar();
+    });
+});
+
+function activateNavBar() {
   const hoverZones = document.querySelectorAll(".hover-zone");
   const dropdownTriggers = document.querySelectorAll(".dropdown-trigger");
   const dropdowns = document.querySelectorAll(".has-dropdown");
@@ -37,4 +46,4 @@ window.activateNavBar = function () {
       }
     });
   });
-};
+}
