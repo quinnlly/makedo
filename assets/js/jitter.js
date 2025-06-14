@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const zones = document.querySelectorAll(".hover-zone");
   let dropdownCloseTimeout = null;
 
-  // 🎯 Skewed randomness utility
   const randSkew = (magnitude) => {
     const sign = Math.random() < 0.5 ? -1 : 1;
     return sign * Math.pow(Math.random(), 0.5) * magnitude;
@@ -172,5 +171,15 @@ document.addEventListener("DOMContentLoaded", () => {
         wipeOut();
       }
     });
+
+    // ✅ Force highlight to reappear on hover into "Projects" even if menu is open
+    const projectsHoverZone = trigger.querySelector(".hover-zone");
+    if (projectsHoverZone) {
+      projectsHoverZone.addEventListener("mouseenter", () => {
+        if (dropdown.classList.contains("open")) {
+          showHighlight();
+        }
+      });
+    }
   }
 });
