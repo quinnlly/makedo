@@ -235,8 +235,8 @@ body::before {
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
-  transform: none;
+  left: 50%;
+  transform: translateX(-50%);
   margin-top: 0.2em;
   background-color: #f8f5d7;
   border: 1px solid #ccc;
@@ -394,8 +394,8 @@ body::before {
 }
 
 .social-icons a[href*="letterboxd"] img {
-  width: 3.8em;
-  height: 3.8em;
+  width: 3.4em;
+  height: 3.4em;
   vertical-align: -0.2em;
   filter: brightness(0) saturate(100%) sepia(1) hue-rotate(140deg) saturate(4);
 }
