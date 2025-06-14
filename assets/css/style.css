@@ -2,7 +2,7 @@
 body::before {
   content: "";
   position: fixed;
-  inset: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background-image: url('../images/paper-fiber-manila.png');
   background-repeat: repeat;
   opacity: 0.2;
@@ -34,7 +34,7 @@ body {
   overflow: visible;
 }
 
-/* === Logo === */
+/* === Logo Q === */
 .logo {
   position: absolute;
   top: 0;
@@ -56,6 +56,7 @@ body {
   font-size: 5rem;
   line-height: 1;
   position: relative;
+  display: inline-block;
   z-index: 2;
 }
 
@@ -87,27 +88,23 @@ body {
   overflow: visible;
 }
 
-.nav-links a,
-.has-dropdown {
+.nav-links a {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
+  display: inline-block;
+  overflow: visible;
   font-family: 'Equity Caps', 'Georgia', serif;
   font-weight: 400;
   font-size: 1.25rem;
   letter-spacing: 0.05em;
   text-decoration: none;
   color: inherit;
-  overflow: visible;
 }
 
-/* === Hover Zone === */
+/* === Hover Zone (scoped to each word) === */
 .hover-zone {
   position: relative;
   display: inline-block;
   overflow: visible;
-  cursor: pointer;
 }
 
 /* === Highlight Box === */
@@ -126,7 +123,7 @@ body {
   animation: none;
 }
 
-/* === Eraser Box === */
+/* === Eraser Box (now wipes like highlight) === */
 .eraser-box {
   position: absolute;
   top: -25%;
@@ -134,9 +131,10 @@ body {
   width: 100%;
   height: 200%;
   background-color: #f8f5d7;
+  transform: scaleX(0);
+  transform-origin: left center;
   pointer-events: none;
   opacity: 1;
-  transform: translateX(-100%);
   z-index: 2;
 }
 
@@ -148,26 +146,44 @@ body {
   background-repeat: repeat;
   opacity: 0.2;
   pointer-events: none;
-  z-index: 1;
+}
+
+/* === Eraser Wipe Animation === */
+@keyframes eraserWipe {
+  from {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
 
 .eraser-slide {
-  animation: eraserSlide 0.6s ease-in forwards;
-  animation-delay: 0.15s;
+  animation: eraserWipe 0.5s ease-out forwards;
 }
 
 .eraser-slide-fast {
-  animation: eraserSlide 0.2s ease-in forwards !important;
+  animation: eraserWipe 0.25s ease-out forwards !important;
 }
 
-@keyframes eraserSlide {
-  from { transform: translateX(-100%); }
-  to   { transform: translateX(0%); }
+/* === Text above highlight === */
+.hover-zone span:last-of-type {
+  position: relative;
+  z-index: 3;
 }
 
+/* === Highlight Animation States === */
 @keyframes wipeIn {
-  from { transform: scaleX(0) rotate(var(--jitter-rotate, 0deg)); opacity: 0; }
-  to   { transform: scaleX(1) rotate(var(--jitter-rotate, 0deg)); opacity: 1; }
+  from {
+    transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
+    opacity: 1;
+  }
 }
 
 .highlight-box.wipe-in {
@@ -178,77 +194,32 @@ body {
   animation: wipeIn 0.4s ease-out forwards;
 }
 
-.hover-zone span:last-of-type {
-  position: relative;
-  z-index: 3;
-}
-
-/* === Mask to block highlight jitter on the left === */
-.highlight-mask {
-  position: absolute;
-  top: -25%;
-  left: -4em;
-  width: 4em;
-  height: 200%;
-  background: #f8f5d7;
-  z-index: 4;
-  pointer-events: none;
-}
-
-.highlight-mask::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url('../images/paper-fiber-manila.png');
-  background-repeat: repeat;
-  opacity: 0.2;
-  pointer-events: none;
-}
-
-/* === Dropdown Arrow with Slide Animation === */
+/* === Dropdown Arrow === */
 .dropdown-arrow {
   font-size: 0.75em;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
   z-index: 3;
-  display: inline-block;
-  transition: transform 0.2s ease;
 }
 
-.has-dropdown.open .dropdown-arrow {
-  transform: translateY(4px);
-}
-
-/* === Dropdown Menu === */
-.dropdown-menu {
+/* === Projects Menu Dropdown === */
+.projects-menu {
   position: absolute;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 0.2em;
+  left: 0;
+  margin-top: 0.25rem;
   background-color: #f8f5d7;
   border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 0.75rem 1rem;
-  min-width: 160px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
   z-index: 10;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.has-dropdown.open .dropdown-menu,
-.has-dropdown:hover .dropdown-menu {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.dropdown-placeholder {
-  font-family: 'Equity Text', serif;
-  font-size: 0.9rem;
-  color: #333;
+.projects-menu.show {
+  display: block;
 }
 
 /* === Mobile Layout === */
@@ -265,7 +236,7 @@ body {
   }
 }
 
-/* === Fonts === */
+/* === Equity Fonts === */
 @font-face {
   font-family: 'Equity Text';
   src: url('../fonts/equity_text_a_regular-webfont.ttf') format('truetype');
