@@ -1,4 +1,4 @@
-/* Paper texture background */
+/* Background texture */
 body::before {
   content: "";
   position: fixed;
@@ -16,7 +16,7 @@ body {
   z-index: 1;
 }
 
-/* Topbar layout */
+/* Topbar */
 .topbar {
   position: relative;
   z-index: 1;
@@ -102,7 +102,7 @@ body {
   overflow: visible;
 }
 
-/* Hover zone */
+/* Hover zones */
 .hover-zone {
   position: relative;
   display: inline-block;
@@ -110,7 +110,7 @@ body {
   cursor: pointer;
 }
 
-/* Invisible mask */
+/* Highlight mask (artifact fix) */
 .highlight-mask {
   position: absolute;
   top: -25%;
@@ -132,7 +132,7 @@ body {
   pointer-events: none;
 }
 
-/* Blue highlight bar */
+/* Highlight bar (blue) */
 .highlight-box {
   position: absolute;
   bottom: var(--jitter-bottom, 0%);
@@ -169,10 +169,14 @@ body {
   background-repeat: repeat;
   opacity: 0.2;
   pointer-events: none;
-  z-index: 1;
 }
 
-/* Eraser animations */
+/* Eraser and highlight animations */
+@keyframes eraserSlide {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0%); }
+}
+
 .eraser-slide {
   animation: eraserSlide 0.6s ease-in forwards;
   animation-delay: 0.15s;
@@ -182,12 +186,6 @@ body {
   animation: eraserSlide 0.2s ease-in forwards !important;
 }
 
-@keyframes eraserSlide {
-  from { transform: translateX(-100%); }
-  to   { transform: translateX(0%); }
-}
-
-/* Highlight animation */
 @keyframes wipeIn {
   from { transform: scaleX(0) rotate(var(--jitter-rotate, 0deg)); opacity: 0; }
   to   { transform: scaleX(1) rotate(var(--jitter-rotate, 0deg)); opacity: 1; }
@@ -206,7 +204,7 @@ body {
   z-index: 3;
 }
 
-/* Dropdown arrow */
+/* Dropdown */
 .dropdown-arrow {
   font-size: 0.75em;
   vertical-align: middle;
@@ -215,11 +213,11 @@ body {
   z-index: 3;
 }
 
-/* Dropdown menu */
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 0.35em);
+  top: 100%;
   left: 0;
+  transform: translateY(0.35em);
   background-color: #f8f5d7;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -256,47 +254,4 @@ body {
     width: 100%;
     justify-content: flex-end;
   }
-}
-
-/* Fonts */
-@font-face {
-  font-family: 'Equity Text';
-  src: url('../fonts/equity_text_a_regular-webfont.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Equity Text';
-  src: url('../fonts/equity_text_a_bold-webfont.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Equity Text';
-  src: url('../fonts/equity_text_a_italic-webfont.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Equity Text';
-  src: url('../fonts/equity_text_a_bold_italic-webfont.ttf') format('truetype');
-  font-weight: 700;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Equity Caps';
-  src: url('../fonts/equity_caps_a_regular-webfont.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Equity Caps';
-  src: url('../fonts/equity_caps_a_bold-webfont.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
 }

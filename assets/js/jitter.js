@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     zone.addEventListener("mouseenter", () => {
       const existingEraser = zone.querySelector(".eraser-box");
-
       if (existingEraser) {
         existingEraser.classList.add("eraser-slide-fast");
         return;
@@ -70,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Dropdown logic
+  // ▼ Projects dropdown behavior
   const dropdown = document.querySelector(".has-dropdown");
   const trigger = dropdown?.querySelector(".dropdown-trigger");
   const arrow = dropdown?.querySelector(".dropdown-arrow");
@@ -79,51 +78,52 @@ document.addEventListener("DOMContentLoaded", () => {
   let clickedOpen = false;
 
   if (dropdown && trigger && arrow && highlightBox) {
-    // Hover behavior
+    const showHighlight = () => {
+      highlightBox.classList.add("wipe-in");
+      highlightBox.style.opacity = "1";
+    };
+
+    const hideHighlight = () => {
+      highlightBox.classList.remove("wipe-in", "wipe-in-slow");
+      highlightBox.style.opacity = "0";
+    };
+
     const openHover = () => {
       if (!clickedOpen) {
         dropdown.classList.add("open");
-        highlightBox.classList.add("wipe-in");
-        highlightBox.style.opacity = "1";
+        showHighlight();
       }
     };
 
     const closeHover = () => {
       if (!clickedOpen) {
         dropdown.classList.remove("open");
-        highlightBox.classList.remove("wipe-in", "wipe-in-slow");
-        highlightBox.style.opacity = "0";
+        hideHighlight();
       }
     };
 
     dropdown.addEventListener("mouseenter", openHover);
     dropdown.addEventListener("mouseleave", closeHover);
 
-    // Toggle lock on click
     const toggleDropdown = (e) => {
       e.preventDefault();
       clickedOpen = !clickedOpen;
       dropdown.classList.toggle("open", clickedOpen);
-
       if (clickedOpen) {
-        highlightBox.classList.add("wipe-in");
-        highlightBox.style.opacity = "1";
+        showHighlight();
       } else {
-        highlightBox.classList.remove("wipe-in", "wipe-in-slow");
-        highlightBox.style.opacity = "0";
+        hideHighlight();
       }
     };
 
     trigger.addEventListener("click", toggleDropdown);
     arrow.addEventListener("click", toggleDropdown);
 
-    // Click outside to close
     document.addEventListener("click", (e) => {
       if (!dropdown.contains(e.target)) {
         clickedOpen = false;
         dropdown.classList.remove("open");
-        highlightBox.classList.remove("wipe-in", "wipe-in-slow");
-        highlightBox.style.opacity = "0";
+        hideHighlight();
       }
     });
   }
