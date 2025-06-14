@@ -32,7 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     zone.addEventListener("mouseleave", () => {
       const parentDropdown = zone.closest(".has-dropdown");
-      if (parentDropdown?.classList.contains("open")) return;
+
+      // ✅ Allow wipe-out if not click-opened
+      const skipBecauseDropdownLocked =
+        parentDropdown?.classList.contains("open") &&
+        document.activeElement !== null &&
+        parentDropdown.contains(document.activeElement);
+
+      if (skipBecauseDropdownLocked) return;
 
       const eraser = document.createElement("div");
       eraser.classList.add("eraser-box", "eraser-slide");
@@ -86,11 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
       highlightBox.style.opacity = "1";
     };
 
-    const hideHighlight = () => {
-      highlightBox.classList.remove("wipe-in", "wipe-in-slow");
-      highlightBox.style.opacity = "0";
-    };
-
     const toggleDropdown = (e) => {
       e.preventDefault();
       clickedOpen = !clickedOpen;
@@ -99,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (clickedOpen) {
         showHighlight();
       } else {
-        // manually trigger eraser wipe-out
         const eraser = document.createElement("div");
         eraser.classList.add("eraser-box", "eraser-slide");
 
@@ -132,7 +133,23 @@ document.addEventListener("DOMContentLoaded", () => {
     dropdown.addEventListener("mouseleave", () => {
       if (!clickedOpen) {
         dropdown.classList.remove("open");
-        hideHighlight();
+
+        const eraser = document.createElement("div");
+        eraser.classList.add("eraser-box", "eraser-slide");
+
+        eraser.style.left = highlightBox.style.left;
+        eraser.style.bottom = highlightBox.style.bottom;
+        eraser.style.width = `${highlightBox.getBoundingClientRect().width}px`;
+        eraser.style.top = "-25%";
+        eraser.style.height = "200%";
+
+        trigger.appendChild(eraser);
+
+        eraser.addEventListener("animationend", () => {
+          highlightBox.classList.remove("wipe-in", "wipe-in-slow");
+          highlightBox.style.opacity = "0";
+          eraser.remove();
+        });
       }
     });
 
@@ -141,7 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
         clickedOpen = false;
         dropdown.classList.remove("open");
 
-        // same wipe-out on external click
         const eraser = document.createElement("div");
         eraser.classList.add("eraser-box", "eraser-slide");
 
@@ -162,3 +178,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
