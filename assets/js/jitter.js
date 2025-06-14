@@ -172,11 +172,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // ✅ Force highlight to reappear on hover into "Projects" even if menu is open
+    // ✅ Force highlight to reappear when hovering Projects, but only if missing
     const projectsHoverZone = trigger.querySelector(".hover-zone");
     if (projectsHoverZone) {
       projectsHoverZone.addEventListener("mouseenter", () => {
-        if (dropdown.classList.contains("open")) {
+        if (
+          dropdown.classList.contains("open") &&
+          highlightBox.style.opacity !== "1"
+        ) {
           showHighlight();
         }
       });
