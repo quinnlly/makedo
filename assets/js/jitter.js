@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
   const zones = document.querySelectorAll(".hover-zone");
-  let dropdownCloseTimeout = null;
 
   const randSkew = (magnitude) => {
     const sign = Math.random() < 0.5 ? -1 : 1;
@@ -46,12 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
       eraserBox = document.createElement("div");
       eraserBox.classList.add("eraser-box", "eraser-slide");
 
-      // ✅ Clamp to the container bounds — no bleeding leftward
-      eraserBox.style.left = "0";
-      eraserBox.style.width = "100%";
+      // 🟥 DEBUG: Make the eraser box visible
+      eraserBox.style.backgroundColor = 'red';
 
+      eraserBox.style.left = box.style.left;
+      eraserBox.style.bottom = box.style.bottom;
+      eraserBox.style.width = box.style.width;
       eraserBox.style.top = "-25%";
-      eraserBox.style.bottom = "0";
       eraserBox.style.height = "200%";
 
       zone.appendChild(eraserBox);
