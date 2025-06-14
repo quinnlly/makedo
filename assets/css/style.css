@@ -369,3 +369,34 @@ body::before {
     text-align: center;
   }
 }
+
+/* === Social Icons === */
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.social-icons img {
+  width: 24px;
+  height: 24px;
+  transition: filter 0.3s ease;
+  filter: brightness(0) saturate(100%);
+}
+
+/* Instagram pink-orange gradient tone */
+.social-icons a[href*="instagram"] img {
+  filter: brightness(0) saturate(100%) sepia(1) hue-rotate(330deg) saturate(5);
+}
+
+/* Letterboxd green tone */
+.social-icons a[href*="letterboxd"] img {
+  filter: brightness(0) saturate(100%) sepia(1) hue-rotate(140deg) saturate(4);
+}
+
+/* Hover: restore true black icon */
+.social-icons a:hover img,
+.social-icons a:focus img {
+  filter: none;
+}
+
