@@ -92,6 +92,11 @@
   cursor: pointer;
 }
 
+.hover-zone span:last-of-type {
+  position: relative;
+  z-index: 3;
+}
+
 /* === Highlight Box === */
 .highlight-box {
   position: absolute;
@@ -108,17 +113,17 @@
   animation: none;
 }
 
+@keyframes wipeIn {
+  from { transform: scaleX(0) rotate(var(--jitter-rotate, 0deg)); opacity: 0; }
+  to   { transform: scaleX(1) rotate(var(--jitter-rotate, 0deg)); opacity: 1; }
+}
+
 .highlight-box.wipe-in {
   animation: wipeIn 0.25s ease-out forwards;
 }
 
 .highlight-box.wipe-in-slow {
   animation: wipeIn 0.4s ease-out forwards;
-}
-
-@keyframes wipeIn {
-  from { transform: scaleX(0) rotate(var(--jitter-rotate, 0deg)); opacity: 0; }
-  to   { transform: scaleX(1) rotate(var(--jitter-rotate, 0deg)); opacity: 1; }
 }
 
 /* === Eraser Box === */
@@ -146,6 +151,11 @@
   z-index: 1;
 }
 
+@keyframes eraserSlide {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0%); }
+}
+
 .eraser-slide {
   animation: eraserSlide 0.6s ease-in forwards;
   animation-delay: 0.15s;
@@ -155,17 +165,7 @@
   animation: eraserSlide 0.2s ease-in forwards !important;
 }
 
-@keyframes eraserSlide {
-  from { transform: translateX(-100%); }
-  to   { transform: translateX(0%); }
-}
-
-.hover-zone span:last-of-type {
-  position: relative;
-  z-index: 3;
-}
-
-/* === Highlight Mask (Left Erase Blocker) === */
+/* === Highlight Mask === */
 .highlight-mask {
   position: absolute;
   top: -25%;
@@ -206,7 +206,7 @@
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-60%);
   margin-top: 0.2em;
   background-color: #f8f5d7;
   border: 1px solid #ccc;

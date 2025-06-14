@@ -1,14 +1,13 @@
-// Load nav-bar.html and THEN bind logic
 document.addEventListener("DOMContentLoaded", () => {
   fetch('nav-bar.html')
     .then(res => res.text())
     .then(html => {
       document.getElementById('nav-placeholder').innerHTML = html;
-      initNavBarBehavior(); // ⬅️ run this AFTER injection
+      activateNavBar(); // Do all hover + dropdown bindings after inject
     });
 });
 
-function initNavBarBehavior() {
+function activateNavBar() {
   const hoverZones = document.querySelectorAll(".hover-zone");
   const dropdownTriggers = document.querySelectorAll(".dropdown-trigger");
   const dropdowns = document.querySelectorAll(".has-dropdown");
@@ -19,7 +18,7 @@ function initNavBarBehavior() {
 
     zone.addEventListener("mouseenter", () => {
       highlight.classList.remove("wipe-in", "wipe-in-slow");
-      void highlight.offsetWidth;
+      void highlight.offsetWidth; // force reflow
       highlight.classList.add("wipe-in");
     });
 
