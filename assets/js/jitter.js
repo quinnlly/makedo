@@ -88,23 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
       highlightBox.style.opacity = "0";
     };
 
-    const openHover = () => {
-      if (!clickedOpen) {
-        dropdown.classList.add("open");
-        showHighlight();
-      }
-    };
-
-    const closeHover = () => {
-      if (!clickedOpen) {
-        dropdown.classList.remove("open");
-        hideHighlight();
-      }
-    };
-
-    dropdown.addEventListener("mouseenter", openHover);
-    dropdown.addEventListener("mouseleave", closeHover);
-
     const toggleDropdown = (e) => {
       e.preventDefault();
       clickedOpen = !clickedOpen;
@@ -116,8 +99,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    trigger.addEventListener("click", toggleDropdown);
-    arrow.addEventListener("click", toggleDropdown);
+    // Both elements act as one unit
+    [trigger, arrow].forEach(el => {
+      el.addEventListener("click", toggleDropdown);
+      el.addEventListener("mouseenter", () => {
+        if (!clickedOpen) {
+          dropdown.classList.add("open");
+          showHighlight();
+        }
+      });
+    });
+
+    dropdown.addEventListener("mouseleave", () => {
+      if (!clickedOpen) {
+        dropdown.classList.remove("open");
+        hideHighlight();
+      }
+    });
 
     document.addEventListener("click", (e) => {
       if (!dropdown.contains(e.target)) {
