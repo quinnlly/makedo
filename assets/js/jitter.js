@@ -8,8 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     zone.addEventListener("mouseenter", () => {
       const existingEraser = zone.querySelector(".eraser-box");
       if (existingEraser) {
-        existingEraser.classList.add("eraser-slide-fast");
-        return;
+        existingEraser.remove(); // 🛡 prevent overlap
       }
 
       box.classList.remove("wipe-in", "wipe-in-slow");
@@ -32,9 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     zone.addEventListener("mouseleave", () => {
       const parentDropdown = zone.closest(".has-dropdown");
-
-      // ✅ Skip wipe-out if dropdown is locked open
       if (parentDropdown?.classList.contains("open") && clickedOpen) return;
+
+      const existingEraser = zone.querySelector(".eraser-box");
+      if (existingEraser) existingEraser.remove(); // 🛡
 
       const eraser = document.createElement("div");
       eraser.classList.add("eraser-box", "eraser-slide");
@@ -88,6 +88,28 @@ document.addEventListener("DOMContentLoaded", () => {
       highlightBox.style.opacity = "1";
     };
 
+    const wipeOut = () => {
+      const existing = trigger.querySelector(".eraser-box");
+      if (existing) existing.remove(); // 🛡
+
+      const eraser = document.createElement("div");
+      eraser.classList.add("eraser-box", "eraser-slide");
+
+      eraser.style.left = highlightBox.style.left;
+      eraser.style.bottom = highlightBox.style.bottom;
+      eraser.style.width = `${highlightBox.getBoundingClientRect().width}px`;
+      eraser.style.top = "-25%";
+      eraser.style.height = "200%";
+
+      trigger.appendChild(eraser);
+
+      eraser.addEventListener("animationend", () => {
+        highlightBox.classList.remove("wipe-in", "wipe-in-slow");
+        highlightBox.style.opacity = "0";
+        eraser.remove();
+      });
+    };
+
     const toggleDropdown = (e) => {
       e.preventDefault();
       clickedOpen = !clickedOpen;
@@ -96,22 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (clickedOpen) {
         showHighlight();
       } else {
-        const eraser = document.createElement("div");
-        eraser.classList.add("eraser-box", "eraser-slide");
-
-        eraser.style.left = highlightBox.style.left;
-        eraser.style.bottom = highlightBox.style.bottom;
-        eraser.style.width = `${highlightBox.getBoundingClientRect().width}px`;
-        eraser.style.top = "-25%";
-        eraser.style.height = "200%";
-
-        trigger.appendChild(eraser);
-
-        eraser.addEventListener("animationend", () => {
-          highlightBox.classList.remove("wipe-in", "wipe-in-slow");
-          highlightBox.style.opacity = "0";
-          eraser.remove();
-        });
+        wipeOut();
       }
     };
 
@@ -128,23 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dropdown.addEventListener("mouseleave", () => {
       if (!clickedOpen) {
         dropdown.classList.remove("open");
-
-        const eraser = document.createElement("div");
-        eraser.classList.add("eraser-box", "eraser-slide");
-
-        eraser.style.left = highlightBox.style.left;
-        eraser.style.bottom = highlightBox.style.bottom;
-        eraser.style.width = `${highlightBox.getBoundingClientRect().width}px`;
-        eraser.style.top = "-25%";
-        eraser.style.height = "200%";
-
-        trigger.appendChild(eraser);
-
-        eraser.addEventListener("animationend", () => {
-          highlightBox.classList.remove("wipe-in", "wipe-in-slow");
-          highlightBox.style.opacity = "0";
-          eraser.remove();
-        });
+        wipeOut();
       }
     });
 
@@ -152,23 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!dropdown.contains(e.target)) {
         clickedOpen = false;
         dropdown.classList.remove("open");
-
-        const eraser = document.createElement("div");
-        eraser.classList.add("eraser-box", "eraser-slide");
-
-        eraser.style.left = highlightBox.style.left;
-        eraser.style.bottom = highlightBox.style.bottom;
-        eraser.style.width = `${highlightBox.getBoundingClientRect().width}px`;
-        eraser.style.top = "-25%";
-        eraser.style.height = "200%";
-
-        trigger.appendChild(eraser);
-
-        eraser.addEventListener("animationend", () => {
-          highlightBox.classList.remove("wipe-in", "wipe-in-slow");
-          highlightBox.style.opacity = "0";
-          eraser.remove();
-        });
+        wipeOut();
       }
     });
   }
