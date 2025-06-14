@@ -347,7 +347,9 @@ body::before {
 .footer-center {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   flex: 1;
+  padding-top: 0.25rem;
 }
 
 .footer-right {
@@ -382,15 +384,15 @@ body::before {
   color: #222;
 }
 
-/* === Social Icons (responsive sizing) === */
+/* === Social Icons (larger & vertically lifted) === */
 .social-icons {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .social-icons img {
-  width: 1.5em;
-  height: 1.5em;
+  width: 2em;
+  height: 2em;
   transition: filter 0.3s ease;
   filter: brightness(0) saturate(100%);
 }
