@@ -3,58 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <title>Make. Do.</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Modular CSS -->
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/nav-bar.css">
+
+  <!-- JavaScript -->
   <script src="assets/js/jitter.js" defer></script>
 </head>
+
 <body>
 
+  <!-- Injected Nav-Bar -->
+  <div id="nav-placeholder"></div>
+  <script>
+    fetch('nav-bar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('nav-placeholder').innerHTML = html;
+        if (typeof window.activateNavBar === "function") {
+          window.activateNavBar();
+        }
+      });
+  </script>
+
+  <!-- Main Content -->
   <main>
-    <div id="page-top">
-      <div class="topbar">
-        <div class="topbar-inner">
-          <a href="index.html" class="logo"><span>Q</span></a>
-
-          <nav class="nav-links">
-
-            <!-- About (masked) -->
-            <a href="#">
-              <span class="hover-zone">
-                <div class="highlight-mask"></div>
-                <span class="highlight-box"></span>
-                <span>About</span>
-              </span>
-            </a>
-
-            <!-- Blog -->
-            <a href="#">
-              <span class="hover-zone">
-                <span class="highlight-box"></span>
-                <span>Blog</span>
-              </span>
-            </a>
-
-            <!-- Projects (dropdown) -->
-            <div class="has-dropdown">
-              <span class="hover-zone dropdown-trigger">
-                <span class="highlight-box"></span>
-                <span>Projects</span>
-              </span>
-              <span class="dropdown-arrow">▼</span>
-              <div class="dropdown-menu">
-                <div class="dropdown-placeholder">Coming soon...</div>
-              </div>
-            </div>
-
-          </nav>
-        </div>
-      </div>
-    </div>
-
     <h1>Hello, world!</h1>
     <h2>If you can read this, it is not going well</h2>
   </main>
 
-  <!-- Footer will be injected here -->
+  <!-- Injected Footer -->
   <div id="footer-placeholder"></div>
   <script>
     fetch('footer.html')
