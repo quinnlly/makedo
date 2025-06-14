@@ -1,34 +1,3 @@
-/* === Sticky Footer Page Layout === */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-body {
-  background-color: #f8f5d7;
-  position: relative;
-  z-index: 1;
-}
-
-main {
-  flex-grow: 1;
-}
-
-/* === Background Texture Overlay === */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url('../images/paper-fiber-manila.png');
-  background-repeat: repeat;
-  opacity: 0.2;
-  pointer-events: none;
-  z-index: 0;
-}
-
 /* === Top Bar Layout === */
 .topbar {
   position: relative;
@@ -123,6 +92,11 @@ body::before {
   cursor: pointer;
 }
 
+.hover-zone span:last-of-type {
+  position: relative;
+  z-index: 3;
+}
+
 /* === Highlight Box === */
 .highlight-box {
   position: absolute;
@@ -137,6 +111,19 @@ body::before {
   z-index: 1;
   pointer-events: none;
   animation: none;
+}
+
+.highlight-box.wipe-in {
+  animation: wipeIn 0.25s ease-out forwards;
+}
+
+.highlight-box.wipe-in-slow {
+  animation: wipeIn 0.4s ease-out forwards;
+}
+
+@keyframes wipeIn {
+  from { transform: scaleX(0) rotate(var(--jitter-rotate, 0deg)); opacity: 0; }
+  to   { transform: scaleX(1) rotate(var(--jitter-rotate, 0deg)); opacity: 1; }
 }
 
 /* === Eraser Box === */
@@ -164,6 +151,11 @@ body::before {
   z-index: 1;
 }
 
+@keyframes eraserSlide {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0%); }
+}
+
 .eraser-slide {
   animation: eraserSlide 0.6s ease-in forwards;
   animation-delay: 0.15s;
@@ -173,29 +165,7 @@ body::before {
   animation: eraserSlide 0.2s ease-in forwards !important;
 }
 
-@keyframes eraserSlide {
-  from { transform: translateX(-100%); }
-  to   { transform: translateX(0%); }
-}
-
-@keyframes wipeIn {
-  from { transform: scaleX(0) rotate(var(--jitter-rotate, 0deg)); opacity: 0; }
-  to   { transform: scaleX(1) rotate(var(--jitter-rotate, 0deg)); opacity: 1; }
-}
-
-.highlight-box.wipe-in {
-  animation: wipeIn 0.25s ease-out forwards;
-}
-
-.highlight-box.wipe-in-slow {
-  animation: wipeIn 0.4s ease-out forwards;
-}
-
-.hover-zone span:last-of-type {
-  position: relative;
-  z-index: 3;
-}
-
+/* === Highlight Mask === */
 .highlight-mask {
   position: absolute;
   top: -25%;
@@ -273,149 +243,5 @@ body::before {
   .nav-links {
     width: 100%;
     justify-content: flex-end;
-  }
-}
-
-/* === Fonts === */
-@font-face {
-  font-family: 'Equity Text';
-  src: url('../fonts/equity_text_a_regular-webfont.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Equity Text';
-  src: url('../fonts/equity_text_a_bold-webfont.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Equity Text';
-  src: url('../fonts/equity_text_a_italic-webfont.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Equity Text';
-  src: url('../fonts/equity_text_a_bold_italic-webfont.ttf') format('truetype');
-  font-weight: 700;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Equity Caps';
-  src: url('../fonts/equity_caps_a_regular-webfont.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Equity Caps';
-  src: url('../fonts/equity_caps_a_bold-webfont.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-/* === Footer === */
-.site-footer {
-  flex-shrink: 0;
-  margin-top: 4rem;
-  padding: 2rem;
-  font-family: 'Equity Text', serif;
-  font-size: 0.9rem;
-  color: #4a4a4a;
-  background-color: transparent;
-}
-
-.footer-content {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  position: relative;
-}
-
-.footer-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.footer-right {
-  margin-left: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-}
-
-.footer-logo img {
-  max-height: 40px;
-  height: auto;
-  width: auto;
-  display: block;
-}
-
-.footer-tagline {
-  margin: 0;
-  color: #4a4a4a;
-  line-height: 1.4;
-  font-size: 0.9rem;
-}
-
-.footer-link {
-  text-decoration: underline;
-  color: #4a4a4a;
-}
-
-.footer-link:hover,
-.footer-link:focus {
-  color: #222;
-}
-
-.social-icons {
-  display: flex;
-  gap: 1.25rem;
-  align-items: center;
-}
-
-.social-icons img {
-  transition: filter 0.3s ease;
-  filter: brightness(0) saturate(100%);
-}
-
-.social-icons a[href*="instagram"] img {
-  width: 2em;
-  height: 2em;
-  vertical-align: middle;
-  filter: brightness(0) saturate(100%) sepia(1) hue-rotate(330deg) saturate(5);
-}
-
-.social-icons a[href*="letterboxd"] img {
-  width: 3.4em;
-  height: 3.4em;
-  vertical-align: -0.2em;
-  filter: brightness(0) saturate(100%) sepia(1) hue-rotate(140deg) saturate(4);
-}
-
-.social-icons a:hover img,
-.social-icons a:focus img {
-  filter: none;
-}
-
-/* === Footer Mobile === */
-@media (max-width: 600px) {
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .footer-right {
-    align-items: center;
-    text-align: center;
-    margin-top: 1rem;
   }
 }
