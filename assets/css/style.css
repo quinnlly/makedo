@@ -103,7 +103,7 @@ body {
   overflow: visible;
 }
 
-/* === Hover Zone (scoped to each word) === */
+/* === Hover Zone === */
 .hover-zone {
   position: relative;
   display: inline-block;
@@ -127,7 +127,7 @@ body {
   animation: none;
 }
 
-/* === Eraser Box (chameleon with paper texture) === */
+/* === Eraser Box === */
 .eraser-box {
   position: absolute;
   top: -25%;
@@ -152,7 +152,7 @@ body {
   z-index: 1;
 }
 
-/* === Eraser Animations === */
+/* === Eraser + Highlight Animations === */
 .eraser-slide {
   animation: eraserSlide 0.6s ease-in forwards;
   animation-delay: 0.15s;
@@ -163,30 +163,13 @@ body {
 }
 
 @keyframes eraserSlide {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0%); }
 }
 
-/* === Text above highlight === */
-.hover-zone span:last-of-type {
-  position: relative;
-  z-index: 3;
-}
-
-/* === Highlight Animation States === */
 @keyframes wipeIn {
-  from {
-    transform: scaleX(0) rotate(var(--jitter-rotate, 0deg));
-    opacity: 0;
-  }
-  to {
-    transform: scaleX(1) rotate(var(--jitter-rotate, 0deg));
-    opacity: 1;
-  }
+  from { transform: scaleX(0) rotate(var(--jitter-rotate, 0deg)); opacity: 0; }
+  to   { transform: scaleX(1) rotate(var(--jitter-rotate, 0deg)); opacity: 1; }
 }
 
 .highlight-box.wipe-in {
@@ -197,7 +180,12 @@ body {
   animation: wipeIn 0.4s ease-out forwards;
 }
 
-/* === Invisible left-cover box (artifact blocker) === */
+.hover-zone span:last-of-type {
+  position: relative;
+  z-index: 3;
+}
+
+/* === Left Artifact Blocker === */
 .highlight-mask {
   position: absolute;
   top: -25%;
@@ -219,7 +207,7 @@ body {
   pointer-events: none;
 }
 
-/* === Dropdown Arrow and Menu === */
+/* === Dropdown Arrow === */
 .dropdown-arrow {
   font-size: 0.75em;
   vertical-align: middle;
@@ -228,10 +216,12 @@ body {
   z-index: 3;
 }
 
+/* === Dropdown Menu === */
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 0.25em);
+  top: 100%;
   left: 0;
+  margin-top: 0.2em;
   background-color: #f8f5d7;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -256,7 +246,7 @@ body {
   pointer-events: auto;
 }
 
-/* === Mobile Layout === */
+/* === Mobile === */
 @media (max-width: 600px) {
   .topbar {
     flex-wrap: wrap;
@@ -270,7 +260,7 @@ body {
   }
 }
 
-/* === Equity Fonts === */
+/* === Fonts === */
 @font-face {
   font-family: 'Equity Text';
   src: url('../fonts/equity_text_a_regular-webfont.ttf') format('truetype');
