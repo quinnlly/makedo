@@ -210,13 +210,19 @@ body {
   pointer-events: none;
 }
 
-/* === Dropdown Arrow === */
+/* === Dropdown Arrow with Slide Animation === */
 .dropdown-arrow {
   font-size: 0.75em;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
   z-index: 3;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.has-dropdown.open .dropdown-arrow {
+  transform: translateY(4px);
 }
 
 /* === Dropdown Menu (centered beneath “Projects”) === */
