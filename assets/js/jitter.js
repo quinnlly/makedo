@@ -123,14 +123,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
+    // ✅ Use .has-dropdown to unify hover across both text & arrow
+    dropdown.addEventListener("mouseenter", () => {
+      if (!clickedOpen) {
+        dropdown.classList.add("open");
+        showHighlight();
+      }
+    });
+
     [trigger, arrow].forEach(el => {
       el.addEventListener("click", toggleDropdown);
-      el.addEventListener("mouseenter", () => {
-        if (!clickedOpen) {
-          dropdown.classList.add("open");
-          showHighlight();
-        }
-      });
     });
 
     dropdown.addEventListener("mouseleave", () => {
