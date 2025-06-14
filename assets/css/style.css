@@ -236,7 +236,7 @@ body::before {
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-90%);
   margin-top: 0.2em;
   background-color: #f8f5d7;
   border: 1px solid #ccc;
