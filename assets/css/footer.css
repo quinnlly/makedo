@@ -72,6 +72,12 @@
   vertical-align: -0.2em;
 }
 
+.social-icons a[href*="github"] img {
+  width: 2.4em;
+  height: 2.4em;
+  vertical-align: middle;
+}
+
 /* === Footer Mobile === */
 @media (max-width: 600px) {
   .footer-content {
