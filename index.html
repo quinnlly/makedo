@@ -9,34 +9,33 @@
   <link rel="stylesheet" href="assets/css/layout.css">
   <link rel="stylesheet" href="assets/css/footer.css">
   <link rel="stylesheet" href="assets/css/nav-bar.css">
-
 </head>
 
 <body>
 
-<div id="nav-placeholder"></div>
+  <div id="nav-placeholder"></div>
 
-<script>
-  fetch('nav-bar.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('nav-placeholder').innerHTML = html;
+  <script>
+    fetch('assets/html/nav-bar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('nav-placeholder').innerHTML = html;
 
-      const script = document.createElement('script');
-      script.src = 'assets/js/jitter.js';
-      document.body.appendChild(script);
-    });
-</script>
+        const script = document.createElement('script');
+        script.src = 'assets/js/jitter.js';
+        document.body.appendChild(script);
+      });
+  </script>
 
   <main>
     <h1>Hello, world!</h1>
     <h2>If you can read this, it is not going well</h2>
   </main>
 
-  <!-- Injected Footer -->
   <div id="footer-placeholder"></div>
+
   <script>
-    fetch('footer.html')
+    fetch('assets/html/footer.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('footer-placeholder').innerHTML = html;
