@@ -9,13 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   zones.forEach(zone => {
     const box = zone.querySelector(".highlight-box");
-    let eraserBox = null; // 🧠 Track eraser per zone
+    let eraserBox = null;
 
     zone.addEventListener("mouseenter", () => {
       const parentDropdown = zone.closest(".has-dropdown");
       if (parentDropdown?.classList.contains("open")) return;
 
-      // 🧼 Clean up any ongoing eraser
       if (eraserBox) {
         eraserBox.remove();
         eraserBox = null;
@@ -44,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (parentDropdown?.classList.contains("open") || zone.matches(':hover')) return;
 
-      // 🧼 Clean up any prior eraser
       if (eraserBox) {
         eraserBox.remove();
         eraserBox = null;
