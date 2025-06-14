@@ -99,11 +99,12 @@
   }
 }
 
-footer .footer-icons a img {
+.footer-icons a img {
   transition: transform 0.2s ease;
+  transform: scale(1); /* ensure baseline */
 }
 
-footer .footer-icons a:hover img {
-  transform: scale(1.5);
+.footer-icons a:hover img {
+  transform: scale(5);
 }
 
