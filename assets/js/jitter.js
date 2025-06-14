@@ -90,14 +90,14 @@ document.addEventListener("DOMContentLoaded", () => {
   let highlightLocked = false;
 
   if (dropdown && trigger && arrow && highlightBox) {
-    const cleanupHighlight = () => {
-      highlightBox.classList.remove("wipe-in", "wipe-in-slow");
-      highlightBox.style.opacity = "0";
-      highlightLocked = false;
-    };
-
     const showHighlight = () => {
       if (highlightLocked) return;
+
+      const existingEraser = trigger.querySelector(".eraser-box");
+      if (existingEraser) existingEraser.remove();
+
+      highlightBox.classList.remove("wipe-in", "wipe-in-slow");
+      void highlightBox.offsetWidth;
 
       const jitter = {
         left: `${randSkew(1)}%`,
@@ -110,23 +110,10 @@ document.addEventListener("DOMContentLoaded", () => {
         highlightBox.style.setProperty(`--jitter-${key}`, jitter[key]);
       }
 
-      highlightBox.classList.remove("wipe-in", "wipe-in-slow");
-      void highlightBox.offsetWidth;
-
       highlightBox.classList.add("wipe-in");
       highlightBox.style.opacity = "1";
+      highlightLocked = true;
     };
-
-    const forceShowHighlight = () => {
-      highlightLocked = false;
-      showHighlight();
-    };
-
-    highlightBox.addEventListener("animationend", () => {
-      if (highlightBox.classList.contains("wipe-in") || highlightBox.classList.contains("wipe-in-slow")) {
-        highlightLocked = true;
-      }
-    });
 
     const wipeOut = () => {
       highlightLocked = false;
@@ -158,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dropdown.classList.toggle("open", clickedOpen);
 
       if (clickedOpen) {
-        forceShowHighlight();
+        showHighlight();
       } else {
         wipeOut();
       }
@@ -172,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!clickedOpen) {
         dropdown.classList.add("open");
-        forceShowHighlight();
+        showHighlight();
       }
     });
 
@@ -201,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (projectsHoverZone) {
       projectsHoverZone.addEventListener("mouseenter", () => {
         if (dropdown.classList.contains("open") && !highlightLocked) {
-          forceShowHighlight();
+          showHighlight();
         }
       });
     }
