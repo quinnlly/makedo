@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const zones = document.querySelectorAll(".hover-zone");
   let dropdownCloseTimeout = null;
 
-  // 🔧 New: randomized skew with bias toward extremes
+  // 🔧 Non-uniform randomness with less extreme values
   const randSkew = (magnitude) => {
     const sign = Math.random() < 0.5 ? -1 : 1;
     return sign * Math.pow(Math.random(), 0.5) * magnitude;
@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
       void box.offsetWidth;
 
       jitter = {
-        left: `${randSkew(1)}%`,
-        bottom: `${randSkew(2)}%`,
-        width: `${100 + randSkew(6)}%`,
-        rotate: `${randSkew(3)}deg`
+        left: `${randSkew(0.5)}%`,
+        bottom: `${randSkew(1)}%`,
+        width: `${100 + randSkew(3)}%`,
+        rotate: `${randSkew(1.5)}deg`
       };
 
       for (const key in jitter) {
@@ -40,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
     zone.addEventListener("mouseleave", () => {
       const parentDropdown = zone.closest(".has-dropdown");
 
-      // ✅ If menu is open, do not wipe
       if (parentDropdown?.classList.contains("open")) return;
 
       const existingEraser = zone.querySelector(".eraser-box");
@@ -67,10 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
           void box.offsetWidth;
 
           jitter = {
-            left: `${randSkew(1)}%`,
-            bottom: `${randSkew(2)}%`,
-            width: `${100 + randSkew(6)}%`,
-            rotate: `${randSkew(3)}deg`
+            left: `${randSkew(0.5)}%`,
+            bottom: `${randSkew(1)}%`,
+            width: `${100 + randSkew(3)}%`,
+            rotate: `${randSkew(1.5)}deg`
           };
 
           for (const key in jitter) {
