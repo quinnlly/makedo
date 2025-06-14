@@ -9,19 +9,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   zones.forEach(zone => {
     const box = zone.querySelector(".highlight-box");
+    let eraserBox = null; // 🧠 Track eraser per zone
 
     zone.addEventListener("mouseenter", () => {
       const parentDropdown = zone.closest(".has-dropdown");
       if (parentDropdown?.classList.contains("open")) return;
 
-      const existingEraser = zone.querySelector(".eraser-box");
-      if (existingEraser) existingEraser.remove();
+      // 🧼 Clean up any ongoing eraser
+      if (eraserBox) {
+        eraserBox.remove();
+        eraserBox = null;
+      }
 
       box.classList.remove("wipe-in", "wipe-in-slow");
       void box.offsetWidth;
 
       const jitter = {
-        left: `${randSkew(2)}%`,                   // was 3
+        left: `${randSkew(2)}%`,
         bottom: `${randSkew(2)}%`,
         width: `${100 + randSkew(10)}%`,
         rotate: `${randSkew(3)}deg`
@@ -40,24 +44,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (parentDropdown?.classList.contains("open") || zone.matches(':hover')) return;
 
-      const existingEraser = zone.querySelector(".eraser-box");
-      if (existingEraser) existingEraser.remove();
+      // 🧼 Clean up any prior eraser
+      if (eraserBox) {
+        eraserBox.remove();
+        eraserBox = null;
+      }
 
-      const eraser = document.createElement("div");
-      eraser.classList.add("eraser-box", "eraser-slide");
+      eraserBox = document.createElement("div");
+      eraserBox.classList.add("eraser-box", "eraser-slide");
 
-      eraser.style.left = box.style.left;
-      eraser.style.bottom = box.style.bottom;
-      eraser.style.width = `${box.getBoundingClientRect().width}px`;
-      eraser.style.top = "-25%";
-      eraser.style.height = "200%";
+      eraserBox.style.left = box.style.left;
+      eraserBox.style.bottom = box.style.bottom;
+      eraserBox.style.width = `${box.getBoundingClientRect().width}px`;
+      eraserBox.style.top = "-25%";
+      eraserBox.style.height = "200%";
 
-      zone.appendChild(eraser);
+      zone.appendChild(eraserBox);
 
-      eraser.addEventListener("animationend", () => {
+      eraserBox.addEventListener("animationend", () => {
         box.classList.remove("wipe-in", "wipe-in-slow");
         box.style.opacity = "0";
-        eraser.remove();
+        if (eraserBox) eraserBox.remove();
+        eraserBox = null;
 
         if (zone.matches(":hover")) {
           box.classList.remove("wipe-in", "wipe-in-slow");
@@ -89,19 +97,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let clickedOpen = false;
   let highlightLocked = false;
+  let eraserBox = null;
 
   if (dropdown && trigger && arrow && highlightBox) {
     const showHighlight = () => {
       if (highlightLocked) return;
 
-      const existingEraser = trigger.querySelector(".eraser-box");
-      if (existingEraser) existingEraser.remove();
+      if (eraserBox) {
+        eraserBox.remove();
+        eraserBox = null;
+      }
 
       highlightBox.classList.remove("wipe-in", "wipe-in-slow");
       void highlightBox.offsetWidth;
 
       const jitter = {
-        left: `${randSkew(2)}%`,                   // was 3
+        left: `${randSkew(2)}%`,
         bottom: `${randSkew(2)}%`,
         width: `${100 + randSkew(10)}%`,
         rotate: `${randSkew(3)}deg`
@@ -119,24 +130,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const wipeOut = () => {
       highlightLocked = false;
 
-      const existing = trigger.querySelector(".eraser-box");
-      if (existing) existing.remove();
+      if (eraserBox) {
+        eraserBox.remove();
+        eraserBox = null;
+      }
 
-      const eraser = document.createElement("div");
-      eraser.classList.add("eraser-box", "eraser-slide");
+      eraserBox = document.createElement("div");
+      eraserBox.classList.add("eraser-box", "eraser-slide");
 
-      eraser.style.left = highlightBox.style.left;
-      eraser.style.bottom = highlightBox.style.bottom;
-      eraser.style.width = `${highlightBox.getBoundingClientRect().width}px`;
-      eraser.style.top = "-25%";
-      eraser.style.height = "200%";
+      eraserBox.style.left = highlightBox.style.left;
+      eraserBox.style.bottom = highlightBox.style.bottom;
+      eraserBox.style.width = `${highlightBox.getBoundingClientRect().width}px`;
+      eraserBox.style.top = "-25%";
+      eraserBox.style.height = "200%";
 
-      trigger.appendChild(eraser);
+      trigger.appendChild(eraserBox);
 
-      eraser.addEventListener("animationend", () => {
+      eraserBox.addEventListener("animationend", () => {
         highlightBox.classList.remove("wipe-in", "wipe-in-slow");
         highlightBox.style.opacity = "0";
-        eraser.remove();
+        if (eraserBox) eraserBox.remove();
+        eraserBox = null;
       });
     };
 
