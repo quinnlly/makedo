@@ -1,16 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
   const zones = document.querySelectorAll(".hover-zone");
+  let dropdownCloseTimeout = null;
 
   zones.forEach(zone => {
     const box = zone.querySelector(".highlight-box");
     let jitter = {};
 
     zone.addEventListener("mouseenter", () => {
+      const parentDropdown = zone.closest(".has-dropdown");
+      if (parentDropdown?.classList.contains("open")) return;
+
       const existingEraser = zone.querySelector(".eraser-box");
-      if (existingEraser) {
-        existingEraser.classList.add("eraser-slide-fast");
-        return;
-      }
+      if (existingEraser) existingEraser.remove();
 
       box.classList.remove("wipe-in", "wipe-in-slow");
       void box.offsetWidth;
@@ -30,10 +31,14 @@ document.addEventListener("DOMContentLoaded", () => {
       box.style.opacity = "1";
     });
 
-    // 🛠 FIX: Suppress eraser if dropdown is locked open
     zone.addEventListener("mouseleave", () => {
       const parentDropdown = zone.closest(".has-dropdown");
+
+      // ✅ If menu is open, don't wipe highlight
       if (parentDropdown?.classList.contains("open")) return;
+
+      const existingEraser = zone.querySelector(".eraser-box");
+      if (existingEraser) existingEraser.remove();
 
       const eraser = document.createElement("div");
       eraser.classList.add("eraser-box", "eraser-slide");
@@ -55,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
           box.classList.remove("wipe-in", "wipe-in-slow");
           void box.offsetWidth;
 
-          jitter = {
+          const jitter = {
             left: `${Math.random() * 2}%`,
             bottom: `${Math.random() * 4 - 2}%`,
             width: `${100 + Math.random() * 6}%`,
@@ -73,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ▼ Dropdown behavior
+  // ▼ Projects dropdown behavior
   const dropdown = document.querySelector(".has-dropdown");
   const trigger = dropdown?.querySelector(".dropdown-trigger");
   const arrow = dropdown?.querySelector(".dropdown-arrow");
@@ -87,45 +92,70 @@ document.addEventListener("DOMContentLoaded", () => {
       highlightBox.style.opacity = "1";
     };
 
-    const hideHighlight = () => {
-      highlightBox.classList.remove("wipe-in", "wipe-in-slow");
-      highlightBox.style.opacity = "0";
+    const wipeOut = () => {
+      const existing = trigger.querySelector(".eraser-box");
+      if (existing) existing.remove();
+
+      const eraser = document.createElement("div");
+      eraser.classList.add("eraser-box", "eraser-slide");
+
+      eraser.style.left = highlightBox.style.left;
+      eraser.style.bottom = highlightBox.style.bottom;
+      eraser.style.width = `${highlightBox.getBoundingClientRect().width}px`;
+      eraser.style.top = "-25%";
+      eraser.style.height = "200%";
+
+      trigger.appendChild(eraser);
+
+      eraser.addEventListener("animationend", () => {
+        highlightBox.classList.remove("wipe-in", "wipe-in-slow");
+        highlightBox.style.opacity = "0";
+        eraser.remove();
+      });
     };
 
     const toggleDropdown = (e) => {
       e.preventDefault();
       clickedOpen = !clickedOpen;
       dropdown.classList.toggle("open", clickedOpen);
+
       if (clickedOpen) {
         showHighlight();
       } else {
-        hideHighlight();
+        wipeOut();
       }
     };
 
-    // Treat Projects + Arrow as unified trigger
+    dropdown.addEventListener("mouseenter", () => {
+      if (dropdownCloseTimeout) {
+        clearTimeout(dropdownCloseTimeout);
+        dropdownCloseTimeout = null;
+      }
+
+      if (!clickedOpen) {
+        dropdown.classList.add("open");
+        showHighlight();
+      }
+    });
+
     [trigger, arrow].forEach(el => {
       el.addEventListener("click", toggleDropdown);
-      el.addEventListener("mouseenter", () => {
-        if (!clickedOpen) {
-          dropdown.classList.add("open");
-          showHighlight();
-        }
-      });
     });
 
     dropdown.addEventListener("mouseleave", () => {
-      if (!clickedOpen) {
+      if (clickedOpen) return;
+
+      dropdownCloseTimeout = setTimeout(() => {
         dropdown.classList.remove("open");
-        hideHighlight();
-      }
+        wipeOut();
+      }, 150);
     });
 
     document.addEventListener("click", (e) => {
       if (!dropdown.contains(e.target)) {
         clickedOpen = false;
         dropdown.classList.remove("open");
-        hideHighlight();
+        wipeOut();
       }
     });
   }

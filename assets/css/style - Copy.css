@@ -102,11 +102,6 @@ body {
   overflow: visible;
 }
 
-/* === Ensure dropdown is anchored correctly === */
-.has-dropdown {
-  position: relative;
-}
-
 /* === Hover Zone === */
 .hover-zone {
   position: relative;
@@ -225,7 +220,7 @@ body {
   transform: translateY(4px);
 }
 
-/* === Dropdown Menu (centered beneath “Projects”) === */
+/* === Dropdown Menu === */
 .dropdown-menu {
   position: absolute;
   top: 100%;
