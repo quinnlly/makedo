@@ -52,5 +52,15 @@
 <h1>Hello, world!</h1>
 <h2>If you can read this, it is not going well</h2>
 
+<!-- Footer will be injected here -->
+<div id="footer-placeholder"></div>
+<script>
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('footer-placeholder').innerHTML = html;
+    });
+</script>
+
 </body>
 </html>

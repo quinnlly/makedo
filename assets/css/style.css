@@ -307,3 +307,51 @@ body {
   font-weight: 700;
   font-style: normal;
 }
+
+/* === Footer === */
+.site-footer {
+  margin-top: 4rem;
+  padding: 2rem;
+  font-family: 'Equity Text', serif;
+  font-size: 0.9rem;
+  color: #666;
+  background-color: transparent;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 0.75rem;
+}
+
+.footer-logo img {
+  max-height: 40px;
+  height: auto;
+  width: auto;
+  display: block;
+}
+
+.footer-tagline {
+  margin: 0;
+  color: #666;
+  line-height: 1.4;
+}
+
+.footer-link {
+  text-decoration: underline;
+  color: #666;
+}
+
+.footer-link:hover,
+.footer-link:focus {
+  color: #333;
+}
+
+@media (max-width: 600px) {
+  .footer-content {
+    align-items: center;
+    text-align: center;
+  }
+}
