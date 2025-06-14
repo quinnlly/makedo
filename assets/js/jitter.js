@@ -37,7 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     zone.addEventListener("mouseleave", () => {
       const parentDropdown = zone.closest(".has-dropdown");
-      if (parentDropdown?.classList.contains("open")) return;
+
+      // ✅ Prevent wipe-out if dropdown is open or user is still hovering
+      if (parentDropdown?.classList.contains("open") || zone.matches(':hover')) return;
 
       const existingEraser = zone.querySelector(".eraser-box");
       if (existingEraser) existingEraser.remove();
