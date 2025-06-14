@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
+const hoverZones = document.querySelectorAll(".hover-zone");
+const dropdownTriggers = document.querySelectorAll(".dropdown-trigger");
+const dropdowns = document.querySelectorAll(".has-dropdown");
   const zones = document.querySelectorAll(".hover-zone");
   let dropdownCloseTimeout = null;
 
@@ -195,4 +197,3 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-});
