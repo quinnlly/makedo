@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Make. Do.</title>
-
-  <!-- Modular CSS -->
-  <link rel="stylesheet" href="assets/css/fonts.css">
-  <link rel="stylesheet" href="assets/css/layout.css">
-  <link rel="stylesheet" href="assets/css/footer.css">
-  <link rel="stylesheet" href="assets/css/nav-bar.css">
+  <script>
+    fetch('assets/html/head.html')
+      .then(res => res.text())
+      .then(html => {
+        document.head.insertAdjacentHTML('beforeend', html);
+      });
+  </script>
 </head>
 
 <body>
