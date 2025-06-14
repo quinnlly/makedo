@@ -87,9 +87,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const highlightBox = trigger?.querySelector(".highlight-box");
 
   let clickedOpen = false;
+  let highlightLocked = false; // 🧠 New: prevents jitter redraw
 
   if (dropdown && trigger && arrow && highlightBox) {
     const showHighlight = () => {
+      if (highlightLocked) return;
+      highlightLocked = true;
+
       const jitter = {
         left: `${randSkew(1)}%`,
         bottom: `${randSkew(2)}%`,
@@ -106,6 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const wipeOut = () => {
+      highlightLocked = false;
+
       const existing = trigger.querySelector(".eraser-box");
       if (existing) existing.remove();
 
@@ -172,15 +178,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // ✅ Force highlight to reappear when hovering Projects, but only if missing
+    // ✅ Prevent jitter redraw on hover while menu is open
     const projectsHoverZone = trigger.querySelector(".hover-zone");
     if (projectsHoverZone) {
       projectsHoverZone.addEventListener("mouseenter", () => {
-        if (
-          dropdown.classList.contains("open") &&
-          highlightBox.style.opacity !== "1"
-        ) {
-          showHighlight();
+        if (dropdown.classList.contains("open")) {
+          showHighlight(); // will only run once due to highlightLocked
         }
       });
     }
