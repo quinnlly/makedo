@@ -10,8 +10,6 @@
   <link rel="stylesheet" href="assets/css/footer.css">
   <link rel="stylesheet" href="assets/css/nav-bar.css">
 
-  <!-- JavaScript -->
-  <script src="assets/js/jitter.js" defer></script>
 </head>
 
 <body>
@@ -23,9 +21,12 @@
     .then(res => res.text())
     .then(html => {
       document.getElementById('nav-placeholder').innerHTML = html;
+
+      const script = document.createElement('script');
+      script.src = 'assets/js/jitter.js';
+      document.body.appendChild(script);
     });
 </script>
-
 
   <main>
     <h1>Hello, world!</h1>
