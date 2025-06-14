@@ -45,13 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
       eraserBox = document.createElement("div");
       eraserBox.classList.add("eraser-box", "eraser-slide");
 
-      // 🟥 DEBUG: Make the eraser box visible
-      eraserBox.style.backgroundColor = 'red';
+      // ✅ Clamp the bounds to prevent overshoot
+      eraserBox.style.left = "-0.5em";
+      eraserBox.style.width = "calc(100% + 1em)";
+      eraserBox.style.backgroundColor = "red"; // ← leave on for final check
 
-      eraserBox.style.left = box.style.left;
-      eraserBox.style.bottom = box.style.bottom;
-      eraserBox.style.width = box.style.width;
       eraserBox.style.top = "-25%";
+      eraserBox.style.bottom = "0";
       eraserBox.style.height = "200%";
 
       zone.appendChild(eraserBox);
