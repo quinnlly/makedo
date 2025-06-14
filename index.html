@@ -4,38 +4,41 @@
   <meta charset="UTF-8">
   <title>Make. Do.</title>
 
-  <!-- Modular CSS -->
-  <link rel="stylesheet" href="assets/css/fonts.css">
-  <link rel="stylesheet" href="assets/css/layout.css">
-  <link rel="stylesheet" href="assets/css/footer.css">
-  <link rel="stylesheet" href="assets/css/nav-bar.css">
-
-  <!-- JavaScript -->
-  <script src="assets/js/jitter.js" defer></script>
+  <!-- Styles (can remain modular or unified as you prefer) -->
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
 
-  <!-- Injected Nav-Bar -->
+  <!-- Nav placeholder -->
   <div id="nav-placeholder"></div>
+
   <script>
     fetch('nav-bar.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('nav-placeholder').innerHTML = html;
-        if (typeof window.activateNavBar === "function") {
-          window.activateNavBar();
-        }
+
+        // Load jitter.js only after nav is injected
+        const script = document.createElement('script');
+        script.src = 'assets/js/jitter.js';
+        script.onload = () => {
+          if (typeof window.activateNavBar === 'function') {
+            window.activateNavBar();
+          } else {
+            console.error("activateNavBar not found.");
+          }
+        };
+        document.body.appendChild(script);
       });
   </script>
 
-  <!-- Main Content -->
+  <!-- Main content -->
   <main>
     <h1>Hello, world!</h1>
     <h2>If you can read this, it is not going well</h2>
   </main>
 
-  <!-- Injected Footer -->
+  <!-- Footer injection -->
   <div id="footer-placeholder"></div>
   <script>
     fetch('footer.html')
