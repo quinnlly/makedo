@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     zone.addEventListener("mouseenter", () => {
       const parentDropdown = zone.closest(".has-dropdown");
-      if (clickedOpen && parentDropdown?.classList.contains("open")) return;
+      if (parentDropdown?.classList.contains("open")) return;
 
       const existingEraser = zone.querySelector(".eraser-box");
       if (existingEraser) existingEraser.remove();
@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
     zone.addEventListener("mouseleave", () => {
       const parentDropdown = zone.closest(".has-dropdown");
 
-      const dropdownHovered = parentDropdown?.matches(':hover');
-      if ((clickedOpen || dropdownHovered) && parentDropdown?.classList.contains("open")) return;
+      // ✅ If menu is open, don't wipe highlight
+      if (parentDropdown?.classList.contains("open")) return;
 
       const existingEraser = zone.querySelector(".eraser-box");
       if (existingEraser) existingEraser.remove();
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dropdownCloseTimeout = setTimeout(() => {
         dropdown.classList.remove("open");
         wipeOut();
-      }, 150); // ⏱ adjustable delay
+      }, 150);
     });
 
     document.addEventListener("click", (e) => {
