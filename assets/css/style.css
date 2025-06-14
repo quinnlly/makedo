@@ -307,8 +307,3 @@ body {
   font-weight: 700;
   font-style: normal;
 }
-
-/* === Fix: Narrow left hit area of "Projects" hover-zone === */
-.has-dropdown .hover-zone {
-  padding-left: 0.1em;
-}
