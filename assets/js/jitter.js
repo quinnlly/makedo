@@ -32,7 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     zone.addEventListener("mouseleave", () => {
       const parentDropdown = zone.closest(".has-dropdown");
-      if (parentDropdown?.classList.contains("open") && clickedOpen) return;
+
+      // ✅ Skip wipe-out if menu is still hovered or click-opened
+      const dropdownHovered = parentDropdown?.matches(':hover');
+      if ((clickedOpen || dropdownHovered) && parentDropdown?.classList.contains("open")) return;
 
       const existingEraser = zone.querySelector(".eraser-box");
       if (existingEraser) existingEraser.remove();
@@ -123,7 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    // ✅ Use .has-dropdown to unify hover across both text & arrow
     dropdown.addEventListener("mouseenter", () => {
       if (!clickedOpen) {
         dropdown.classList.add("open");
