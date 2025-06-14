@@ -333,25 +333,22 @@ body::before {
 .footer-content {
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
 }
 
 .footer-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  padding-top: 0.25rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .footer-right {
+  margin-left: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   text-align: right;
-  flex: 1;
 }
 
 .footer-logo img {
