@@ -1,3 +1,22 @@
+/* === Sticky Footer Page Layout === */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  background-color: #f8f5d7;
+  position: relative;
+  z-index: 1;
+}
+
+main {
+  flex-grow: 1;
+}
+
 /* === Background Texture Overlay === */
 body::before {
   content: "";
@@ -8,12 +27,6 @@ body::before {
   opacity: 0.2;
   pointer-events: none;
   z-index: 0;
-}
-
-body {
-  background-color: #f8f5d7;
-  position: relative;
-  z-index: 1;
 }
 
 /* === Top Bar Layout === */
@@ -183,7 +196,6 @@ body {
   z-index: 3;
 }
 
-/* === Mask to block highlight jitter on the left === */
 .highlight-mask {
   position: absolute;
   top: -25%;
@@ -205,7 +217,7 @@ body {
   pointer-events: none;
 }
 
-/* === Dropdown Arrow with Slide Animation === */
+/* === Dropdown Arrow and Menu === */
 .dropdown-arrow {
   font-size: 0.75em;
   vertical-align: middle;
@@ -220,7 +232,6 @@ body {
   transform: translateY(4px);
 }
 
-/* === Dropdown Menu === */
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -306,4 +317,105 @@ body {
   src: url('../fonts/equity_caps_a_bold-webfont.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
+}
+
+/* === Footer === */
+.site-footer {
+  flex-shrink: 0;
+  margin-top: 4rem;
+  padding: 2rem;
+  font-family: 'Equity Text', serif;
+  font-size: 0.9rem;
+  color: #4a4a4a;
+  background-color: transparent;
+}
+
+.footer-content {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+}
+
+.footer-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.footer-right {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.footer-logo img {
+  max-height: 40px;
+  height: auto;
+  width: auto;
+  display: block;
+}
+
+.footer-tagline {
+  margin: 0;
+  color: #4a4a4a;
+  line-height: 1.4;
+  font-size: 0.9rem;
+}
+
+.footer-link {
+  text-decoration: underline;
+  color: #4a4a4a;
+}
+
+.footer-link:hover,
+.footer-link:focus {
+  color: #222;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.social-icons img {
+  transition: filter 0.3s ease;
+  filter: brightness(0) saturate(100%);
+}
+
+.social-icons a[href*="instagram"] img {
+  width: 2em;
+  height: 2em;
+  vertical-align: middle;
+  filter: brightness(0) saturate(100%) sepia(1) hue-rotate(330deg) saturate(5);
+}
+
+.social-icons a[href*="letterboxd"] img {
+  width: 3.4em;
+  height: 3.4em;
+  vertical-align: -0.2em;
+  filter: brightness(0) saturate(100%) sepia(1) hue-rotate(140deg) saturate(4);
+}
+
+.social-icons a:hover img,
+.social-icons a:focus img {
+  filter: none;
+}
+
+/* === Footer Mobile === */
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-right {
+    align-items: center;
+    text-align: center;
+    margin-top: 1rem;
+  }
 }
