@@ -87,12 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const highlightBox = trigger?.querySelector(".highlight-box");
 
   let clickedOpen = false;
-  let highlightLocked = false; // 🧠 New: prevents jitter redraw
+  let highlightLocked = false;
 
   if (dropdown && trigger && arrow && highlightBox) {
     const showHighlight = () => {
       if (highlightLocked) return;
-      highlightLocked = true;
 
       const jitter = {
         left: `${randSkew(1)}%`,
@@ -107,6 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       highlightBox.classList.add("wipe-in");
       highlightBox.style.opacity = "1";
+
+      highlightLocked = true; // ✅ Lock AFTER applying
     };
 
     const wipeOut = () => {
@@ -178,12 +179,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // ✅ Prevent jitter redraw on hover while menu is open
     const projectsHoverZone = trigger.querySelector(".hover-zone");
     if (projectsHoverZone) {
       projectsHoverZone.addEventListener("mouseenter", () => {
         if (dropdown.classList.contains("open")) {
-          showHighlight(); // will only run once due to highlightLocked
+          showHighlight(); // will only run if not locked
         }
       });
     }
