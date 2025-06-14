@@ -103,6 +103,11 @@ body {
   overflow: visible;
 }
 
+/* === Fix: Ensure dropdown is anchored to correct parent === */
+.has-dropdown {
+  position: relative;
+}
+
 /* === Hover Zone === */
 .hover-zone {
   position: relative;
@@ -185,7 +190,7 @@ body {
   z-index: 3;
 }
 
-/* === Left Artifact Blocker === */
+/* === Artifact Blocker === */
 .highlight-mask {
   position: absolute;
   top: -25%;
@@ -234,19 +239,19 @@ body {
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.dropdown-placeholder {
-  font-family: 'Equity Text', serif;
-  font-size: 0.9rem;
-  color: #333;
-}
-
 .has-dropdown.open .dropdown-menu,
 .has-dropdown:hover .dropdown-menu {
   opacity: 1;
   pointer-events: auto;
 }
 
-/* === Mobile === */
+.dropdown-placeholder {
+  font-family: 'Equity Text', serif;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* === Mobile Layout === */
 @media (max-width: 600px) {
   .topbar {
     flex-wrap: wrap;
