@@ -1,18 +1,25 @@
+// Load nav-bar.html and THEN bind logic
 document.addEventListener("DOMContentLoaded", () => {
-  const highlightBoxes = document.querySelectorAll(".highlight-box");
+  fetch('nav-bar.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('nav-placeholder').innerHTML = html;
+      initNavBarBehavior(); // ⬅️ run this AFTER injection
+    });
+});
+
+function initNavBarBehavior() {
   const hoverZones = document.querySelectorAll(".hover-zone");
   const dropdownTriggers = document.querySelectorAll(".dropdown-trigger");
   const dropdowns = document.querySelectorAll(".has-dropdown");
 
-  // Jitter animation on hover
   hoverZones.forEach((zone) => {
     const highlight = zone.querySelector(".highlight-box");
-
     if (!highlight) return;
 
     zone.addEventListener("mouseenter", () => {
       highlight.classList.remove("wipe-in", "wipe-in-slow");
-      void highlight.offsetWidth; // force reflow
+      void highlight.offsetWidth;
       highlight.classList.add("wipe-in");
     });
 
@@ -27,10 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Dropdown toggle behavior
   dropdownTriggers.forEach((trigger) => {
     const parent = trigger.closest(".has-dropdown");
-
     if (!parent) return;
 
     trigger.addEventListener("click", () => {
@@ -38,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Close dropdowns when clicking outside
   document.addEventListener("click", (e) => {
     dropdowns.forEach((dropdown) => {
       if (!dropdown.contains(e.target)) {
@@ -46,4 +50,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-});
+}
