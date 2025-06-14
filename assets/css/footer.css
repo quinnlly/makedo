@@ -60,28 +60,16 @@
   align-items: center;
 }
 
-.social-icons img {
-  transition: filter 0.3s ease;
-  filter: brightness(0) saturate(100%);
-}
-
 .social-icons a[href*="instagram"] img {
   width: 2em;
   height: 2em;
   vertical-align: middle;
-  filter: brightness(0) saturate(100%) sepia(1) hue-rotate(330deg) saturate(5);
 }
 
 .social-icons a[href*="letterboxd"] img {
   width: 3.4em;
   height: 3.4em;
   vertical-align: -0.2em;
-  filter: brightness(0) saturate(100%) sepia(1) hue-rotate(140deg) saturate(4);
-}
-
-.social-icons a:hover img,
-.social-icons a:focus img {
-  filter: none;
 }
 
 /* === Footer Mobile === */
