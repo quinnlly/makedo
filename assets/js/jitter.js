@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const zones = document.querySelectorAll(".hover-zone");
   let dropdownCloseTimeout = null;
 
-  // 🎯 Skewed randomness, now scoped per hover event
+  // 🎯 Skewed randomness utility
   const randSkew = (magnitude) => {
     const sign = Math.random() < 0.5 ? -1 : 1;
     return sign * Math.pow(Math.random(), 0.5) * magnitude;
@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     zone.addEventListener("mouseleave", () => {
       const parentDropdown = zone.closest(".has-dropdown");
-
       if (parentDropdown?.classList.contains("open")) return;
 
       const existingEraser = zone.querySelector(".eraser-box");
@@ -92,6 +91,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (dropdown && trigger && arrow && highlightBox) {
     const showHighlight = () => {
+      const jitter = {
+        left: `${randSkew(1)}%`,
+        bottom: `${randSkew(2)}%`,
+        width: `${100 + randSkew(6)}%`,
+        rotate: `${randSkew(3)}deg`
+      };
+
+      for (const key in jitter) {
+        highlightBox.style.setProperty(`--jitter-${key}`, jitter[key]);
+      }
+
       highlightBox.classList.add("wipe-in");
       highlightBox.style.opacity = "1";
     };
