@@ -4,16 +4,23 @@ document.addEventListener("DOMContentLoaded", () => {
   hoverZones.forEach(zone => {
     const highlight = zone.querySelector('.highlight-box');
     const eraser = zone.querySelector('.eraser-box');
-    const text = zone.textContent.trim().toLowerCase();
 
-    const isProjects = text === "projects";
+    // Get the visible text inside the hover zone
+    const textLabel = zone.textContent.trim().toLowerCase();
+    const isProjectsHover = textLabel === 'projects';
+
     let lastLeaveTime = 0;
 
     zone.addEventListener('mouseenter', () => {
-      if (isProjects) return;
-
       const now = Date.now();
       const timeSinceLeave = now - lastLeaveTime;
+
+      // Handle "Projects" hover differently
+      if (isProjectsHover) {
+        highlight.classList.remove('wipe-in', 'wipe-in-slow');
+        eraser.classList.remove('eraser-slide', 'eraser-slide-fast');
+        return;
+      }
 
       highlight.classList.remove('wipe-in', 'wipe-in-slow');
       void highlight.offsetWidth;
@@ -26,9 +33,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     zone.addEventListener('mouseleave', () => {
-      if (isProjects) return;
-
       lastLeaveTime = Date.now();
+
+      // Handle "Projects" hover differently
+      if (isProjectsHover) {
+        highlight.classList.remove('wipe-in', 'wipe-in-slow');
+        eraser.classList.remove('eraser-slide', 'eraser-slide-fast');
+        return;
+      }
 
       eraser.classList.remove('eraser-slide', 'eraser-slide-fast');
       void eraser.offsetWidth;
