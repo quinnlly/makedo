@@ -3,12 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   zones.forEach(zone => {
     const box = zone.querySelector(".highlight-box");
-
     let jitter = {};
 
     zone.addEventListener("mouseenter", () => {
       const existingEraser = zone.querySelector(".eraser-box");
-
       if (existingEraser) {
         existingEraser.classList.add("eraser-slide-fast");
         return;
@@ -18,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       void box.offsetWidth;
 
       jitter = {
-        left: `${Math.random() * 2}%`, // ⬅ no negative leftward drift
+        left: `${Math.random() * 2}%`,
         bottom: `${Math.random() * 4 - 2}%`,
         width: `${100 + Math.random() * 6}%`,
         rotate: `${(Math.random() - 0.5) * 3}deg`
@@ -32,13 +30,17 @@ document.addEventListener("DOMContentLoaded", () => {
       box.style.opacity = "1";
     });
 
+    // 🛠 FIX: Suppress eraser if dropdown is locked open
     zone.addEventListener("mouseleave", () => {
+      const parentDropdown = zone.closest(".has-dropdown");
+      if (parentDropdown?.classList.contains("open")) return;
+
       const eraser = document.createElement("div");
       eraser.classList.add("eraser-box", "eraser-slide");
 
       eraser.style.left = box.style.left;
       eraser.style.bottom = box.style.bottom;
-      eraser.style.width = `${box.getBoundingClientRect().width}px`; // ✅ exact match
+      eraser.style.width = `${box.getBoundingClientRect().width}px`;
       eraser.style.top = "-25%";
       eraser.style.height = "200%";
 
@@ -49,7 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
         box.style.opacity = "0";
         eraser.remove();
 
-        // Re-trigger slower wipe-in if user is still hovered
         if (zone.matches(":hover")) {
           box.classList.remove("wipe-in", "wipe-in-slow");
           void box.offsetWidth;
@@ -71,4 +72,61 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   });
+
+  // ▼ Dropdown behavior
+  const dropdown = document.querySelector(".has-dropdown");
+  const trigger = dropdown?.querySelector(".dropdown-trigger");
+  const arrow = dropdown?.querySelector(".dropdown-arrow");
+  const highlightBox = trigger?.querySelector(".highlight-box");
+
+  let clickedOpen = false;
+
+  if (dropdown && trigger && arrow && highlightBox) {
+    const showHighlight = () => {
+      highlightBox.classList.add("wipe-in");
+      highlightBox.style.opacity = "1";
+    };
+
+    const hideHighlight = () => {
+      highlightBox.classList.remove("wipe-in", "wipe-in-slow");
+      highlightBox.style.opacity = "0";
+    };
+
+    const toggleDropdown = (e) => {
+      e.preventDefault();
+      clickedOpen = !clickedOpen;
+      dropdown.classList.toggle("open", clickedOpen);
+      if (clickedOpen) {
+        showHighlight();
+      } else {
+        hideHighlight();
+      }
+    };
+
+    // Treat Projects + Arrow as unified trigger
+    [trigger, arrow].forEach(el => {
+      el.addEventListener("click", toggleDropdown);
+      el.addEventListener("mouseenter", () => {
+        if (!clickedOpen) {
+          dropdown.classList.add("open");
+          showHighlight();
+        }
+      });
+    });
+
+    dropdown.addEventListener("mouseleave", () => {
+      if (!clickedOpen) {
+        dropdown.classList.remove("open");
+        hideHighlight();
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!dropdown.contains(e.target)) {
+        clickedOpen = false;
+        dropdown.classList.remove("open");
+        hideHighlight();
+      }
+    });
+  }
 });

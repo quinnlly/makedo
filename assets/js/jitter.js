@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
       box.style.opacity = "1";
     });
 
-    // 🛠 FIX: Suppress eraser if dropdown is locked open
     zone.addEventListener("mouseleave", () => {
       const parentDropdown = zone.closest(".has-dropdown");
       if (parentDropdown?.classList.contains("open")) return;
@@ -55,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
           box.classList.remove("wipe-in", "wipe-in-slow");
           void box.offsetWidth;
 
-          jitter = {
+          const jitter = {
             left: `${Math.random() * 2}%`,
             bottom: `${Math.random() * 4 - 2}%`,
             width: `${100 + Math.random() * 6}%`,
@@ -73,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ▼ Dropdown behavior
+  // ▼ Projects dropdown behavior
   const dropdown = document.querySelector(".has-dropdown");
   const trigger = dropdown?.querySelector(".dropdown-trigger");
   const arrow = dropdown?.querySelector(".dropdown-arrow");
@@ -96,14 +95,30 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       clickedOpen = !clickedOpen;
       dropdown.classList.toggle("open", clickedOpen);
+
       if (clickedOpen) {
         showHighlight();
       } else {
-        hideHighlight();
+        // manually trigger eraser wipe-out
+        const eraser = document.createElement("div");
+        eraser.classList.add("eraser-box", "eraser-slide");
+
+        eraser.style.left = highlightBox.style.left;
+        eraser.style.bottom = highlightBox.style.bottom;
+        eraser.style.width = `${highlightBox.getBoundingClientRect().width}px`;
+        eraser.style.top = "-25%";
+        eraser.style.height = "200%";
+
+        trigger.appendChild(eraser);
+
+        eraser.addEventListener("animationend", () => {
+          highlightBox.classList.remove("wipe-in", "wipe-in-slow");
+          highlightBox.style.opacity = "0";
+          eraser.remove();
+        });
       }
     };
 
-    // Treat Projects + Arrow as unified trigger
     [trigger, arrow].forEach(el => {
       el.addEventListener("click", toggleDropdown);
       el.addEventListener("mouseenter", () => {
@@ -125,7 +140,24 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!dropdown.contains(e.target)) {
         clickedOpen = false;
         dropdown.classList.remove("open");
-        hideHighlight();
+
+        // same wipe-out on external click
+        const eraser = document.createElement("div");
+        eraser.classList.add("eraser-box", "eraser-slide");
+
+        eraser.style.left = highlightBox.style.left;
+        eraser.style.bottom = highlightBox.style.bottom;
+        eraser.style.width = `${highlightBox.getBoundingClientRect().width}px`;
+        eraser.style.top = "-25%";
+        eraser.style.height = "200%";
+
+        trigger.appendChild(eraser);
+
+        eraser.addEventListener("animationend", () => {
+          highlightBox.classList.remove("wipe-in", "wipe-in-slow");
+          highlightBox.style.opacity = "0";
+          eraser.remove();
+        });
       }
     });
   }
