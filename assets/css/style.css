@@ -2,7 +2,7 @@
 body::before {
   content: "";
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   background-image: url('../images/paper-fiber-manila.png');
   background-repeat: repeat;
   opacity: 0.2;
@@ -34,7 +34,7 @@ body {
   overflow: visible;
 }
 
-/* === Logo Q === */
+/* === Logo === */
 .logo {
   position: absolute;
   top: 0;
@@ -56,7 +56,6 @@ body {
   font-size: 5rem;
   line-height: 1;
   position: relative;
-  display: inline-block;
   z-index: 2;
 }
 
@@ -101,11 +100,6 @@ body {
   text-decoration: none;
   color: inherit;
   overflow: visible;
-}
-
-/* === Fix: Ensure dropdown is anchored to correct parent === */
-.has-dropdown {
-  position: relative;
 }
 
 /* === Hover Zone === */
@@ -157,7 +151,6 @@ body {
   z-index: 1;
 }
 
-/* === Eraser + Highlight Animations === */
 .eraser-slide {
   animation: eraserSlide 0.6s ease-in forwards;
   animation-delay: 0.15s;
@@ -190,7 +183,7 @@ body {
   z-index: 3;
 }
 
-/* === Artifact Blocker === */
+/* === Mask to block highlight jitter on the left === */
 .highlight-mask {
   position: absolute;
   top: -25%;
@@ -221,14 +214,14 @@ body {
   z-index: 3;
 }
 
-/* === Dropdown Menu === */
+/* === Dropdown Menu (with debug styling) === */
 .dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
   margin-top: 0.2em;
-  background-color: #f8f5d7;
-  border: 1px solid #ccc;
+  background-color: red; /* TEMP: make position obvious */
+  border: 2px solid black;
   border-radius: 6px;
   padding: 0.75rem 1rem;
   min-width: 160px;
@@ -248,7 +241,7 @@ body {
 .dropdown-placeholder {
   font-family: 'Equity Text', serif;
   font-size: 0.9rem;
-  color: #333;
+  color: white;
 }
 
 /* === Mobile Layout === */
