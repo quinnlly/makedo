@@ -98,3 +98,12 @@
     margin-top: 1rem;
   }
 }
+
+footer .footer-icons a img {
+  transition: transform 0.2s ease;
+}
+
+footer .footer-icons a:hover img {
+  transform: scale(1.5);
+}
+
