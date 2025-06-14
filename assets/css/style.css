@@ -102,9 +102,10 @@ body {
   overflow: visible;
 }
 
-/* === Ensure dropdown is anchored correctly === */
+/* === Fix: make menu more forgiving on hover === */
 .has-dropdown {
   position: relative;
+  padding-bottom: 0.75rem;
 }
 
 /* === Hover Zone === */
@@ -225,7 +226,7 @@ body {
   transform: translateY(4px);
 }
 
-/* === Dropdown Menu (centered beneath “Projects”) === */
+/* === Dropdown Menu === */
 .dropdown-menu {
   position: absolute;
   top: 100%;
