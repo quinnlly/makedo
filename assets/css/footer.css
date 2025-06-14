@@ -78,14 +78,16 @@
   vertical-align: middle;
 }
 
-/* === Hover Scaling Effect (works on all screen sizes) === */
+/* === Default Muted Color + Hover Scaling === */
 .social-icons img {
-  transition: transform 0.25s ease;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  filter: brightness(0) saturate(100%) invert(22%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(91%) contrast(85%);
 }
 
 .social-icons a:hover img,
 .social-icons a:focus img {
   transform: scale(1.2);
+  filter: none;
 }
 
 /* === Footer Mobile === */
