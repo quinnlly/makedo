@@ -90,6 +90,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let highlightLocked = false;
 
   if (dropdown && trigger && arrow && highlightBox) {
+    const cleanupHighlight = () => {
+      highlightBox.classList.remove("wipe-in", "wipe-in-slow");
+      highlightBox.style.opacity = "0";
+      highlightLocked = false;
+    };
+
     const showHighlight = () => {
       if (highlightLocked) return;
 
@@ -104,11 +110,23 @@ document.addEventListener("DOMContentLoaded", () => {
         highlightBox.style.setProperty(`--jitter-${key}`, jitter[key]);
       }
 
+      highlightBox.classList.remove("wipe-in", "wipe-in-slow");
+      void highlightBox.offsetWidth;
+
       highlightBox.classList.add("wipe-in");
       highlightBox.style.opacity = "1";
-
-      highlightLocked = true; // ✅ Lock AFTER applying
     };
+
+    const forceShowHighlight = () => {
+      highlightLocked = false;
+      showHighlight();
+    };
+
+    highlightBox.addEventListener("animationend", () => {
+      if (highlightBox.classList.contains("wipe-in") || highlightBox.classList.contains("wipe-in-slow")) {
+        highlightLocked = true;
+      }
+    });
 
     const wipeOut = () => {
       highlightLocked = false;
@@ -140,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dropdown.classList.toggle("open", clickedOpen);
 
       if (clickedOpen) {
-        showHighlight();
+        forceShowHighlight();
       } else {
         wipeOut();
       }
@@ -154,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!clickedOpen) {
         dropdown.classList.add("open");
-        showHighlight();
+        forceShowHighlight();
       }
     });
 
@@ -182,8 +200,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const projectsHoverZone = trigger.querySelector(".hover-zone");
     if (projectsHoverZone) {
       projectsHoverZone.addEventListener("mouseenter", () => {
-        if (dropdown.classList.contains("open")) {
-          showHighlight(); // will only run if not locked
+        if (dropdown.classList.contains("open") && !highlightLocked) {
+          forceShowHighlight();
         }
       });
     }
