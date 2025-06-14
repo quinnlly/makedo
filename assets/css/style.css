@@ -235,8 +235,8 @@ body::before {
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  transform: none;
   margin-top: 0.2em;
   background-color: #f8f5d7;
   border: 1px solid #ccc;
