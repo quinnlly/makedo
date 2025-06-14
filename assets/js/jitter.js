@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const zones = document.querySelectorAll(".hover-zone");
   let dropdownCloseTimeout = null;
 
-  // 🔧 Non-uniform randomness with less extreme values
+  // 🎯 Balanced non-uniform jitter
   const randSkew = (magnitude) => {
     const sign = Math.random() < 0.5 ? -1 : 1;
     return sign * Math.pow(Math.random(), 0.5) * magnitude;
@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
       void box.offsetWidth;
 
       jitter = {
-        left: `${randSkew(0.5)}%`,
-        bottom: `${randSkew(1)}%`,
-        width: `${100 + randSkew(3)}%`,
-        rotate: `${randSkew(1.5)}deg`
+        left: `${randSkew(0.75)}%`,
+        bottom: `${randSkew(1.5)}%`,
+        width: `${100 + randSkew(4.5)}%`,
+        rotate: `${randSkew(2.25)}deg`
       };
 
       for (const key in jitter) {
@@ -66,10 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
           void box.offsetWidth;
 
           jitter = {
-            left: `${randSkew(0.5)}%`,
-            bottom: `${randSkew(1)}%`,
-            width: `${100 + randSkew(3)}%`,
-            rotate: `${randSkew(1.5)}deg`
+            left: `${randSkew(0.75)}%`,
+            bottom: `${randSkew(1.5)}%`,
+            width: `${100 + randSkew(4.5)}%`,
+            rotate: `${randSkew(2.25)}deg`
           };
 
           for (const key in jitter) {
