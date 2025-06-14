@@ -102,12 +102,6 @@ body {
   overflow: visible;
 }
 
-/* === Fix: make menu more forgiving on hover === */
-.has-dropdown {
-  position: relative;
-  padding-bottom: 0.75rem;
-}
-
 /* === Hover Zone === */
 .hover-zone {
   position: relative;

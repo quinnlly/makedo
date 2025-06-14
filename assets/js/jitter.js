@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const zones = document.querySelectorAll(".hover-zone");
+  let dropdownCloseTimeout = null;
 
   zones.forEach(zone => {
     const box = zone.querySelector(".highlight-box");
@@ -33,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
     zone.addEventListener("mouseleave", () => {
       const parentDropdown = zone.closest(".has-dropdown");
 
-      // ✅ Skip wipe-out if menu is still hovered or click-opened
       const dropdownHovered = parentDropdown?.matches(':hover');
       if ((clickedOpen || dropdownHovered) && parentDropdown?.classList.contains("open")) return;
 
@@ -127,6 +127,11 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     dropdown.addEventListener("mouseenter", () => {
+      if (dropdownCloseTimeout) {
+        clearTimeout(dropdownCloseTimeout);
+        dropdownCloseTimeout = null;
+      }
+
       if (!clickedOpen) {
         dropdown.classList.add("open");
         showHighlight();
@@ -138,10 +143,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     dropdown.addEventListener("mouseleave", () => {
-      if (!clickedOpen) {
+      if (clickedOpen) return;
+
+      dropdownCloseTimeout = setTimeout(() => {
         dropdown.classList.remove("open");
         wipeOut();
-      }
+      }, 150); // ⏱ adjustable delay
     });
 
     document.addEventListener("click", (e) => {
