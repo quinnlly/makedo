@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <title>Make. Do.</title>
 
-  <!-- Global styling -->
+  <!-- Global styles -->
   <link rel="stylesheet" href="assets/css/fonts.css">
   <link rel="stylesheet" href="assets/css/layout.css">
   <link rel="stylesheet" href="assets/css/footer.css">
 
-  <!-- Nav-bar styling -->
+  <!-- Nav-bar styles -->
   <link rel="stylesheet" href="assets/css/nav-bar.css">
 
-  <!-- Nav-bar JS (behavior hooks) -->
+  <!-- Nav-bar interaction logic (must be loaded before inject) -->
   <script src="assets/js/jitter.js" defer></script>
 </head>
 <body>
@@ -24,6 +24,7 @@
       .then(res => res.text())
       .then(html => {
         document.getElementById('nav-placeholder').innerHTML = html;
+        window.activateNavBar(); // Call jitter behavior AFTER nav loads
       });
   </script>
 
