@@ -78,6 +78,16 @@
   vertical-align: middle;
 }
 
+/* === Hover Scaling Effect (works on all screen sizes) === */
+.social-icons img {
+  transition: transform 0.25s ease;
+}
+
+.social-icons a:hover img,
+.social-icons a:focus img {
+  transform: scale(1.2);
+}
+
 /* === Footer Mobile === */
 @media (max-width: 600px) {
   .footer-content {
