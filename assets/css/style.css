@@ -1,3 +1,22 @@
+/* === Sticky Footer Page Layout === */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  background-color: #f8f5d7;
+  position: relative;
+  z-index: 1;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
 /* === Background Texture Overlay === */
 body::before {
   content: "";
@@ -8,12 +27,6 @@ body::before {
   opacity: 0.2;
   pointer-events: none;
   z-index: 0;
-}
-
-body {
-  background-color: #f8f5d7;
-  position: relative;
-  z-index: 1;
 }
 
 /* === Top Bar Layout === */
@@ -310,11 +323,12 @@ body {
 
 /* === Footer === */
 .site-footer {
+  flex-shrink: 0;
   margin-top: 4rem;
   padding: 2rem;
   font-family: 'Equity Text', serif;
   font-size: 0.9rem;
-  color: #666;
+  color: #4a4a4a;
   background-color: transparent;
 }
 
@@ -335,18 +349,18 @@ body {
 
 .footer-tagline {
   margin: 0;
-  color: #666;
+  color: #4a4a4a;
   line-height: 1.4;
 }
 
 .footer-link {
   text-decoration: underline;
-  color: #666;
+  color: #4a4a4a;
 }
 
 .footer-link:hover,
 .footer-link:focus {
-  color: #333;
+  color: #222;
 }
 
 @media (max-width: 600px) {
