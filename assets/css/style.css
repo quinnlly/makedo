@@ -13,6 +13,10 @@ body {
   z-index: 1;
 }
 
+main {
+  flex-grow: 1;
+}
+
 /* === Background Texture Overlay === */
 body::before {
   content: "";
