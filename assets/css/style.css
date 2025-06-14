@@ -334,10 +334,28 @@ body::before {
 
 .footer-content {
   display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-spacer {
+  flex: 1;
+}
+
+.footer-center {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.footer-right {
+  display: flex;
   flex-direction: column;
   align-items: flex-end;
   text-align: right;
-  gap: 0.75rem;
+  flex: 1;
 }
 
 .footer-logo img {
@@ -351,6 +369,7 @@ body::before {
   margin: 0;
   color: #4a4a4a;
   line-height: 1.4;
+  font-size: 0.9rem;
 }
 
 .footer-link {
@@ -363,18 +382,10 @@ body::before {
   color: #222;
 }
 
-@media (max-width: 600px) {
-  .footer-content {
-    align-items: center;
-    text-align: center;
-  }
-}
-
 /* === Social Icons === */
 .social-icons {
   display: flex;
   gap: 1rem;
-  margin-top: 0.5rem;
 }
 
 .social-icons img {
@@ -384,19 +395,34 @@ body::before {
   filter: brightness(0) saturate(100%);
 }
 
-/* Instagram pink-orange gradient tone */
 .social-icons a[href*="instagram"] img {
   filter: brightness(0) saturate(100%) sepia(1) hue-rotate(330deg) saturate(5);
 }
 
-/* Letterboxd green tone */
 .social-icons a[href*="letterboxd"] img {
   filter: brightness(0) saturate(100%) sepia(1) hue-rotate(140deg) saturate(4);
 }
 
-/* Hover: restore true black icon */
 .social-icons a:hover img,
 .social-icons a:focus img {
   filter: none;
 }
 
+/* === Responsive Footer === */
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-right {
+    align-items: center;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .footer-spacer {
+    display: none;
+  }
+}
