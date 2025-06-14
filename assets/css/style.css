@@ -65,6 +65,7 @@
 .social-icons {
   display: flex;
   gap: 1.25rem;
+  align-items: center;
 }
 
 .social-icons img {
@@ -72,10 +73,11 @@
   filter: brightness(0) saturate(100%);
 }
 
-/* Instagram: 2em */
+/* Instagram: 2em, no vertical shift */
 .social-icons a[href*="instagram"] img {
   width: 2em;
   height: 2em;
+  vertical-align: middle;
   filter: brightness(0) saturate(100%) sepia(1) hue-rotate(330deg) saturate(5);
 }
 
