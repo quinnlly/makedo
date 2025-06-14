@@ -33,13 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
     zone.addEventListener("mouseleave", () => {
       const parentDropdown = zone.closest(".has-dropdown");
 
-      // ✅ Allow wipe-out if not click-opened
-      const skipBecauseDropdownLocked =
-        parentDropdown?.classList.contains("open") &&
-        document.activeElement !== null &&
-        parentDropdown.contains(document.activeElement);
-
-      if (skipBecauseDropdownLocked) return;
+      // ✅ Skip wipe-out if dropdown is locked open
+      if (parentDropdown?.classList.contains("open") && clickedOpen) return;
 
       const eraser = document.createElement("div");
       eraser.classList.add("eraser-box", "eraser-slide");
@@ -178,4 +173,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
