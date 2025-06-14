@@ -382,15 +382,15 @@ body::before {
   color: #222;
 }
 
-/* === Social Icons === */
+/* === Social Icons (responsive sizing) === */
 .social-icons {
   display: flex;
   gap: 1rem;
 }
 
 .social-icons img {
-  width: 24px;
-  height: 24px;
+  width: 1.5em;
+  height: 1.5em;
   transition: filter 0.3s ease;
   filter: brightness(0) saturate(100%);
 }
