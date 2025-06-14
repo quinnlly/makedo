@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       void box.offsetWidth;
 
       const jitter = {
-        left: `${randSkew(3)}%`,
+        left: `${randSkew(2)}%`,                   // was 3
         bottom: `${randSkew(2)}%`,
         width: `${100 + randSkew(10)}%`,
         rotate: `${randSkew(3)}deg`
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
           void box.offsetWidth;
 
           const jitter = {
-            left: `${randSkew(3)}%`,
+            left: `${randSkew(2)}%`,
             bottom: `${randSkew(2)}%`,
             width: `${100 + randSkew(10)}%`,
             rotate: `${randSkew(3)}deg`
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
       void highlightBox.offsetWidth;
 
       const jitter = {
-        left: `${randSkew(3)}%`,
+        left: `${randSkew(2)}%`,                   // was 3
         bottom: `${randSkew(2)}%`,
         width: `${100 + randSkew(10)}%`,
         rotate: `${randSkew(3)}deg`
