@@ -99,12 +99,13 @@
   }
 }
 
+/* === Icon Hover Animation === */
 .footer-icons a img {
   transition: transform 0.2s ease;
-  transform: scale(1); /* ensure baseline */
+  transform: scale(1);
 }
 
 .footer-icons a:hover img {
-  transform: scale(5);
+  transform: scale(1.2);
 }
 
