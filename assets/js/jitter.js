@@ -12,9 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let eraserBox = null;
 
     zone.addEventListener("mouseenter", () => {
-      const parentDropdown = zone.closest(".has-dropdown");
-      if (parentDropdown?.classList.contains("open")) return;
-
       if (eraserBox) {
         eraserBox.remove();
         eraserBox = null;
@@ -39,9 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     zone.addEventListener("mouseleave", () => {
-      const parentDropdown = zone.closest(".has-dropdown");
-
-      if (parentDropdown?.classList.contains("open") || zone.matches(':hover')) return;
+      // ✅ Do not consider dropdown — only own hover state
+      if (zone.matches(':hover')) return;
 
       if (eraserBox) {
         eraserBox.remove();
