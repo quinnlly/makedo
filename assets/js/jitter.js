@@ -30,7 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
       box.style.opacity = "1";
     });
 
+    // 🛠 FIX: Suppress eraser if dropdown is locked open
     zone.addEventListener("mouseleave", () => {
+      const parentDropdown = zone.closest(".has-dropdown");
+      if (parentDropdown?.classList.contains("open")) return;
+
       const eraser = document.createElement("div");
       eraser.classList.add("eraser-box", "eraser-slide");
 
@@ -69,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ▼ Projects dropdown behavior
+  // ▼ Dropdown behavior
   const dropdown = document.querySelector(".has-dropdown");
   const trigger = dropdown?.querySelector(".dropdown-trigger");
   const arrow = dropdown?.querySelector(".dropdown-arrow");
@@ -99,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    // Both elements act as one unit
+    // Treat Projects + Arrow as unified trigger
     [trigger, arrow].forEach(el => {
       el.addEventListener("click", toggleDropdown);
       el.addEventListener("mouseenter", () => {
