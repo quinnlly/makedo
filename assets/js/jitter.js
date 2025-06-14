@@ -21,9 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
       void box.offsetWidth;
 
       const jitter = {
-        left: `${randSkew(1)}%`,
+        left: `${randSkew(3)}%`,
         bottom: `${randSkew(2)}%`,
-        width: `${100 + randSkew(6)}%`,
+        width: `${100 + randSkew(10)}%`,
         rotate: `${randSkew(3)}deg`
       };
 
@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     zone.addEventListener("mouseleave", () => {
       const parentDropdown = zone.closest(".has-dropdown");
 
-      // ✅ Prevent wipe-out if dropdown is open or user is still hovering
       if (parentDropdown?.classList.contains("open") || zone.matches(':hover')) return;
 
       const existingEraser = zone.querySelector(".eraser-box");
@@ -65,9 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
           void box.offsetWidth;
 
           const jitter = {
-            left: `${randSkew(1)}%`,
+            left: `${randSkew(3)}%`,
             bottom: `${randSkew(2)}%`,
-            width: `${100 + randSkew(6)}%`,
+            width: `${100 + randSkew(10)}%`,
             rotate: `${randSkew(3)}deg`
           };
 
@@ -102,9 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
       void highlightBox.offsetWidth;
 
       const jitter = {
-        left: `${randSkew(1)}%`,
+        left: `${randSkew(3)}%`,
         bottom: `${randSkew(2)}%`,
-        width: `${100 + randSkew(6)}%`,
+        width: `${100 + randSkew(10)}%`,
         rotate: `${randSkew(3)}deg`
       };
 
