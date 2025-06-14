@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const zones = document.querySelectorAll(".hover-zone");
   let dropdownCloseTimeout = null;
 
-  // 🎯 Balanced, slightly exaggerated jitter
+  // 🎯 Skewed randomness, now scoped per hover event
   const randSkew = (magnitude) => {
     const sign = Math.random() < 0.5 ? -1 : 1;
     return sign * Math.pow(Math.random(), 0.5) * magnitude;
@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   zones.forEach(zone => {
     const box = zone.querySelector(".highlight-box");
-    let jitter = {};
 
     zone.addEventListener("mouseenter", () => {
       const parentDropdown = zone.closest(".has-dropdown");
@@ -22,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       box.classList.remove("wipe-in", "wipe-in-slow");
       void box.offsetWidth;
 
-      jitter = {
+      const jitter = {
         left: `${randSkew(1)}%`,
         bottom: `${randSkew(2)}%`,
         width: `${100 + randSkew(6)}%`,
@@ -65,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
           box.classList.remove("wipe-in", "wipe-in-slow");
           void box.offsetWidth;
 
-          jitter = {
+          const jitter = {
             left: `${randSkew(1)}%`,
             bottom: `${randSkew(2)}%`,
             width: `${100 + randSkew(6)}%`,
