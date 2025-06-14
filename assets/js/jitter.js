@@ -45,10 +45,17 @@ document.addEventListener("DOMContentLoaded", () => {
       eraserBox = document.createElement("div");
       eraserBox.classList.add("eraser-box", "eraser-slide");
 
-      // ✅ Clamp the bounds to prevent overshoot
-      eraserBox.style.left = "-0.5em";
-      eraserBox.style.width = "calc(100% + 1em)";
-      eraserBox.style.backgroundColor = "red"; // ← leave on for final check
+      // ✅ Precise placement using bounding box math
+      const boxRect = box.getBoundingClientRect();
+      const zoneRect = zone.getBoundingClientRect();
+
+      const offsetLeft = boxRect.left - zoneRect.left;
+      const width = boxRect.width;
+
+      eraserBox.style.left = `${offsetLeft}px`;
+      eraserBox.style.width = `${width}px`;
+
+      eraserBox.style.backgroundColor = "red"; // still visible for debug
 
       eraserBox.style.top = "-25%";
       eraserBox.style.bottom = "0";
