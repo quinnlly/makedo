@@ -6,10 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let jitter = {};
 
     zone.addEventListener("mouseenter", () => {
+      const parentDropdown = zone.closest(".has-dropdown");
+      if (clickedOpen && parentDropdown?.classList.contains("open")) return;
+
       const existingEraser = zone.querySelector(".eraser-box");
-      if (existingEraser) {
-        existingEraser.remove(); // 🛡 prevent overlap
-      }
+      if (existingEraser) existingEraser.remove();
 
       box.classList.remove("wipe-in", "wipe-in-slow");
       void box.offsetWidth;
@@ -34,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (parentDropdown?.classList.contains("open") && clickedOpen) return;
 
       const existingEraser = zone.querySelector(".eraser-box");
-      if (existingEraser) existingEraser.remove(); // 🛡
+      if (existingEraser) existingEraser.remove();
 
       const eraser = document.createElement("div");
       eraser.classList.add("eraser-box", "eraser-slide");
@@ -90,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const wipeOut = () => {
       const existing = trigger.querySelector(".eraser-box");
-      if (existing) existing.remove(); // 🛡
+      if (existing) existing.remove();
 
       const eraser = document.createElement("div");
       eraser.classList.add("eraser-box", "eraser-slide");
