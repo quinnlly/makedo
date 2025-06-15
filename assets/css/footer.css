@@ -119,12 +119,12 @@
 }
 
 .copyright-icon {
-  width: 1.5em;
+  width: 1.1em;
   height: auto;
 }
 
 .copyright-text {
-  font-size: 0.85rem;
+  font-size: clamp(0.45rem, 1.2vw, 0.9rem);
   color: #4a4a4a;
   font-family: 'Equity Text', serif;
 }
