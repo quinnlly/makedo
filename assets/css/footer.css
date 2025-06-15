@@ -31,7 +31,7 @@
 }
 
 .footer-logo img {
-  max-height: 40px;
+  max-height: clamp(32px, 4vw, 40px);
   height: auto;
   width: auto;
   display: block;
@@ -49,7 +49,7 @@
   margin: 0;
   color: #4a4a4a;
   line-height: 1.4;
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
 }
 
 .footer-link {
@@ -70,23 +70,23 @@
 
 .social-icons a[href*="instagram"] img {
   width: 2em;
-  height: 2em;
+  height: auto;
   vertical-align: middle;
 }
 
 .social-icons a[href*="letterboxd"] img {
   width: 3.4em;
-  height: 3.4em;
+  height: auto;
   vertical-align: -0.2em;
 }
 
 .social-icons a[href*="github"] img {
   width: 2.4em;
-  height: 2.4em;
+  height: auto;
   vertical-align: middle;
 }
 
-/* === Default Muted Color + Hover Scaling & Custom Blue Colorization === */
+/* === Default Muted Color + Hover Scaling & Blue Colorization === */
 .social-icons img {
   transition: transform 0.25s ease, filter 0.25s ease;
   filter: brightness(0) saturate(100%) invert(28%) grayscale(100%) contrast(90%);
@@ -114,5 +114,13 @@
 
   .footer-center {
     justify-content: center;
+  }
+
+  .footer-logo img {
+    max-height: 32px;
+  }
+
+  .footer-tagline {
+    font-size: 0.8rem;
   }
 }
