@@ -39,12 +39,6 @@
   filter: brightness(0) saturate(100%) invert(28%) grayscale(100%) contrast(90%);
 }
 
-.footer-logo:hover img,
-.footer-logo:focus img {
-  transform: scale(1.2);
-  filter: invert(50%) sepia(100%) saturate(500%) hue-rotate(170deg) brightness(1.1) contrast(1.1);
-}
-
 .footer-tagline {
   margin: 0;
   color: #4a4a4a;
@@ -86,16 +80,20 @@
   vertical-align: middle;
 }
 
-/* === Default Muted Color + Hover Scaling & Blue Colorization === */
-.social-icons img {
+/* === Default Muted Color === */
+.social-icons img,
+.footer-logo img {
   transition: transform 0.25s ease, filter 0.25s ease;
   filter: brightness(0) saturate(100%) invert(28%) grayscale(100%) contrast(90%);
 }
 
+/* === Hover Scaling + Rainbow Animation === */
 .social-icons a:hover img,
-.social-icons a:focus img {
+.social-icons a:focus img,
+.footer-logo:hover img,
+.footer-logo:focus img {
   transform: scale(1.2);
-  filter: invert(50%) sepia(100%) saturate(500%) hue-rotate(170deg) brightness(1.1) contrast(1.1);
+  animation: rainbowColorize 1s linear forwards;
 }
 
 /* === Footer Mobile === */
@@ -110,5 +108,15 @@
     align-items: center;
     text-align: center;
     margin-top: 1rem;
+  }
+}
+
+/* === Rainbow Filter Animation === */
+@keyframes rainbowColorize {
+  0% {
+    filter: brightness(0) saturate(100%) invert(28%) grayscale(100%) contrast(90%);
+  }
+  100% {
+    filter: hue-rotate(360deg) brightness(1.1) contrast(1.1) saturate(300%);
   }
 }
