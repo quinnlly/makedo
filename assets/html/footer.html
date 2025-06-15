@@ -6,7 +6,7 @@
       <div class="copyright-block">
         <img src="assets/icons/copyright.svg" alt="Copyright Icon" class="copyright-icon" />
         <span class="copyright-text">
-          &copy; <span id="copyright-year"></span> Quinn Kelly
+          <span class="copyright-year">&copy; <span id="year"></span></span> Quinn Kelly
         </span>
       </div>
     </div>
@@ -42,6 +42,6 @@
 
   <!-- Dynamic Year Script -->
   <script>
-    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </footer>
