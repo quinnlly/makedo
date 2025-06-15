@@ -81,7 +81,7 @@
 /* === Default Muted Color + Hover Scaling === */
 .social-icons img {
   transition: transform 0.25s ease, filter 0.25s ease;
-  filter: invert(55%) brightness(95%) contrast(80%) grayscale(100%);
+  filter: brightness(0) saturate(100%) invert(23%) grayscale(100%) contrast(100%);
 }
 
 .social-icons a:hover img,
