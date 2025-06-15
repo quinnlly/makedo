@@ -20,7 +20,7 @@
 .footer-left {
   margin-right: auto;
   display: flex;
-  align-items: center;
+  align-items: center; /* Vertically center */
 }
 
 .footer-center {
@@ -119,7 +119,7 @@
 }
 
 .copyright-icon {
-  width: 1.6em;
+  width: 2em; /* Increased from 1.6em */
   height: auto;
 }
 
