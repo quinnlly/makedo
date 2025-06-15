@@ -35,6 +35,13 @@
   height: auto;
   width: auto;
   display: block;
+  transition: filter 0.25s ease;
+  filter: brightness(0) saturate(100%) invert(28%) grayscale(100%) contrast(90%);
+}
+
+.footer-logo:hover img,
+.footer-logo:focus img {
+  filter: none;
 }
 
 .footer-tagline {
