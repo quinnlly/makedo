@@ -5,7 +5,9 @@
     <div class="footer-left">
       <div class="copyright-block">
         <img src="assets/icons/copyright.svg" alt="Copyright Icon" class="copyright-icon" />
-        <span class="copyright-text">2024 Quinn Kelly</span>
+        <span class="copyright-text">
+          &copy; <span id="copyright-year"></span> Quinn Kelly
+        </span>
       </div>
     </div>
 
@@ -37,4 +39,9 @@
     </div>
 
   </div>
+
+  <!-- Dynamic Year Script -->
+  <script>
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+  </script>
 </footer>
